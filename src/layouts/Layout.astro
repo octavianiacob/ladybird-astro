@@ -4,19 +4,39 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Ladybird</title>
+		<script src="../scripts/timeline-animations.ts"></script>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global lang="scss">
+	@import "../styles/variables";
+
+	html {
+		font-family: "Outfit", Arial, sans-serif;
+		background-color: #ffffff;
+		// cursor: none;
+
+		body {
+		}
+	}
+
+	*::selection {
+		color: $tertiary_col;
+		background-color: $main_dark;
+	}
+
+	* {
+		padding: 0;
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		box-sizing: border-box;
 	}
 </style>

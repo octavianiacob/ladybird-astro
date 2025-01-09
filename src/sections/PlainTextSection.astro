@@ -1,0 +1,44 @@
+---
+const { textList } = Astro.props;
+import SectionLayout from "../layouts/SectionLayout.astro";
+---
+
+<SectionLayout className="PlainTextSectionWrapper">
+	<div class="PlainTextSection">
+		{
+			textList.map((textItem: string) => (
+				<div class="PlainTextSection__inner">
+					<p>{textItem}</p>
+				</div>
+			))
+		}
+	</div>
+</SectionLayout>
+
+<style lang="scss">
+	.PlainTextSection {
+		background-color: #f0f0f0;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		position: relative;
+
+		&__inner {
+			width: 100%;
+			height: 100%;
+			display: grid;
+			place-items: center;
+
+			position: absolute;
+			top: 100%;
+			opacity: 0;
+
+			p {
+				font-size: 5rem;
+				line-height: 1.2;
+				text-align: center;
+				padding: 1.5rem;
+			}
+		}
+	}
+</style>
