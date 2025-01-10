@@ -1,11 +1,20 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-import PlainTextSection from '../sections/PlainTextSection.astro';
-import { textList } from '../utils/constants';
-
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import DeviceSection from "../sections/DeviceSection.astro";
+import PlainTextSection from "../sections/PlainTextSection.astro";
+import { textList } from "../utils/constants";
 ---
 
 <Layout>
-	<PlainTextSection textList={textList} />
+	<div class="MainWrap">
+		<PlainTextSection textList={textList} />
+		<DeviceSection />
+	</div>
 </Layout>
+
+<style lang="scss">
+	.MainWrap {
+		position: relative;
+	}
+</style>

@@ -6,15 +6,16 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<main class={`SectionLayout ${className}`}>
+<section class={`SectionLayout ${className}`}>
 	<slot />
-</main>
+</section>
 
 <style lang="scss">
 	@import "../styles/variables";
 
 	.SectionLayout {
 		min-height: 100vh;
+		height: 100%;
 		background-color: $main_dark;
 		position: relative;
 		display: flex;

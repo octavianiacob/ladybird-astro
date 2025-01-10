@@ -1,0 +1,147 @@
+---
+import TabToggle from "../components/TabToggle.astro";
+import SectionLayout from "../layouts/SectionLayout.astro";
+import {
+	patientConvo_pt1,
+	patientConvo_pt2,
+	patientConvo_pt3,
+	patientConvo_pt4,
+	tabItems,
+} from "../utils/constants";
+import PhoneDotLoader from "../components/PhoneDotLoader.astro";
+---
+
+<script>
+	let activeTab = 0;
+
+	const tabs = document.querySelectorAll(".TabToggle__button");
+
+	tabs[activeTab].classList.add("TabToggle__button--active");
+
+	tabs.forEach((tab, index) => {
+		tab.addEventListener("click", () => {
+			if (activeTab === index) return;
+			activeTab = index;
+			console.log(index);
+			tab.classList.add("TabToggle__button--active");
+
+			tabs.forEach((tab, i) => {
+				if (i !== index) {
+					tab.classList.remove("TabToggle__button--active");
+				}
+			});
+		});
+	});
+</script>
+
+<SectionLayout className="DeviceSectionWrapper">
+	<div class="DeviceSection">
+		<div class="DeviceSection__top">
+			<TabToggle tabItems={tabItems} />
+		</div>
+		<div class="DeviceSection__main">
+			<div class="DeviceSection__main__wrap">
+				<img
+					src="/images/iphone_15.png"
+					alt="Phone"
+					class="DeviceSection__main__bg"
+				/>
+				<div class="DeviceSection__main__inner">
+					<PhoneDotLoader />
+					<div class="DeviceSection__main__convoWrap">
+						{
+							[
+								patientConvo_pt1,
+								patientConvo_pt2,
+								patientConvo_pt3,
+								patientConvo_pt4,
+							].map((convoPart) => (
+								<div class="DeviceSection__main__convoPart">
+									{convoPart.map((convoItem) => (
+										<p
+											class={`DeviceSection__main__convo__text DeviceSection__main__convo__text--${convoItem.speaker}`}
+										>
+											{convoItem.text}
+										</p>
+									))}
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</SectionLayout>
+
+<style lang="scss">
+	.DeviceSection {
+		background-color: #f0f0f0;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+
+		&__top {
+			display: grid;
+			place-items: center;
+			padding: 3rem 0;
+		}
+
+		&__main {
+			display: grid;
+			place-items: center;
+
+			&__bg {
+				max-height: 80vh;
+			}
+
+			&__wrap {
+				position: relative;
+				width: max-content;
+				height: 100%;
+			}
+			&__inner {
+				// max-height: 80vh;
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				width: 100%;
+				height: 100%;
+				padding: 1rem 2rem;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 2rem;
+			}
+
+			&__convoPart {
+				height: 0;
+				overflow: hidden;
+			}
+
+			&__convo__text {
+				font-size: 1rem;
+				line-height: 1.5;
+				color: #333;
+				margin: 0;
+				padding: 0;
+				transition: all 0.5s;
+				text-align: center;
+
+				overflow: hidden;
+				// width: 0;
+
+				&--Patient {
+					font-weight: 700;
+				}
+
+				& > .word {
+					// width: 0;
+				}
+			}
+		}
+	}
+</style>

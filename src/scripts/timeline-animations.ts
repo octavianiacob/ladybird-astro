@@ -1,7 +1,9 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 import { Power2 } from "gsap";
 import Lenis from "@studio-freight/lenis";
+// import { animatePhoneText } from "./phone-animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,10 +39,10 @@ if (plainText__box.length > 0) {
 
 		// Animation to bring the current box into view
 		boxIn.fromTo(
-			box,
+			document.querySelectorAll(".PlainTextSection__inner")[index],
 			{ top: "100%", opacity: 0 },
 			{
-				top: "0%",
+				top: "50%",
 				opacity: 1,
 				duration: 0.5,
 				ease: Power2.easeOut,
@@ -48,7 +50,7 @@ if (plainText__box.length > 0) {
 		);
 
 		// Animation to move the current box out of view
-		boxOut.to(box, {
+		boxOut.to(document.querySelectorAll(".PlainTextSection__inner")[index], {
 			top: "-100%",
 			opacity: 0,
 			duration: 0.5,

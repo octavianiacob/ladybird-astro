@@ -1,0 +1,45 @@
+---
+// Astro Component
+const dotCount = 3;
+---
+
+<div class="PhoneDotLoader">
+	{
+		Array.from({ length: dotCount }).map((_, ind) => (
+			<div class="PhoneDotLoader__dot" style={`--i: ${ind};`} />
+		))
+	}
+</div>
+
+<style lang="scss">
+	@import "../styles/variables";
+
+	.PhoneDotLoader {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.75rem;
+		margin-top: 3rem;
+
+		&__dot {
+			width: 0.8rem;
+			height: 0.8rem;
+			border-radius: 50%;
+			background-color: $tertiary_col;
+			animation: pulse 1s infinite;
+			animation-delay: calc(var(--i) * 0.2s); // Staggering based on index
+		}
+
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+			}
+			50% {
+				transform: scale(1.1) translateY(-0.5rem);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+	}
+</style>

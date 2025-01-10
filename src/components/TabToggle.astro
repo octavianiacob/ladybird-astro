@@ -1,0 +1,43 @@
+---
+const { tabItems } = Astro.props;
+---
+
+<div class="TabToggle">
+	{
+		tabItems.map((tabItem: string, ind: number) => (
+			<button class="TabToggle__button">{tabItem}</button>
+		))
+	}
+</div>
+
+<style lang="scss">
+	.TabToggle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		width: max-content;
+
+		&__button {
+			padding: 0.5rem 1.5rem;
+			cursor: pointer;
+			border-radius: 4rem;
+
+			border: 0;
+			text-align: center;
+			background-color: transparent;
+			color: rgba(0, 0, 0, 0.2);
+			// opacity: 0.5;
+			font-size: 1.5rem;
+
+			&--active {
+				background-color: #fff;
+				color: #000;
+				opacity: 1;
+
+				box-shadow:
+					0 0.25px 0.25px -2px rgba(0, 0, 0, 0.1),
+					0 0.25px 0.25px -2px rgba(0, 0, 0, 0.1);
+			}
+		}
+	}
+</style>
