@@ -54,3 +54,26 @@ export const patientConvo_pt5 = [
 	{ speaker: "AI", text: "Bye" },
 	{ speaker: "Patient", text: "Bye" },
 ];
+
+export const brandList = [
+	{
+		name: "Microsoft",
+		logo: "/images/microsoft.jpg",
+	},
+	{
+		name: "Cisco",
+		logo: "/images/cisco.png",
+	},
+	{
+		name: "Manchester Metroplitan University",
+		logo: "/images/machester-metro.svg",
+	},
+	{
+		name: "Health Innovation Manchester",
+		logo: "/images/health-innovation.png",
+	},
+	{
+		name: "University of Manchester",
+		logo: "/images/university-of-manchester.png",
+	},
+];

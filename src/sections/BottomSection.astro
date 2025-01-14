@@ -1,0 +1,55 @@
+---
+import SectionLayout from "../layouts/SectionLayout.astro";
+import { brandList } from "../utils/constants";
+---
+
+<SectionLayout className="">
+	<div class="BottomSection">
+		<h1>
+			Curious?<br />
+			Sign up for all things AI
+		</h1>
+		<div class="BottomSection__form">
+			<input type="email" name="" id="" />
+			<p>
+				By joining us, you agree to Ladybird's Terms of Use and Privacy Policy
+			</p>
+		</div>
+		<div class="BottomSection__brands">
+			{brandList.map((brand) => <img src={brand.logo} alt={brand.name} />)}
+		</div>
+	</div>
+</SectionLayout>
+
+<style lang="scss">
+	.BottomSection {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 5rem;
+
+		padding-top: 15%;
+
+		h1 {
+			font-size: 5rem;
+			font-weight: 400;
+			line-height: 1.2;
+			text-align: center;
+		}
+
+		&__brands {
+			display: flex;
+			align-items: center;
+			gap: 2rem;
+			margin-top: 2rem;
+
+			img {
+				// width: 100px;
+				height: 100px;
+				object-fit: contain;
+			}
+		}
+	}
+</style>

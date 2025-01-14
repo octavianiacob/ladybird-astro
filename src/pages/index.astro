@@ -1,15 +1,19 @@
 ---
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
+import BottomSection from "../sections/BottomSection.astro";
 import DeviceSection from "../sections/DeviceSection.astro";
+import IntroSection from "../sections/IntroSection.astro";
 import PlainTextSection from "../sections/PlainTextSection.astro";
 import { textList } from "../utils/constants";
 ---
 
 <Layout>
 	<div class="MainWrap">
+		<IntroSection />
 		<PlainTextSection textList={textList} />
 		<DeviceSection />
+		<!-- <BottomSection /> -->
 	</div>
 </Layout>
 
