@@ -58,11 +58,14 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 							].map((convoPart) => (
 								<div class="DeviceSection__main__convoPart">
 									{convoPart.map((convoItem) => (
-										<p
-											class={`DeviceSection__main__convo__text DeviceSection__main__convo__text--${convoItem.speaker}`}
-										>
-											{convoItem.text}
-										</p>
+										<div class="DeviceSection__main__convo">
+											<p
+												class={`DeviceSection__main__convo__text DeviceSection__main__convo__text--${convoItem.speaker}`}
+											>
+												{convoItem.text}
+											</p>
+											{/* <div class="DeviceSection__main__convo__cursor" /> */}
+										</div>
 									))}
 								</div>
 							))
@@ -76,7 +79,7 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 
 <style lang="scss">
 	.DeviceSection {
-		background-color: #f0f0f0;
+		background-color: #ffffff;
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
@@ -122,24 +125,36 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 				overflow: hidden;
 			}
 
-			&__convo__text {
-				font-size: 1rem;
-				line-height: 1.5;
-				color: #333;
-				margin: 0;
-				padding: 0;
-				transition: all 0.5s;
-				text-align: center;
+			&__convo {
+				position: relative;
 
-				overflow: hidden;
-				// width: 0;
-
-				&--Patient {
-					font-weight: 700;
+				&__cursor {
+					width: 1px;
+					height: 1rem;
+					background-color: black;
+					margin-left: 0;
+					position: absolute;
+					top: 0;
+					right: 0;
 				}
+				&__text {
+					font-size: 1rem;
+					line-height: 1.5;
+					color: #333;
+					margin: 0;
+					padding: 0;
+					transition: all 0.5s;
+					text-align: center;
 
-				& > .word {
-					// width: 0;
+					overflow: hidden;
+
+					&--Patient {
+						font-weight: 700;
+					}
+
+					& > .word {
+						// width: 0;
+					}
 				}
 			}
 		}

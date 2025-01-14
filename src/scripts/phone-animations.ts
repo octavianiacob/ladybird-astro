@@ -3,12 +3,17 @@ import { Power2, Power4 } from "gsap";
 import SplitType from "split-type";
 import { autoplayObserver } from "./autoplay-observer";
 import { patientConvo_pt1 } from "../utils/constants";
-import { splitConvoTextIntoWords } from "../utils/helpers";
+import {
+	splitConvoTextIntoChars,
+	splitConvoTextIntoWords,
+} from "../utils/helpers";
+import { spinFunc } from "./phone-loader-animation";
 
+// -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
 const playConversation = () => {
 	// Split all conversation text into words
-	splitConvoTextIntoWords(".DeviceSection__main__convo__text");
+	splitConvoTextIntoChars(".DeviceSection__main__convo__text");
 
 	const convoParts = document.querySelectorAll(
 		".DeviceSection__main__convoPart"
@@ -16,6 +21,7 @@ const playConversation = () => {
 
 	// Create a master timeline for the conversation
 	const conversationTl = gsap.timeline({ defaults: { ease: Power4.easeOut } });
+	// conversationTl.add(spinnerTl.play());
 
 	// Loop through each response in the conversation
 	convoParts.forEach((convoPart, convoIndex) => {
@@ -35,8 +41,8 @@ const playConversation = () => {
 			)[index];
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".DeviceSection__main__convo__text")
-				[index].querySelectorAll(".word");
-			// [index].querySelectorAll("span");
+				[index].querySelectorAll(".char");
+			const reversedSplitElements = [...splitElements].reverse();
 
 			console.log("splitElements", splitElements, convoIndex, index);
 
@@ -51,16 +57,17 @@ const playConversation = () => {
 					{ opacity: 0, width: 0 },
 					{
 						opacity: 1,
-						duration: 0.4,
-						stagger: 0.2,
+						duration: 0.08,
+						stagger: 0.03,
 						width: "auto",
 					}
 				)
-				.to(splitElements, {
+				.to(reversedSplitElements, {
 					opacity: 0,
-					duration: 0.4,
-					stagger: 0.25,
-					delay: 2, // Pause between responses
+					width: 0,
+					duration: 0.08,
+					stagger: 0.03,
+					delay: 3, // Pause between responses
 				})
 				.to(splitElContainer, {
 					opacity: 0,
@@ -74,9 +81,14 @@ const playConversation = () => {
 					opacity: 0,
 					duration: 0.3,
 					height: 0,
+					onComplete: () => {
+						spinFunc();
+					},
 				});
 			}
 		});
+
+		// conversationTl.add(spinnerTl);
 	});
 
 	// Start the timeline
@@ -91,3 +103,7 @@ if (targetElement) {
 } else {
 	console.error("Element .DeviceSectionWrapper not found.");
 }
+
+// -----------------------------------------------------------------------------------------
+
+

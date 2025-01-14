@@ -3,12 +3,31 @@
 const dotCount = 3;
 ---
 
-<div class="PhoneDotLoader">
-	{
-		Array.from({ length: dotCount }).map((_, ind) => (
-			<div class="PhoneDotLoader__dot" style={`--i: ${ind};`} />
-		))
-	}
+<div>
+	<div class="PhoneDotLoader">
+		{
+			Array.from({ length: dotCount }).map((_, ind) => (
+				<div class="PhoneDotLoader__dot" style={`--i: ${ind};`} />
+			))
+		}
+		<div class="PhoneDotLoader__spinnerWrap">
+			<svg
+				width="36"
+				height="36"
+				viewBox="0 0 36 36"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+				class="PhoneDotLoader__spinner"
+			>
+				<path
+					d="M17.9988 29.9991C15.1552 29.9978 12.4045 28.9867 10.2369 27.1461C8.0694 25.3055 6.62593 22.7549 6.16385 19.9491C6.08226 19.4122 5.81292 18.9216 5.40369 18.5645C4.99446 18.2075 4.47188 18.0071 3.92885 17.9991C3.60151 17.9989 3.27807 18.0701 2.9811 18.2078C2.68412 18.3454 2.42076 18.5462 2.20938 18.7962C1.99801 19.0461 1.84371 19.3392 1.75726 19.6549C1.67081 19.9706 1.65429 20.3013 1.70884 20.6241C2.33246 24.4954 4.31442 28.0181 7.29949 30.5608C10.2846 33.1035 14.0776 34.5 17.9988 34.5C21.9201 34.5 25.7131 33.1035 28.6982 30.5608C31.6833 28.0181 33.6652 24.4954 34.2888 20.6241C34.3434 20.3013 34.3269 19.9706 34.2404 19.6549C34.154 19.3392 33.9997 19.0461 33.7883 18.7962C33.5769 18.5462 33.3136 18.3454 33.0166 18.2078C32.7196 18.0701 32.3962 17.9989 32.0688 17.9991C31.5258 18.0071 31.0032 18.2075 30.594 18.5645C30.1848 18.9216 29.9154 19.4122 29.8338 19.9491C29.3718 22.7549 27.9283 25.3055 25.7607 27.1461C23.5932 28.9867 20.8425 29.9978 17.9988 29.9991Z"
+					fill="transparent"
+					class="spinner_P7sC"></path>
+			</svg>
+
+			<div class="PhoneDotLoader__spinnerHider"></div>
+		</div>
+	</div>
 </div>
 
 <style lang="scss">
@@ -20,14 +39,56 @@ const dotCount = 3;
 		align-items: center;
 		gap: 0.75rem;
 		margin-top: 3rem;
+		position: relative;
 
 		&__dot {
-			width: 0.8rem;
-			height: 0.8rem;
+			width: 0.55rem;
+			height: 0.55rem;
 			border-radius: 50%;
 			background-color: $tertiary_col;
-			animation: pulse 1s infinite;
+
+			margin-bottom: 0.5rem;
+			animation: pulse 1.5s ease-in-out infinite;
 			animation-delay: calc(var(--i) * 0.2s); // Staggering based on index
+			// transform: translateY(-50%);
+
+			// &:nth-child(3) {
+			// 	animation: spin 1s infinite;
+			// }
+			&__hippo {
+			}
+		}
+
+		&__spinnerWrap {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			width: 100%;
+			height: 62px;
+		}
+
+		&__spinner {
+			fill: $tertiary_col;
+
+			width: 100%;
+			height: 100%;
+		}
+
+		&__spinnerHider {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 50%;
+			background-color: transparent;
+			// clip-path: inset(0);
+		}
+
+		.spinner_P7sC {
+			transform-origin: center;
+			// animation: spinner_svv2 0.75s infinite linear;
 		}
 
 		@keyframes pulse {
@@ -35,10 +96,16 @@ const dotCount = 3;
 				transform: scale(1);
 			}
 			50% {
-				transform: scale(1.1) translateY(-0.5rem);
+				transform: translateY(-0.5rem);
 			}
 			100% {
 				transform: scale(1);
+			}
+		}
+
+		@keyframes spinner_svv2 {
+			100% {
+				transform: rotate(-360deg);
 			}
 		}
 	}
