@@ -38,16 +38,26 @@ if (plainText__box.length > 0) {
 		const boxOut = gsap.timeline();
 
 		// Animation to bring the current box into view
-		boxIn.fromTo(
-			document.querySelectorAll(".PlainTextSection__inner")[index],
-			{ top: "100%", opacity: 0 },
-			{
-				top: "50%",
-				opacity: 1,
-				duration: 0.5,
-				ease: Power2.easeOut,
-			}
-		);
+		boxIn
+			.fromTo(
+				document.querySelectorAll(".PlainTextSection__inner")[index],
+				{ top: "100%", opacity: 0 },
+				{
+					top: "50%",
+					duration: 0.5,
+					ease: Power2.easeOut,
+				}
+			)
+			.fromTo(
+				document.querySelectorAll(".PlainTextSection__inner")[index],
+				{ opacity: 0 },
+				{
+					opacity: 1,
+					duration: 0.5,
+					ease: Power2.easeOut,
+				},
+				"-=50%"
+			);
 
 		// Animation to move the current box out of view
 		boxOut.to(document.querySelectorAll(".PlainTextSection__inner")[index], {
