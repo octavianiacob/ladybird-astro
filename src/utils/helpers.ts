@@ -7,7 +7,7 @@ export const splitConvoTextIntoWords = (selector: string) => {
 
 	if (textElements.length === 0) {
 		console.warn(
-			"No elements with the class .DeviceSection__main__convo__text found."
+			"No elements with the class .PhoneSection__convo__text found."
 		);
 		return;
 	}
@@ -23,18 +23,17 @@ export const splitConvoTextIntoWords = (selector: string) => {
 	});
 
 	console.log(
-		"Text split into words for all .DeviceSection__main__convo__text elements."
+		"Text split into words for all .PhoneSection__convo__text elements."
 	);
 };
 
 // Function to split all instances of the class into words
-export const splitConvoTextIntoChars = (selector: string) => {
+export const splitConvoTextIntoChars = (textElements: NodeListOf<Element>) => {
 	// Query all elements with the specified class
-	const textElements = document.querySelectorAll(selector);
 
 	if (textElements.length === 0) {
 		console.warn(
-			"No elements with the class .DeviceSection__main__convo__text found."
+			"No elements with the class .PhoneSection__convo__text found."
 		);
 		return;
 	}
@@ -50,6 +49,6 @@ export const splitConvoTextIntoChars = (selector: string) => {
 	});
 
 	console.log(
-		"Text split into characters for all .DeviceSection__main__convo__text elements."
+		"Text split into characters for all .PhoneSection__convo__text elements."
 	);
 };

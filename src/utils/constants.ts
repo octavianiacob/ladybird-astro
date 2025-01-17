@@ -55,6 +55,13 @@ export const patientConvo_pt5 = [
 	{ speaker: "Patient", text: "Bye" },
 ];
 
+export const convoLoadingText = [
+	["Identity verification…", "Verified"],
+	["Analaysing…", ""],
+	["Booking…", "Booked"],
+	["Sending…", "Sent"],
+];
+
 export const brandList = [
 	{
 		name: "Microsoft",

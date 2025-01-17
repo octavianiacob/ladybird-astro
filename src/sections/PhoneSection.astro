@@ -1,0 +1,122 @@
+---
+import TabToggle from "../components/TabToggle.astro";
+import SectionLayout from "../layouts/SectionLayout.astro";
+import {
+	patientConvo_pt1,
+	patientConvo_pt2,
+	patientConvo_pt3,
+	patientConvo_pt4,
+	patientConvo_pt5,
+	tabItems,
+	convoLoadingText,
+} from "../utils/constants";
+import PhoneDotLoader from "../components/PhoneDotLoader.astro";
+---
+
+<div class="PhoneSection__wrap">
+	<img src="/images/iphone_15.png" alt="Phone" class="PhoneSection__bg" />
+	<div class="PhoneSection__inner">
+		<PhoneDotLoader />
+		<div class="PhoneSection__convoWrap">
+			{
+				[
+					patientConvo_pt1,
+					patientConvo_pt2,
+					patientConvo_pt3,
+					patientConvo_pt4,
+					patientConvo_pt5,
+				].map((convoPart) => (
+					<div class="PhoneSection__convoPart">
+						{convoPart.map((convoItem) => (
+							<div class="PhoneSection__convo">
+								<p
+									class={`PhoneSection__convo__text PhoneSection__convo__text--${convoItem.speaker}`}
+								>
+									{convoItem.text}
+								</p>
+								{/* <div class="PhoneSection__convo__cursor" /> */}
+							</div>
+						))}
+					</div>
+				))
+			}
+			{
+				convoLoadingText.map((convoItem) => (
+					<div class="PhoneSection__loadingPart">
+						{convoItem.map((item) => (
+							<div class="PhoneSection__loading">
+								<p class={`PhoneSection__loading__text`}>{item}</p>
+							</div>
+						))}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<style lang="scss">
+	.PhoneSection {
+		&__bg {
+			max-height: 80vh;
+		}
+
+		&__wrap {
+			position: relative;
+			width: max-content;
+			height: 100%;
+		}
+		&__inner {
+			// max-height: 80vh;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+			padding: 1rem 2rem;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 2rem;
+		}
+
+		&__convoPart,
+		&__loadingPart {
+			height: 0;
+			overflow: hidden;
+		}
+
+		&__loading,
+		&__convo {
+			position: relative;
+
+			&__text {
+				font-size: 1rem;
+				line-height: 1.5;
+				color: #333;
+				margin: 0;
+				padding: 0;
+				transition: all 0.5s;
+				text-align: center;
+
+				overflow: hidden;
+
+				&--Patient {
+					font-weight: 700;
+				}
+
+				& > .word {
+					// width: 0;
+				}
+
+				.char {
+					width: 0;
+					opacity: 0;
+				}
+			}
+		}
+	}
+</style>

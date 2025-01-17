@@ -7,29 +7,52 @@ import {
 	splitConvoTextIntoChars,
 	splitConvoTextIntoWords,
 } from "../utils/helpers";
-import { spinFunc } from "./phone-loader-animation";
+import {
+	spinFunc,
+	threeDotsToCheckmark,
+	threeDotsToSpinner,
+} from "./phone-loader-animation";
+
+// -------------------------- Dot Loader Animation ---------------------------
+let animations: gsap.core.Tween[] = [];
+const regularDotMovement = () => {
+	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
+	dots.forEach((dot, i) => {
+		const animation = gsap.to(dot, {
+			yPercent: -300, // Move up
+			duration: 0.5, // Total duration
+			ease: "ease.inOut", // Easing function
+			yoyo: true, // Reverse back to original
+			repeat: -1, // Infinite loop
+			delay: i * 0.1, // Stagger based on index
+		});
+
+		animations.push(animation);
+	});
+};
+
+regularDotMovement();
+
+// const generateTextAnimation = (timeline, convoPart, )
 
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
-const playConversation = () => {
-	// Split all conversation text into words
-	splitConvoTextIntoChars(".DeviceSection__main__convo__text");
+const playConversation = async () => {
+	// Split all conversation text into words/characters
+	const textElements = document.querySelectorAll(".PhoneSection__convo__text");
+	splitConvoTextIntoChars(textElements);
 
-	const convoParts = document.querySelectorAll(
-		".DeviceSection__main__convoPart"
-	);
+	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
 
-	// Create a master timeline for the conversation
-	const conversationTl = gsap.timeline({ defaults: { ease: Power4.easeOut } });
-	// conversationTl.add(spinnerTl.play());
+	const createTimeline = (convoPart: Element, convoIndex: number) => {
+		const timeline = gsap.timeline({
+			defaults: { ease: Power4.easeOut },
+			paused: true,
+		});
 
-	// Loop through each response in the conversation
-	convoParts.forEach((convoPart, convoIndex) => {
-		// Add an animation for each response to the timeline
-		console.log("convoPart", convoPart);
 		[...convoPart.children].forEach((response, index) => {
 			if (index === 0) {
-				conversationTl.to(convoPart, {
+				timeline.to(convoPart, {
 					opacity: 1,
 					duration: 0.3,
 					height: "4rem",
@@ -37,30 +60,23 @@ const playConversation = () => {
 			}
 
 			const splitElContainer = convoParts[convoIndex].querySelectorAll(
-				".DeviceSection__main__convo__text"
+				".PhoneSection__convo__text"
 			)[index];
 			const splitElements = convoParts[convoIndex]
-				.querySelectorAll(".DeviceSection__main__convo__text")
+				.querySelectorAll(".PhoneSection__convo__text")
 				[index].querySelectorAll(".char");
 			const reversedSplitElements = [...splitElements].reverse();
 
-			console.log("splitElements", splitElements, convoIndex, index);
-
-			conversationTl
+			timeline
 				.to(splitElContainer, {
 					opacity: 1,
 					height: "auto",
 					duration: 0.1,
 				})
 				.fromTo(
-					splitElements, // Target split words
+					splitElements,
 					{ opacity: 0, width: 0 },
-					{
-						opacity: 1,
-						duration: 0.08,
-						stagger: 0.03,
-						width: "auto",
-					}
+					{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" }
 				)
 				.to(reversedSplitElements, {
 					opacity: 0,
@@ -73,26 +89,46 @@ const playConversation = () => {
 					opacity: 0,
 					duration: 0.1,
 					height: 0,
-					// delay: 4, // Pause between responses
 				});
 
 			if (index === convoPart.children.length - 1) {
-				conversationTl.to(convoPart, {
+				timeline.to(convoPart, {
 					opacity: 0,
 					duration: 0.3,
 					height: 0,
-					onComplete: () => {
-						spinFunc();
-					},
 				});
 			}
 		});
 
-		// conversationTl.add(spinnerTl);
-	});
+		return timeline;
+	};
 
-	// Start the timeline
-	conversationTl.play();
+	const timelines = Array.from(convoParts).map(createTimeline);
+
+	// Play each timeline sequentially
+	for (const [index, timeline] of timelines.entries()) {
+		try {
+			await timeline.play();
+			// Optionally run loader animation between each timeline
+			if (index < timelines.length - 1) {
+				await runLoaderWithSpinner(index);
+			}
+		} catch (error) {
+			console.error(`Error in timeline ${index}:`, error);
+			break;
+		}
+	}
+};
+
+// Helper function for loader animation
+const runLoaderWithSpinner = async (index: number) => {
+	await new Promise<void>((resolve) => {
+		threeDotsToCheckmark(
+			animations,
+			() => threeDotsToSpinner(animations, resolve, index),
+			index
+		);
+	});
 };
 
 // Select the element to observe
@@ -105,5 +141,3 @@ if (targetElement) {
 }
 
 // -----------------------------------------------------------------------------------------
-
-
