@@ -44,7 +44,7 @@ export const threeDotsToCheckmark = (
 		.to(".PhoneDotLoader__dot", {
 			// reset the dots
 			yPercent: 0,
-			duration: 0.5,
+			duration: 0.2,
 			stagger: 0.1,
 			// ease: "power2.inOut",
 		})
@@ -63,29 +63,38 @@ export const threeDotsToCheckmark = (
 			ease: "power4.inOut",
 		})
 		// text bit part 1
-		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.08 })
-		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.08 })
-		.to(loadingParts[index], {
-			opacity: 1,
-			duration: 0.3,
-			height: "4rem",
-		})
-		.to(splitElContainer[0], {
-			opacity: 1,
-			height: "auto",
-			duration: 0.1,
-		})
+		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.01 }, "2")
+		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.01 }, "<")
+		.to(
+			loadingParts[index],
+			{
+				opacity: 1,
+				duration: 0.01,
+				height: "4rem",
+			},
+			"<"
+		)
+		.to(
+			splitElContainer[0],
+			{
+				opacity: 1,
+				height: "auto",
+				duration: 0.01,
+			},
+			"<"
+		)
 		.fromTo(
 			splitElementsOne,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" }
+			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" },
+			">"
 		)
 		.to(reversedSplitElementsOne, {
 			opacity: 0,
 			width: 0,
 			duration: 0.08,
 			stagger: 0.03,
-			delay: 3, // Pause between responses
+			delay: 2, // Pause between responses
 		})
 		.to(splitElContainer[0], {
 			opacity: 0,
@@ -103,18 +112,22 @@ export const threeDotsToCheckmark = (
 			{
 				// hide the first dot
 				opacity: 0,
-				duration: 0.5,
+				duration: 0.3,
 				stagger: 0.1,
 				// ease: "power2.inOut",
 			},
-			"<+=2"
+			"3"
 		)
-		.to(".checkmarkPath", {
-			// animate (drawing) the checkmark
-			strokeDashoffset: 80,
-			duration: 0.5,
-			ease: "power4.out",
-		})
+		.to(
+			".checkmarkPath",
+			{
+				// animate (drawing) the checkmark
+				strokeDashoffset: 80,
+				duration: 0.5,
+				ease: "power4.out",
+			},
+			">+=3.5"
+		)
 		.to(
 			".PhoneDotLoader__dot:nth-child(3)",
 			{
