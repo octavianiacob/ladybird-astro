@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { Power2 } from "gsap";
+import { Power2, Power4 } from "gsap";
 import Lenis from "@studio-freight/lenis";
 // import { animatePhoneText } from "./phone-animations";
 
@@ -72,3 +72,26 @@ if (plainText__box.length > 0) {
 		plainTextTl.add(boxOut, index * 1 + 0.5); // Out animation follows the in animation
 	});
 }
+
+const bottomTl = gsap.timeline({
+	scrollTrigger: {
+		trigger: ".BottomSectionWrapper", // Wrapper for all boxes
+		// pin: true,
+		start: "top 50%",
+		end: `+=${innerHeight}`, // Each box gets a full viewport height
+		scrub: true, // Smooth linking with scroll
+		markers: true, // Enable for debugging
+	},
+});
+
+bottomTl.fromTo(
+	".BottomSection > h1, .BottomSection__form, .BottomSection__brands",
+	{ yPercent: 50, opacity: 0 },
+	{
+		yPercent: 0,
+		opacity: 1,
+		duration: 1.5,
+		stagger: 0.2,
+		ease: Power4.easeOut,
+	}
+);

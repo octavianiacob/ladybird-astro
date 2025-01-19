@@ -45,7 +45,7 @@ export const threeDotsToCheckmark = (
 			// reset the dots
 			yPercent: 0,
 			duration: 0.2,
-			stagger: 0.1,
+			stagger: 0.05,
 			// ease: "power2.inOut",
 		})
 		.to(".PhoneDotLoader__dot:nth-child(2)", {
@@ -181,16 +181,12 @@ export const threeDotsToCheckmark = (
 			duration: 0.01,
 			ease: "power4.inOut",
 		})
-		.to(
-			".circle",
-			{
-				// reset the circle
-				strokeDashoffset: 282.6,
-				duration: 0.01,
-				ease: "power4.inOut",
-			},
-			"<"
-		)
+		.to(".circle", {
+			// reset the circle
+			strokeDashoffset: 282.6,
+			duration: 0.01,
+			ease: "power4.inOut",
+		})
 		.to(
 			".circle",
 			{
