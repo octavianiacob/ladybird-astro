@@ -4,7 +4,26 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 
 <SectionLayout className="">
 	<div class="IntroSection">
-		<img src="/images/ladybird-logo.png" alt="" />
+		<svg viewBox="0 0 3206 4293" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path
+				class="IntroSection__path"
+				d="M1608.46 1231.5C-375.035 1347.5 -40.0524 4065.48 580.382 4178.9C2155.8 4466.89 1177.38 250.996 306.755 99"
+				stroke="#FF0000"
+				stroke-width="200"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-dasharray="10000"
+				stroke-dashoffset="10000"></path>
+			<path
+				class="IntroSection__path"
+				d="M1597 1231.5C3580.5 1347.5 3245.51 4065.48 2625.08 4178.9C1049.66 4466.89 2028.08 250.996 2898.71 99"
+				stroke="#FF0000"
+				stroke-width="200"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-dasharray="10000"
+				stroke-dashoffset="10000"></path>
+		</svg>
 	</div>
 </SectionLayout>
 
@@ -14,8 +33,8 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		display: grid;
 		place-items: center;
 
-		img {
-			// width: 50%;
+		svg {
+			width: 100%;
 			height: 50vh;
 		}
 	}

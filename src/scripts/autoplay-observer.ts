@@ -1,6 +1,7 @@
 export const autoplayObserver = (
 	targetElement: Element | null,
-	playAnimation: () => void
+	onEnter: () => void,
+	onLeave: () => void
 ) => {
 	// IntersectionObserver logic
 	const observerOptions = {
@@ -16,8 +17,11 @@ export const autoplayObserver = (
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
 				console.log("Animation starts as section enters the viewport");
-				playAnimation(); // Play the animation
+				onEnter(); // Play the animation
 				// observer.unobserve(entry.target); // Stop observing after triggering
+			} else {
+				console.log("Section is out of view");
+				onLeave(); // Run the function for leaving the section
 			}
 		});
 	};

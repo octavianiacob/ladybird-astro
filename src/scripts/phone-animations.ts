@@ -37,6 +37,7 @@ regularDotMovement();
 
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
+let timelines: gsap.core.Timeline[] = [];
 const playConversation = async () => {
 	// Split all conversation text into words/characters
 	const textElements = document.querySelectorAll(".PhoneSection__convo__text");
@@ -103,7 +104,7 @@ const playConversation = async () => {
 		return timeline;
 	};
 
-	const timelines = Array.from(convoParts).map(createTimeline);
+	timelines = Array.from(convoParts).map(createTimeline);
 
 	// Play each timeline sequentially
 	for (const [index, timeline] of timelines.entries()) {
@@ -133,9 +134,12 @@ const runLoaderWithSpinner = async (index: number) => {
 
 // Select the element to observe
 const targetElement = document.querySelector(".DeviceSectionWrapper");
+const onLeave = () => {
+	timelines.forEach((timeline) => timeline.kill());
+};
 
 if (targetElement) {
-	autoplayObserver(targetElement, playConversation);
+	autoplayObserver(targetElement, playConversation, onLeave);
 } else {
 	console.error("Element .DeviceSectionWrapper not found.");
 }

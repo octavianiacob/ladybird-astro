@@ -208,6 +208,8 @@ export const threeDotsToCheckmark = (
 				afterFunc();
 			},
 		});
+
+	return spinnerTl;
 };
 
 export const threeDotsToSpinner = (
@@ -356,4 +358,12 @@ export const spinFunc = (dotAnimations: gsap.core.Tween[]) => {
 	// 		},
 	// 		"+=0.3"
 	// 	);
+};
+
+export const resetLoaderAnimation = () => {
+	const loadingParts = document.querySelectorAll(".PhoneSection__loadingPart");
+	loadingParts.forEach((loadingPart) => {
+		loadingPart.style.opacity = "0";
+		loadingPart.style.height = "0";
+	});
 };

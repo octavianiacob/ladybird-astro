@@ -15,11 +15,11 @@ export const tabItems = ["Patients", "Practices"];
 
 export const patientConvo_pt1 = [
 	{ speaker: "AI", text: "Hello, you’ve reached the GP Centre." },
-	{ speaker: "AI", text: "Could you confirm your full name, please?" },
-	{ speaker: "Patient", text: "Sarah Johnson" },
-	{ speaker: "AI", text: "Thank you, Sarah." },
-	{ speaker: "AI", text: "And your date of birth, please?" },
-	{ speaker: "Patient", text: "15th of March, 1985" },
+	// { speaker: "AI", text: "Could you confirm your full name, please?" },
+	// { speaker: "Patient", text: "Sarah Johnson" },
+	// { speaker: "AI", text: "Thank you, Sarah." },
+	// { speaker: "AI", text: "And your date of birth, please?" },
+	// { speaker: "Patient", text: "15th of March, 1985" },
 ];
 
 export const patientConvo_pt2 = [
@@ -83,4 +83,42 @@ export const brandList = [
 		name: "University of Manchester",
 		logo: "/images/university-of-manchester.png",
 	},
+];
+
+export const dashCards = [
+	{
+		title: "Today's Calls",
+		value: "71",
+		percent: "+24.91%",
+	},
+	{
+		title: "Cost Savings",
+		value: "£238.23",
+		percent: "+79.41%",
+	},
+	{
+		title: "Time Savings",
+		value: "11h 50m",
+		percent: "+28.91%",
+	},
+];
+
+export const callLogs = [
+	{ name: "Sarah Johnson", time: "11:00 AM", date: "Mar 15, 2021" },
+	{ name: "John Doe", time: "10:00 AM", date: "Aug 14, 2021" },
+	{ name: "Jane Doe", time: "09:00 AM", date: "Jul 13, 2021" },
+];
+
+export const fakeConvoList = [
+	[
+		"Hello, you’ve reached the GP Centre.",
+		"Could you confirm your full name, please?",
+	],
+	["Thank you, Sarah.", "And your date of birth, please?"],
+	["Thanks, Sarah.", "How can I help?"],
+	[
+		"I'm sorry to hear that, Sarah.",
+		"Let's see if we can get you an appointment with Dr. Adams as soon as possible",
+	],
+	["Booking an appointment at 11AM"],
 ];
