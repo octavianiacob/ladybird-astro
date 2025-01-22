@@ -106,6 +106,7 @@ import PhoneSection from "./PhoneSection.astro";
 				},
 			},
 			opacity: 1,
+			duration: 1,
 		});
 
 		// Fade out LaptopSection and reset video
@@ -163,7 +164,7 @@ import PhoneSection from "./PhoneSection.astro";
 	.DeviceSection {
 		background-color: #ffffff;
 		width: 100vw;
-		height: 200vh; // Ensure enough space for scrolling
+		height: 350vh; // Ensure enough space for scrolling
 		overflow: hidden;
 
 		&__top {
@@ -202,6 +203,9 @@ import PhoneSection from "./PhoneSection.astro";
 		.LaptopSection {
 			// opacity: 0;
 			// transform: translateY(100%);
+
+			display: grid;
+			place-items: center;
 			height: calc(100vh - 140px);
 		}
 	}

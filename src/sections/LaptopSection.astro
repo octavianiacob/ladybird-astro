@@ -11,7 +11,7 @@ import FakeDashboard from "./FakeDashboard.astro";
 </script>
 
 <section class="LaptopSection__inner">
-	<video class="LaptopSection__vid" src="/videos/laptop.mp4"></video>
+	<video class="LaptopSection__vid" src="/videos/laptop--cropped.mp4"></video>
 	<div class="LaptopSection__screen">
 		<!-- <canvas></canvas> -->
 		<FakeDashboard />
@@ -21,12 +21,8 @@ import FakeDashboard from "./FakeDashboard.astro";
 <style lang="scss">
 	.LaptopSection {
 		&__inner {
-			// display: flex;
-			// align-items: center;
-			// justify-content: center;
-			width: 100%;
 			height: 100%;
-			// background-color: #f0f0f0;
+			width: max-content;
 			position: relative;
 
 			// width: 1440px;
@@ -39,16 +35,12 @@ import FakeDashboard from "./FakeDashboard.astro";
 				top: 0;
 				left: 0;
 			}
-
-			video {
-				width: 100%;
-				max-height: 100%;
-				object-fit: cover;
-			}
 		}
 
 		&__vid {
 			// disable clicking on the video
+			height: 100%;
+			max-height: 80vh;
 			pointer-events: none;
 		}
 
@@ -59,18 +51,19 @@ import FakeDashboard from "./FakeDashboard.astro";
 			// left: 50vw;
 			// transform: translateX(-50%) translateY(0%);
 
-			width: 53vw;
-			height: 33vw;
+			position: absolute;
+			top: 45%;
+			left: 50%;
+
+			width: 70%;
+			height: 70%;
+
+			transform: translate(-50%, -50%);
+
 			// background-color: #fff;
 			opacity: 0;
 			z-index: 1;
 			position: absolute;
-
-			width: 53vw;
-			height: 33vw;
-
-			top: 4.5vw;
-			left: 24vw;
 		}
 	}
 </style>
