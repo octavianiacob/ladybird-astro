@@ -58,15 +58,6 @@ loader.load("/3d/macbook_air_animada.glb", (gltf: GLTF) => {
 	scrubber.style.transform = "translateX(-50%)";
 	document.body.appendChild(scrubber);
 
-	// Update the timeline's progress based on the slider's value
-	scrubber.addEventListener("input", () => {
-		const progressValue = Number(scrubber.value) / 100; // Convert to 0-1 range
-		// tl.progress(progressValue);
-
-		let mixer = new THREE.AnimationMixer();
-		let clock = new THREE.Clock();
-	});
-
 	// Play the animation automatically for demonstration (optional)
 	// tl.play();
 });

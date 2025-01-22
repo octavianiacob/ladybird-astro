@@ -52,3 +52,53 @@ export const splitConvoTextIntoChars = (textElements: NodeListOf<Element>) => {
 		"Text split into characters for all .PhoneSection__convo__text elements."
 	);
 };
+
+// Function to scale any element based on the viewport size
+export function scaleElementToViewport(
+	element: Element,
+	elementWidth: number,
+	elementHeight: number
+) {
+	// Ensure the element has the correct dimensions
+	// element.style.width = `${elementWidth}px`;
+	// element.style.height = `${elementHeight}px`;
+	element.setAttribute(
+		"style",
+		`width: ${elementWidth}px; height: ${elementHeight}px`
+	);
+
+	function scale() {
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+
+		// Calculate scale factors for width and height
+		const scaleX = viewportWidth / elementWidth;
+		const scaleY = viewportHeight / elementHeight;
+
+		// Choose the smaller scale factor to maintain aspect ratio
+		const scale = Math.min(scaleX, scaleY);
+
+		// Apply the scaling transformation
+		// element.style.transform = `scale(${scale})`;
+		// element.style.transformOrigin = "top left"; // Ensure scaling starts from the top-left corner
+
+		element.setAttribute(
+			"style",
+			`transform: scale(${scaleX}); transform-origin: top left`
+		);
+
+		// Adjust the element's container size to prevent overflow
+		// element.style.width = `${elementWidth}px`;
+		// element.style.height = `${elementHeight}px`;
+		// element.setAttribute(
+		// 	"style",
+		// 	`width: ${elementWidth}px; height: ${elementHeight}px`
+		// );
+	}
+
+	// Initial scale
+	scale();
+
+	// Reapply scaling on window resize
+	window.addEventListener("resize", scale);
+}

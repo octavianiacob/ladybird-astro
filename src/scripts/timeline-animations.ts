@@ -28,7 +28,7 @@ const introTl = gsap.timeline({
 		start: "top 20%",
 		end: "bottom bottom",
 		scrub: false, // Link animation to scroll progress
-		markers: true, // Enable for debugging
+		// markers: true, // Enable for debugging
 	},
 });
 
@@ -69,7 +69,7 @@ const bottomTl = gsap.timeline({
 		start: "top 50%",
 		end: `+=${innerHeight}`, // Each box gets a full viewport height
 		scrub: true, // Smooth linking with scroll
-		markers: true, // Enable for debugging
+		// markers: true, // Enable for debugging
 	},
 });
 

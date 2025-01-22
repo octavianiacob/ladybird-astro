@@ -2,29 +2,144 @@
 import TabToggle from "../components/TabToggle.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 import { tabItems } from "../utils/constants";
+import LaptopSection from "./LaptopSection.astro";
 import PhoneSection from "./PhoneSection.astro";
 ---
 
 <script>
-	let activeTab = 0;
+	import { onMount } from "solid-js";
+	import gsap from "gsap";
+	import ScrollTrigger from "gsap/ScrollTrigger";
 
-	const tabs = document.querySelectorAll(".TabToggle__button");
+	gsap.registerPlugin(ScrollTrigger);
 
-	tabs[activeTab].classList.add("TabToggle__button--active");
+	onMount(() => {
+		gsap.registerPlugin(ScrollTrigger);
 
-	tabs.forEach((tab, index) => {
-		tab.addEventListener("click", () => {
-			if (activeTab === index) return;
-			activeTab = index;
-			console.log(index);
-			tab.classList.add("TabToggle__button--active");
+		// Pin the TabToggle
+		gsap.to(".DeviceSection__top", {
+			scrollTrigger: {
+				trigger: ".DeviceSectionWrapper",
+				start: "top top",
+				end: "bottom top",
+				pin: true,
+				pinSpacing: false,
 
-			tabs.forEach((tab, i) => {
-				if (i !== index) {
-					tab.classList.remove("TabToggle__button--active");
-				}
-			});
+				onEnter: () => {
+					// Reset the active tab
+					const tabItems = document.querySelectorAll(".TabToggle__button");
+					tabItems.forEach((tabItem, ind) => {
+						if (tabItem.classList.contains("TabToggle__button--active")) {
+							tabItem.classList.remove("TabToggle__button--active");
+						}
+					});
+
+					tabItems[0].classList.add("TabToggle__button--active");
+				},
+			},
 		});
+
+		// Animate the main content upwards
+		gsap.to(".DeviceSection__main", {
+			scrollTrigger: {
+				trigger: ".PhoneSection",
+				start: "top top",
+				end: "bottom top",
+				scrub: true, // Sync animation with scroll
+			},
+			yPercent: -50,
+		});
+
+		// Fade in and play LaptopSection video
+		gsap.to(".LaptopSection", {
+			scrollTrigger: {
+				trigger: ".LaptopSection",
+				start: "center bottom", // Adjust the timing as needed
+				end: "center center",
+				scrub: true,
+				onEnter: () => {
+					// set the active tab
+					const tabItems = document.querySelectorAll(".TabToggle__button");
+					tabItems.forEach((tabItem, ind) => {
+						if (tabItem.classList.contains("TabToggle__button--active")) {
+							tabItem.classList.remove("TabToggle__button--active");
+						}
+					});
+
+					tabItems[1].classList.add("TabToggle__button--active");
+
+					// Play the video and hide the screen
+					const video = document.querySelector(
+						".LaptopSection__vid"
+					) as HTMLVideoElement;
+					const screen = document.querySelector(
+						".LaptopSection__screen"
+					) as HTMLElement;
+					if (video) {
+						video.currentTime = 0; // Ensure it starts from the beginning
+						video.play();
+						if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+					}
+				},
+				onLeaveBack: () => {
+					// set the active tab
+					const tabItems = document.querySelectorAll(".TabToggle__button");
+					tabItems.forEach((tabItem, ind) => {
+						if (tabItem.classList.contains("TabToggle__button--active")) {
+							tabItem.classList.remove("TabToggle__button--active");
+						}
+					});
+
+					tabItems[0].classList.add("TabToggle__button--active");
+
+					const video = document.querySelector(
+						".LaptopSection__vid"
+					) as HTMLVideoElement;
+					const screen = document.querySelector(
+						".LaptopSection__screen"
+					) as HTMLElement;
+					if (video) {
+						video.pause();
+						video.currentTime = 0; // Reset when scrolled out of view
+						if (screen) screen.style.opacity = "0"; // Keep screen hidden
+					}
+				},
+			},
+			opacity: 1,
+		});
+
+		// Fade out LaptopSection and reset video
+		gsap.to(".LaptopSection", {
+			scrollTrigger: {
+				trigger: ".LaptopSection",
+				start: "bottom center",
+				end: "bottom top",
+				scrub: true,
+				onLeave: () => {
+					const video = document.querySelector(
+						".LaptopSection__vid"
+					) as HTMLVideoElement;
+					if (video) {
+						video.pause();
+						video.currentTime = 0; // Reset when fully scrolled out
+					}
+				},
+			},
+			opacity: 0,
+		});
+
+		// Handle video end event
+		const video = document.querySelector(
+			".LaptopSection__vid"
+		) as HTMLVideoElement;
+		const screen = document.querySelector(
+			".LaptopSection__screen"
+		) as HTMLElement;
+		if (video && screen) {
+			video.addEventListener("ended", () => {
+				screen.style.opacity = "1"; // Show the screen when video ends
+			});
+		}
 	});
 </script>
 
@@ -34,7 +149,12 @@ import PhoneSection from "./PhoneSection.astro";
 			<TabToggle tabItems={tabItems} />
 		</div>
 		<div class="DeviceSection__main">
-			<PhoneSection />
+			<div class="PhoneSection">
+				<PhoneSection />
+			</div>
+			<div class="LaptopSection">
+				<LaptopSection />
+			</div>
 		</div>
 	</div>
 </SectionLayout>
@@ -43,18 +163,46 @@ import PhoneSection from "./PhoneSection.astro";
 	.DeviceSection {
 		background-color: #ffffff;
 		width: 100vw;
-		height: 100vh;
+		height: 200vh; // Ensure enough space for scrolling
 		overflow: hidden;
 
 		&__top {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background-color: #ffffff;
+
 			display: grid;
 			place-items: center;
 			padding: 3rem 0;
 		}
 
 		&__main {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			position: relative;
+			width: 100%;
+
+			// overflow-y: auto;
+		}
+
+		.PhoneSection,
+		.LaptopSection {
+			width: 100%;
+		}
+		.PhoneSection {
+			opacity: 1;
+
 			display: grid;
 			place-items: center;
+			height: calc(100vh - 140px);
+		}
+		.LaptopSection {
+			// opacity: 0;
+			// transform: translateY(100%);
+			height: calc(100vh - 140px);
 		}
 	}
 </style>
