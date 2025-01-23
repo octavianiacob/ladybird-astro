@@ -4,6 +4,7 @@ import SplitType from "split-type";
 import { Power2, Power4 } from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { fadeInBox, fadeOutBox } from "./reusable-animations";
+import { autoplayObserver } from "./autoplay-observer";
 // import { animatePhoneText } from "./phone-animations";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -42,23 +43,44 @@ introTl.to(".IntroSection__path", {
 
 const plainTextInnerElements = document.querySelectorAll(
 	".PlainTextSection__inner"
-);
+) as NodeListOf<HTMLElement>;
 
 if (plainTextInnerElements.length > 0) {
-	const plainTextTl = gsap.timeline({
-		scrollTrigger: {
-			trigger: ".PlainTextSectionWrapper", // Wrapper for all boxes
-			pin: true,
-			start: "top top",
-			end: `+=${plainTextInnerElements.length * window.innerHeight}`, // Each box gets a full viewport height
-			scrub: true, // Smooth linking with scroll
-			// markers: true, // Enable for debugging
-		},
-	});
-
 	plainTextInnerElements.forEach((box, index) => {
-		plainTextTl.add(fadeInBox(box), index * 1);
-		plainTextTl.add(fadeOutBox(box), index * 1 + 0.5);
+		// Set initial opacity for all sections
+		if (index === 0) {
+			box.style.opacity = "1"; // First section visible by default
+		} else {
+			box.style.opacity = "0"; // All other sections hidden initially
+		}
+
+		gsap.to(box, {
+			scrollTrigger: {
+				trigger: box,
+				start: "top top", // Start when this section hits the top
+				end: "bottom top", // End when this section leaves the viewport
+				pin: true, // Pin this section during the scroll
+				snap: {
+					snapTo: 1, // Snap to the next section (1 section per scroll)
+					duration: 0.25, // Smooth snap animation duration
+					ease: "power1.inOut", // Smooth easing for snap
+				},
+				onEnter: () => {
+					gsap.to(box, { opacity: 1, duration: 0.5 }); // Fade in incoming section
+				},
+				onLeave: () => {
+					gsap.to(box, { opacity: 0, duration: 0.5 }); // Fade out section being scrolled away
+				},
+				onEnterBack: () => {
+					gsap.to(box, { opacity: 1, duration: 0.5 }); // Fade in section when scrolling back
+				},
+				onLeaveBack: () => {
+					gsap.to(box, { opacity: 0, duration: 0.5 }); // Fade out section when scrolling back
+				},
+				// Optional: Add markers for debugging
+				// markers: false,
+			},
+		});
 	});
 }
 
