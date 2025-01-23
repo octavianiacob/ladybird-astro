@@ -13,6 +13,31 @@ import PhoneSection from "./PhoneSection.astro";
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	const laptopEnterFunc = () => {
+		// set the active tab
+		const tabItems = document.querySelectorAll(".TabToggle__button");
+		tabItems.forEach((tabItem, ind) => {
+			if (tabItem.classList.contains("TabToggle__button--active")) {
+				tabItem.classList.remove("TabToggle__button--active");
+			}
+		});
+
+		tabItems[1].classList.add("TabToggle__button--active");
+
+		// Play the video and hide the screen
+		const video = document.querySelector(
+			".LaptopSection__vid"
+		) as HTMLVideoElement;
+		const screen = document.querySelector(
+			".LaptopSection__screen"
+		) as HTMLElement;
+		if (video) {
+			if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+			video.currentTime = 0; // Ensure it starts from the beginning
+			video.play();
+		}
+	};
+
 	onMount(() => {
 		gsap.registerPlugin(ScrollTrigger);
 
@@ -57,30 +82,8 @@ import PhoneSection from "./PhoneSection.astro";
 				start: "center bottom", // Adjust the timing as needed
 				end: "center center",
 				scrub: true,
-				onEnter: () => {
-					// set the active tab
-					const tabItems = document.querySelectorAll(".TabToggle__button");
-					tabItems.forEach((tabItem, ind) => {
-						if (tabItem.classList.contains("TabToggle__button--active")) {
-							tabItem.classList.remove("TabToggle__button--active");
-						}
-					});
-
-					tabItems[1].classList.add("TabToggle__button--active");
-
-					// Play the video and hide the screen
-					const video = document.querySelector(
-						".LaptopSection__vid"
-					) as HTMLVideoElement;
-					const screen = document.querySelector(
-						".LaptopSection__screen"
-					) as HTMLElement;
-					if (video) {
-						video.currentTime = 0; // Ensure it starts from the beginning
-						video.play();
-						if (screen) screen.style.opacity = "0"; // Hide screen during video playback
-					}
-				},
+				onEnter: () => laptopEnterFunc(),
+				onEnterBack: () => laptopEnterFunc(),
 				onLeaveBack: () => {
 					// set the active tab
 					const tabItems = document.querySelectorAll(".TabToggle__button");
@@ -99,9 +102,9 @@ import PhoneSection from "./PhoneSection.astro";
 						".LaptopSection__screen"
 					) as HTMLElement;
 					if (video) {
+						if (screen) screen.style.opacity = "0"; // Keep screen hidden
 						video.pause();
 						video.currentTime = 0; // Reset when scrolled out of view
-						if (screen) screen.style.opacity = "0"; // Keep screen hidden
 					}
 				},
 			},
@@ -121,6 +124,7 @@ import PhoneSection from "./PhoneSection.astro";
 						".LaptopSection__vid"
 					) as HTMLVideoElement;
 					if (video) {
+						if (screen) screen.style.opacity = "0"; // Hide screen during video playback
 						video.pause();
 						video.currentTime = 0; // Reset when fully scrolled out
 					}
