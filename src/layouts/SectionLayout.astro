@@ -7,18 +7,28 @@ const { className } = Astro.props;
 ---
 
 <section class={`SectionLayout ${className}`}>
-	<slot />
+	<div class="SectionLayout__inner">
+		<slot />
+	</div>
 </section>
 
 <style lang="scss">
 	@import "../styles/variables";
 
 	.SectionLayout {
-		min-height: 100vh;
 		height: 100%;
 		background-color: #ffffff;
-		position: relative;
 		display: flex;
+
+		&__inner {
+			width: 100%;
+			min-height: 100vh;
+			max-width: $maxWidth;
+			margin: 0 auto;
+			// padding: 0 1rem;
+			display: flex;
+			position: relative;
+		}
 	}
 
 	* {

@@ -102,7 +102,7 @@ bottomTl.fromTo(
 		yPercent: 0,
 		opacity: 1,
 		duration: 1.5,
-		stagger: 0.2,
+		stagger: 0.3,
 		ease: Power4.easeOut,
 	}
 );
