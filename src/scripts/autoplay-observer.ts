@@ -6,7 +6,7 @@ export const autoplayObserver = (
 	// IntersectionObserver logic
 	const observerOptions = {
 		root: null, // Observes within the viewport
-		rootMargin: "0px 0px -70% 0px", // Trigger when 80% of the section is in view
+		rootMargin: "0px 0px -60% 0px", // Trigger when 70% of the section is in view
 		threshold: 0.1, // Percentage of the element visible to trigger
 	};
 

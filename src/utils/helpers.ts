@@ -102,3 +102,28 @@ export function scaleElementToViewport(
 	// Reapply scaling on window resize
 	window.addEventListener("resize", scale);
 }
+
+// Utility function to calculate the largest 16:10 size within the viewport
+export function getLargest16By10Size(): { width: number; height: number } {
+	const { innerWidth: viewportWidth, innerHeight: viewportHeight } = window;
+
+	// Calculate the maximum width and height that fit the 16:10 aspect ratio
+	const maxWidth = viewportWidth * 0.5;
+	const maxHeight = viewportWidth * 0.5 * (10 / 16);
+
+	if (maxHeight <= viewportHeight) {
+		return { width: maxWidth, height: maxHeight };
+	} else {
+		return { width: viewportHeight * (16 / 10), height: viewportHeight };
+	}
+}
+
+// Function to set the div size
+export function setDivToLargest16By10Size(div: HTMLElement) {
+	const { width, height } = getLargest16By10Size();
+
+	// Set the size of the div
+	div.style.width = `${width}px`;
+	div.style.height = `${height}px`;
+	// Ensure block-level display
+}
