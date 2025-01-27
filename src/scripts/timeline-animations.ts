@@ -105,13 +105,13 @@ const laptopEnterFunc = () => {
 		".LaptopSection__screen"
 	) as HTMLElement;
 	if (video) {
-		lenis.stop(); // Pause the smooth scroll
+		// lenis.stop(); // Pause the smooth scroll
 		if (screen) screen.style.opacity = "0"; // Hide screen during video playback
 		video.currentTime = 0; // Ensure it starts from the beginning
 		video.play();
 
 		video.onended = () => {
-			lenis.start();
+			// lenis.start();
 		};
 	}
 };
