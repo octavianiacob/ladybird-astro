@@ -124,7 +124,7 @@ onMount(() => {
 		scrollTrigger: {
 			trigger: ".DeviceSectionWrapper",
 			start: "top top",
-			end: "bottom top",
+			end: "bottom bottom",
 			pin: true,
 			pinSpacing: false,
 
