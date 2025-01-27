@@ -160,6 +160,11 @@ onMount(() => {
 			start: "center center", // Adjust the timing as needed
 			end: "center top",
 			scrub: true,
+			snap: {
+				snapTo: 1,
+				duration: 0.25,
+				ease: "power1.inOut",
+			},
 			// markers: true,
 			onEnter: () => laptopEnterFunc(),
 			onEnterBack: () => laptopEnterFunc(),
