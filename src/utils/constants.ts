@@ -14,6 +14,7 @@ export const textList = [
 export const tabItems = ["Patients", "Practices"];
 
 export const patientConvo_pt1 = [
+	{ speaker: "AI", text: "How does Wednesday at 11:00 AM sound?" },
 	{ speaker: "AI", text: "Hello, you’ve reached the GP Centre." },
 	// { speaker: "AI", text: "Could you confirm your full name, please?" },
 	// { speaker: "Patient", text: "Sarah Johnson" },
