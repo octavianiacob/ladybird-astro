@@ -5,13 +5,13 @@ import FakeDashboard from "./FakeDashboard.astro";
 <script>
 	// set the height of LaptopSection__screen to 6/10 of the width of LaptopSection__screen
 	// this is to maintain the aspect ratio of the screen
-	// document.addEventListener("DOMContentLoaded", () => {
-	// 	const screen = document.querySelector(
-	// 		".LaptopSection__screen"
-	// 	) as HTMLElement;
+	document.addEventListener("DOMContentLoaded", () => {
+		const screen = document.querySelector(
+			".LaptopSection__screen"
+		) as HTMLElement;
 
-	// 	screen.style.height = `${(screen.offsetWidth * 6) / 10}px`;
-	// });
+		screen.style.height = `${(screen.offsetWidth * 6) / 10}px`;
+	});
 
 	// console.log(screen.offsetWidth);
 </script>

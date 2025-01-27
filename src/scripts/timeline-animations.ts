@@ -6,6 +6,7 @@ import Lenis from "@studio-freight/lenis";
 import { fadeInBox, fadeOutBox } from "./reusable-animations";
 import { autoplayObserver } from "./autoplay-observer";
 // import { animatePhoneText } from "./phone-animations";
+import { onMount } from "solid-js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,6 +84,150 @@ if (plainTextInnerElements.length > 0) {
 		});
 	});
 }
+
+// -------------------------- Device Section Animation ---------------------------
+const laptopEnterFunc = () => {
+	// set the active tab
+	const tabItems = document.querySelectorAll(".TabToggle__button");
+	tabItems.forEach((tabItem, ind) => {
+		if (tabItem.classList.contains("TabToggle__button--active")) {
+			tabItem.classList.remove("TabToggle__button--active");
+		}
+	});
+
+	tabItems[1].classList.add("TabToggle__button--active");
+
+	// Play the video and hide the screen
+	const video = document.querySelector(
+		".LaptopSection__vid"
+	) as HTMLVideoElement;
+	const screen = document.querySelector(
+		".LaptopSection__screen"
+	) as HTMLElement;
+	if (video) {
+		lenis.stop(); // Pause the smooth scroll
+		if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+		video.currentTime = 0; // Ensure it starts from the beginning
+		video.play();
+
+		video.onended = () => {
+			lenis.start();
+		};
+	}
+};
+
+onMount(() => {
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Pin the TabToggle
+	gsap.to(".DeviceSection__top", {
+		scrollTrigger: {
+			trigger: ".DeviceSectionWrapper",
+			start: "top top",
+			end: "bottom top",
+			pin: true,
+			pinSpacing: false,
+
+			onEnter: () => {
+				// Reset the active tab
+				const tabItems = document.querySelectorAll(".TabToggle__button");
+				tabItems.forEach((tabItem, ind) => {
+					if (tabItem.classList.contains("TabToggle__button--active")) {
+						tabItem.classList.remove("TabToggle__button--active");
+					}
+				});
+
+				tabItems[0].classList.add("TabToggle__button--active");
+			},
+		},
+	});
+
+	// Animate the main content upwards
+	gsap.to(".DeviceSection__main", {
+		scrollTrigger: {
+			trigger: ".PhoneSection",
+			start: "top top",
+			end: "bottom top",
+			scrub: true, // Sync animation with scroll
+		},
+		yPercent: -50,
+	});
+
+	// Fade in and play LaptopSection video
+	gsap.to(".LaptopSection", {
+		scrollTrigger: {
+			trigger: ".LaptopSection",
+			start: "center center", // Adjust the timing as needed
+			end: "center top",
+			scrub: true,
+			// markers: true,
+			onEnter: () => laptopEnterFunc(),
+			onEnterBack: () => laptopEnterFunc(),
+			onLeaveBack: () => {
+				// set the active tab
+				const tabItems = document.querySelectorAll(".TabToggle__button");
+				tabItems.forEach((tabItem, ind) => {
+					if (tabItem.classList.contains("TabToggle__button--active")) {
+						tabItem.classList.remove("TabToggle__button--active");
+					}
+				});
+
+				tabItems[0].classList.add("TabToggle__button--active");
+
+				const video = document.querySelector(
+					".LaptopSection__vid"
+				) as HTMLVideoElement;
+				const screen = document.querySelector(
+					".LaptopSection__screen"
+				) as HTMLElement;
+				if (video) {
+					if (screen) screen.style.opacity = "0"; // Keep screen hidden
+					video.pause();
+					video.currentTime = 0; // Reset when scrolled out of view
+				}
+			},
+		},
+		opacity: 1,
+		duration: 1,
+	});
+
+	// Fade out LaptopSection and reset video
+	gsap.to(".LaptopSection", {
+		scrollTrigger: {
+			trigger: ".LaptopSection",
+			start: "bottom center",
+			end: "bottom top",
+			scrub: true,
+			onLeave: () => {
+				const video = document.querySelector(
+					".LaptopSection__vid"
+				) as HTMLVideoElement;
+				if (video) {
+					if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+					video.pause();
+					video.currentTime = 0; // Reset when fully scrolled out
+				}
+			},
+		},
+		opacity: 0,
+		// delay: 4
+		markers: true,
+	});
+
+	// Handle video end event
+	const video = document.querySelector(
+		".LaptopSection__vid"
+	) as HTMLVideoElement;
+	const screen = document.querySelector(
+		".LaptopSection__screen"
+	) as HTMLElement;
+	if (video && screen) {
+		video.addEventListener("ended", () => {
+			screen.style.opacity = "1"; // Show the screen when video ends
+		});
+	}
+});
+// -------------------------------------------------------------------------------
 
 const bottomTl = gsap.timeline({
 	scrollTrigger: {
