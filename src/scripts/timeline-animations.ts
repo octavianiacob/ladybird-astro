@@ -237,6 +237,26 @@ onMount(() => {
 	if (video && screen) {
 		video.addEventListener("ended", () => {
 			screen.style.opacity = "1"; // Show the screen when video ends
+
+			const dashTl = gsap.timeline();
+			dashTl.fromTo(
+				".FakeDashboard__cards__item, .FakeDashboard__convo, .FakeDashboard__callLogs",
+				{ opacity: 0 },
+				{
+					opacity: 1,
+					duration: 0.3,
+					ease: "power4.inOut",
+					stagger: 0.15,
+					onComplete: () => {
+						const audio = document.querySelector(
+							".FakeDashboard__audio"
+						) as HTMLAudioElement;
+						if (audio) {
+							audio.play();
+						}
+					},
+				}
+			);
 		});
 	}
 });

@@ -102,6 +102,12 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 			}
 		</div>
 	</div>
+	<audio autoplay controls playsinline class="FakeDashboard__audio">
+		<source
+			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/urorxzbjntbu9lp7qp4l"
+			type="audio/mpeg"
+		/></audio
+	>
 </div>
 
 <style lang="scss">
@@ -130,6 +136,10 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 
 		font-size: clamp(4px, 0.9vw, 12px);
 
+		&__audio {
+			display: none;
+		}
+
 		&__cards {
 			display: grid;
 			grid-template-rows: repeat(3, 1fr);
@@ -147,6 +157,8 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 				flex-direction: column;
 				align-items: flex-start;
 				gap: 0.25rem;
+
+				opacity: 0;
 
 				&__title {
 					font-size: clamp(0px, 1.11vw, 1rem);
@@ -180,6 +192,8 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 			background-color: #fafafa;
 			border-radius: 1rem;
 			padding: clamp(0px, 1.11vw, 1rem) clamp(0px, 0.555vw, 0.5rem);
+
+			opacity: 0;
 
 			&__title {
 				font-size: clamp(0px, 1.11vw, 1rem);
@@ -224,6 +238,8 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 			background-color: #fafafa;
 			border-radius: clamp(0px, 1.11vw, 1rem);
 			padding: clamp(0px, 1.11vw, 1rem) clamp(0px, 0.555vw, 0.5rem);
+
+			opacity: 0;
 
 			&__title {
 				font-size: clamp(0px, 1.11vw, 1rem);
