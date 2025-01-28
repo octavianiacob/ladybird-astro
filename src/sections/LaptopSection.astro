@@ -10,16 +10,22 @@ import FakeDashboard from "./FakeDashboard.astro";
 			".LaptopSection__screen"
 		) as HTMLElement;
 
-		screen.style.height = `${(screen.offsetWidth * 6) / 10}px`;
+		screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
+		// screen.style.top = window.innerHeight - 140;
+		// screen.style.top = window.innerHeight - 140;
+		// screen.style.top = `calc(50% - ${screen.offsetHeight / 2}px)`;
+		// log viewport height
+		// console.log(window.innerHeight);
 	});
 
 	// console.log(screen.offsetWidth);
 </script>
 <section class="LaptopSection__inner">
 	<!-- src="/videos/laptop--cropped.mp4" -->
+	<!-- src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr" -->
 	<video
 		class="LaptopSection__vid"
-		src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/pmftei9a4xeun25v7b0j"
+		src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr"
 		muted
 		playsinline></video>
 	<div class="LaptopSection__screen">
@@ -38,37 +44,33 @@ import FakeDashboard from "./FakeDashboard.astro";
 
 		&__vid {
 			// disable clicking on the video
-			height: 100%;
-			max-height: 80vh;
+			// height: 100%;
+			// max-height: 80vh;
 
 			width: 100%;
-			max-width: clamp(0px, 100vw, 1440px);
+			max-width: clamp(0px, 80vw, 1440px);
 			object-fit: contain;
 
 			pointer-events: none;
 		}
 
 		&__screen {
-			// width: 53vw;
-			// height: 33vw;
-			// top: 10.5vw;
-			// left: 50vw;
-			// transform: translateX(-50%) translateY(0%);
-
 			position: absolute;
-			top: 42%;
+			top: 5%;
+			// top: 50px;
 			left: 50%;
 
-			width: 60%;
+			width: 65%;
 			max-width: 75vw;
 
-			// height: 60%;
-			// max-height: 65vh;
-			height: max-content;
+			max-height: 75vh;
 
-			transform: translate(-50%, -50%);
+			// height: max-content;
 
-			// background-color: #fff;
+			transform: translateX(-50%);
+			// transform: translate(-50%, -50%);
+			aspect-ratio: 16 / 10;
+
 			opacity: 0;
 			z-index: 1;
 			position: absolute;
@@ -78,9 +80,17 @@ import FakeDashboard from "./FakeDashboard.astro";
 	@media (max-width: 1024px) {
 		.LaptopSection {
 			&__screen {
-				// width: 50%;
-				// max-width: 50vw;
+				top: 3%;
 			}
 		}
 	}
+
+	// @media (max-width: 900px) {
+	// 	.LaptopSection {
+	// 		&__screen {
+	// 			width: 65%;
+	// 			max-width: 70vw;
+	// 		}
+	// 	}
+	// }
 </style>

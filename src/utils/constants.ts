@@ -14,13 +14,12 @@ export const textList = [
 export const tabItems = ["Patients", "Practices"];
 
 export const patientConvo_pt1 = [
-	{ speaker: "AI", text: "How does Wednesday at 11:00 AM sound?" },
 	{ speaker: "AI", text: "Hello, you’ve reached the GP Centre." },
-	// { speaker: "AI", text: "Could you confirm your full name, please?" },
-	// { speaker: "Patient", text: "Sarah Johnson" },
-	// { speaker: "AI", text: "Thank you, Sarah." },
-	// { speaker: "AI", text: "And your date of birth, please?" },
-	// { speaker: "Patient", text: "15th of March, 1985" },
+	{ speaker: "AI", text: "Could you confirm your full name, please?" },
+	{ speaker: "Patient", text: "Sarah Johnson" },
+	{ speaker: "AI", text: "Thank you, Sarah." },
+	{ speaker: "AI", text: "And your date of birth, please?" },
+	{ speaker: "Patient", text: "15th of March, 1985" },
 ];
 
 export const patientConvo_pt2 = [

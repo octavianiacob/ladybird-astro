@@ -86,6 +86,8 @@ if (plainTextInnerElements.length > 0) {
 }
 
 // -------------------------- Device Section Animation ---------------------------
+let isLaptopPlaying = false;
+
 const laptopEnterFunc = () => {
 	// set the active tab
 	const tabItems = document.querySelectorAll(".TabToggle__button");
@@ -104,7 +106,8 @@ const laptopEnterFunc = () => {
 	const screen = document.querySelector(
 		".LaptopSection__screen"
 	) as HTMLElement;
-	if (video) {
+	if (video && !isLaptopPlaying) {
+		isLaptopPlaying = true;
 		// lenis.stop(); // Pause the smooth scroll
 		if (screen) screen.style.opacity = "0"; // Hide screen during video playback
 		video.currentTime = 0; // Ensure it starts from the beginning
@@ -112,6 +115,7 @@ const laptopEnterFunc = () => {
 
 		video.onended = () => {
 			// lenis.start();
+			isLaptopPlaying = false;
 		};
 	}
 };
@@ -189,6 +193,7 @@ onMount(() => {
 					if (screen) screen.style.opacity = "0"; // Keep screen hidden
 					video.pause();
 					video.currentTime = 0; // Reset when scrolled out of view
+					isLaptopPlaying = false;
 				}
 			},
 		},
@@ -196,28 +201,29 @@ onMount(() => {
 		duration: 1,
 	});
 
-	// Fade out LaptopSection and reset video
-	gsap.to(".LaptopSection", {
-		scrollTrigger: {
-			trigger: ".LaptopSection",
-			start: "bottom center",
-			end: "bottom top",
-			scrub: true,
-			onLeave: () => {
-				const video = document.querySelector(
-					".LaptopSection__vid"
-				) as HTMLVideoElement;
-				if (video) {
-					if (screen) screen.style.opacity = "0"; // Hide screen during video playback
-					video.pause();
-					video.currentTime = 0; // Reset when fully scrolled out
-				}
-			},
-		},
-		opacity: 0,
-		// delay: 4
-		markers: true,
-	});
+	// // Fade out LaptopSection and reset video
+	// gsap.to(".LaptopSection", {
+	// 	scrollTrigger: {
+	// 		trigger: ".LaptopSection",
+	// 		start: "bottom center",
+	// 		end: "bottom top",
+	// 		scrub: true,
+	// 		onLeave: () => {
+	// 			const video = document.querySelector(
+	// 				".LaptopSection__vid"
+	// 			) as HTMLVideoElement;
+	// 			if (video) {
+	// 				if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+	// 				video.pause();
+	// 				video.currentTime = 0; // Reset when fully scrolled out
+	// 				isLaptopPlaying = false;
+	// 			}
+	// 		},
+	// 	},
+	// 	// opacity: 0,
+	// 	// delay: 4
+	// 	markers: true,
+	// });
 
 	// Handle video end event
 	const video = document.querySelector(
