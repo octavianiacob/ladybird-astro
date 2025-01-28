@@ -75,6 +75,14 @@ export const threeDotsToCheckmark = (
 			"<"
 		)
 		.to(
+			".PhoneSection__fakeConvoPart",
+			{
+				duration: 0.01,
+				height: 0,
+			},
+			"<"
+		)
+		.to(
 			splitElContainer[0],
 			{
 				opacity: 1,
@@ -101,11 +109,6 @@ export const threeDotsToCheckmark = (
 			duration: 0.1,
 			height: 0,
 		})
-		// .to(loadingParts[index], {
-		// 	opacity: 0,
-		// 	duration: 0.3,
-		// 	height: 0,
-		// })
 		// continue the rest of the animation
 		.to(
 			".PhoneDotLoader__dot:nth-child(1)",
@@ -167,6 +170,14 @@ export const threeDotsToCheckmark = (
 			duration: 0.3,
 			height: 0,
 		})
+		.to(
+			".PhoneSection__fakeConvoPart",
+			{
+				duration: 0.3,
+				height: "4rem",
+			},
+			"<"
+		)
 		// continue the rest of the animation
 		.to(".checkmarkPath", {
 			// animate (hiding) the checkmark

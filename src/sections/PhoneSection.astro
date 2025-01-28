@@ -18,6 +18,7 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 	<div class="PhoneSection__inner">
 		<PhoneDotLoader />
 		<div class="PhoneSection__convoWrap">
+			<div class="PhoneSection__fakeConvoPart"></div>
 			{
 				[
 					patientConvo_pt1,
@@ -89,7 +90,8 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 		}
 
 		&__convoPart,
-		&__loadingPart {
+		&__loadingPart,
+		&__fakeConvoPart {
 			height: 0;
 			overflow: hidden;
 		}

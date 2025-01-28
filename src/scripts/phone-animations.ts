@@ -20,7 +20,7 @@ const regularDotMovement = () => {
 	dots.forEach((dot, i) => {
 		const animation = gsap.to(dot, {
 			yPercent: -300, // Move up
-			duration: 0.5, // Total duration
+			duration: 0.45, // Total duration
 			ease: "ease.inOut", // Easing function
 			yoyo: true, // Reverse back to original
 			repeat: -1, // Infinite loop
@@ -32,8 +32,6 @@ const regularDotMovement = () => {
 };
 
 regularDotMovement();
-
-// const generateTextAnimation = (timeline, convoPart, )
 
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
@@ -54,11 +52,20 @@ const playConversation = async () => {
 
 		[...convoPart.children].forEach((response, index) => {
 			if (index === 0) {
-				timeline.to(convoPart, {
-					opacity: 1,
-					duration: 0.3,
-					height: "4rem",
-				});
+				timeline
+					.to(convoPart, {
+						opacity: 1,
+						duration: 0.3,
+						height: "4rem",
+					})
+					.to(
+						".PhoneSection__fakeConvoPart",
+						{
+							duration: 0.3,
+							height: 0,
+						},
+						"<"
+					);
 			}
 
 			const splitElContainer = convoParts[convoIndex].querySelectorAll(
@@ -94,11 +101,20 @@ const playConversation = async () => {
 				});
 
 			if (index === convoPart.children.length - 1) {
-				timeline.to(convoPart, {
-					opacity: 0,
-					duration: 0.3,
-					height: 0,
-				});
+				timeline
+					.to(convoPart, {
+						opacity: 0,
+						duration: 0.3,
+						height: 0,
+					})
+					.to(
+						".PhoneSection__fakeConvoPart",
+						{
+							duration: 0.3,
+							height: "4rem",
+						},
+						"<"
+					);
 			}
 		});
 
