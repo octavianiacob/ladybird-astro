@@ -212,7 +212,7 @@ loader.load(
 						});
 					}, (halfDuration / action.timeScale) * 1000); // Convert to milliseconds
 				},
-				markers: true, // Debug markers (optional)
+				// markers: true, // Debug markers (optional)
 			});
 		}
 	},
