@@ -121,8 +121,6 @@ const laptopEnterFunc = () => {
 };
 
 onMount(() => {
-	gsap.registerPlugin(ScrollTrigger);
-
 	// Pin the TabToggle
 	gsap.to(".DeviceSection__top", {
 		scrollTrigger: {
@@ -130,7 +128,6 @@ onMount(() => {
 			start: "top top",
 			end: "bottom bottom",
 			pin: true,
-			pinSpacing: false,
 
 			onEnter: () => {
 				// Reset the active tab
