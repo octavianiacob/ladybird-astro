@@ -245,9 +245,9 @@ const bottomTl = gsap.timeline({
 		trigger: ".BottomSectionWrapper", // Wrapper for all boxes
 		// pin: true,
 		start: "top 50%",
-		end: `+=${innerHeight}`, // Each box gets a full viewport height
+		end: `+=100%`, // Scroll to the end of the page
 		scrub: true, // Smooth linking with scroll
-		// markers: true, // Enable for debugging
+		markers: true, // Enable for debugging
 	},
 });
 
