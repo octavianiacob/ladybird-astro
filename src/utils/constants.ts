@@ -15,18 +15,18 @@ export const tabItems = ["Patients", "Practices"];
 
 export const patientConvo_pt1 = [
 	{ speaker: "AI", text: "Hello, you’ve reached the GP Centre." },
-	// { speaker: "AI", text: "Could you confirm your full name, please?" },
-	// { speaker: "Patient", text: "Sarah Johnson" },
-	// { speaker: "AI", text: "Thank you, Sarah." },
-	// { speaker: "AI", text: "And your date of birth, please?" },
-	// { speaker: "Patient", text: "15th of March, 1985" },
+	{ speaker: "AI", text: "Could you confirm your full name, please?" },
+	{ speaker: "Patient", text: "Sarah Johnson" },
+	{ speaker: "AI", text: "Thank you, Sarah." },
+	{ speaker: "AI", text: "And your date of birth, please?" },
+	{ speaker: "Patient", text: "15th of March, 1985" },
 ];
 
 export const patientConvo_pt2 = [
 	{ speaker: "AI", text: "Thanks, Sarah." },
-	// { speaker: "AI", text: "How can I help?" },
-	// { speaker: "Patient", text: "I’ve been having headaches on and off" },
-	// { speaker: "Patient", text: "For the past few weeks." },
+	{ speaker: "AI", text: "How can I help?" },
+	{ speaker: "Patient", text: "I’ve been having headaches on and off" },
+	{ speaker: "Patient", text: "For the past few weeks." },
 ];
 
 export const patientConvo_pt3 = [
