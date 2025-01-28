@@ -9,6 +9,10 @@ import { autoplayObserver } from "./autoplay-observer";
 import { onMount } from "solid-js";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({
+	ignoreMobileResize: true,
+});
+ScrollTrigger.normalizeScroll(true);
 
 /* ---- Lenis Smooth Scroll ----- */
 const lenis = new Lenis({
@@ -166,6 +170,7 @@ onMount(() => {
 				duration: 0.25,
 				ease: "power1.inOut",
 			},
+
 			// markers: true,
 			onEnter: () => laptopEnterFunc(),
 			onEnterBack: () => laptopEnterFunc(),
