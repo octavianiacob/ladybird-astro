@@ -114,27 +114,31 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 		height: 100%;
 		// overflow: auto;
 		overflow: hidden;
-		padding: 1.5rem;
+		padding: clamp(2px, 1.7vw, 1.5rem);
 
 		display: grid;
-		grid-template-columns: 8rem 1fr 10rem;
-		gap: 1rem;
+		grid-template-columns: clamp(0px, 8.8vw, 8rem) 1fr clamp(
+				0px,
+				11.11vw,
+				10rem
+			);
+		gap: clamp(0px, 1.11vw, 1rem);
 
 		// border-top-left-radius: 2rem;
 		// border-top-right-radius: 2rem;
 		// overflow: hidden;
 
-		font-size: 12px;
+		font-size: clamp(4px, 0.9vw, 12px);
 
 		&__cards {
 			display: grid;
 			grid-template-rows: repeat(3, 1fr);
-			gap: 1rem;
+			gap: clamp(0px, 1.11vw, 1rem);
 
 			&__item {
 				background-color: #fafafa;
-				padding: 0.75rem 0.5rem;
-				border-radius: 1rem;
+				padding: 0.75rem clamp(0px, 0.555vw, 0.5rem);
+				border-radius: clamp(0px, 1.11vw, 1rem);
 				// box-shadow:
 				// 	0 2px 5px rgba(0, 0, 0, 0.1),
 				// 	0 1px 2px rgba(0, 0, 0, 0.06);
@@ -145,18 +149,18 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 				gap: 0.25rem;
 
 				&__title {
-					font-size: 1rem;
+					font-size: clamp(0px, 1.11vw, 1rem);
 					margin-bottom: auto;
 				}
 
 				&__value {
-					font-size: 1.8rem;
+					font-size: clamp(5px, 1.8vw, 1.8rem);
 					// font-weight: 600;
 				}
 
 				&__percent {
 					color: #61d43e;
-					font-size: 10px;
+					font-size: clamp(3px, 0.7vw, 10px);
 
 					display: flex;
 					flex-direction: row;
@@ -165,8 +169,8 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 					font-weight: 600;
 
 					svg {
-						width: 10px;
-						height: 10px;
+						width: clamp(3px, 0.7vw, 10px);
+						height: clamp(3px, 0.7vw, 10px);
 					}
 				}
 			}
@@ -175,30 +179,30 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 		&__convo {
 			background-color: #fafafa;
 			border-radius: 1rem;
-			padding: 1rem 0.5rem;
+			padding: clamp(0px, 1.11vw, 1rem) clamp(0px, 0.555vw, 0.5rem);
 
 			&__title {
-				font-size: 1rem;
-				margin-bottom: 1rem;
+				font-size: clamp(0px, 1.11vw, 1rem);
+				margin-bottom: clamp(0px, 1.11vw, 1rem);
 			}
 
 			& > div {
 				display: grid;
-				grid-template-columns: 0.5rem 1fr;
+				grid-template-columns: clamp(0px, 0.555vw, 0.5rem) 1fr;
 				align-items: stretch;
-				gap: 1rem;
+				gap: clamp(0px, 1.11vw, 1rem);
 			}
 
 			.ProgressBar {
-				width: 0.5rem;
+				width: clamp(0px, 0.555vw, 0.5rem);
 				height: 100%;
 				background-color: #eeeeee;
-				border-radius: 1rem;
+				border-radius: clamp(0px, 1.11vw, 1rem);
 
 				&__bar {
 					height: 25%;
 					background-color: #61d43e;
-					border-radius: 1rem;
+					border-radius: clamp(0px, 1.11vw, 1rem);
 					margin: 1.8rem 0;
 				}
 			}
@@ -211,20 +215,20 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 				height: 100%;
 
 				.group {
-					font-size: 10px;
+					font-size: clamp(3px, 0.7vw, 10px);
 				}
 			}
 		}
 
 		&__callLogs {
 			background-color: #fafafa;
-			border-radius: 1rem;
-			padding: 1rem 0.5rem;
+			border-radius: clamp(0px, 1.11vw, 1rem);
+			padding: clamp(0px, 1.11vw, 1rem) clamp(0px, 0.555vw, 0.5rem);
 
 			&__title {
-				font-size: 1rem;
-				margin-bottom: 1rem;
-				margin-left: 0.5rem;
+				font-size: clamp(0px, 1.11vw, 1rem);
+				margin-bottom: clamp(0px, 1.11vw, 1rem);
+				margin-left: clamp(0px, 0.555vw, 0.5rem);
 			}
 		}
 
@@ -232,10 +236,10 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 			display: flex;
 			flex-direction: column;
 			align-items: stretch;
-			gap: 1rem;
+			gap: clamp(0px, 1.11vw, 1rem);
 
 			&__item {
-				border-radius: 1rem;
+				border-radius: clamp(0px, 1.11vw, 1rem);
 				// box-shadow:
 				// 	0 2px 5px rgba(0, 0, 0, 0.1),
 				// 	0 1px 2px rgba(0, 0, 0, 0.06);
@@ -243,7 +247,7 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				gap: 1rem;
+				gap: clamp(0px, 1.11vw, 1rem);
 
 				&__text {
 					display: flex;
@@ -252,10 +256,10 @@ import { callLogs, dashCards, fakeConvoList } from "../utils/constants";
 					gap: 0.25rem;
 
 					.name {
-						font-size: 0.75rem;
+						font-size: clamp(5px, 0.833vw, 0.75rem);
 					}
 					.dateTime {
-						font-size: 0.5rem;
+						font-size: clamp(0px, 0.555vw, 0.5rem);
 						color: #b5b4b4;
 					}
 				}
