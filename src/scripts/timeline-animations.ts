@@ -269,7 +269,7 @@ const bottomTl = gsap.timeline({
 		start: "top 50%",
 		end: `+=100%`, // Scroll to the end of the page
 		scrub: true, // Smooth linking with scroll
-		markers: true, // Enable for debugging
+		// markers: true, // Enable for debugging
 	},
 });
 
