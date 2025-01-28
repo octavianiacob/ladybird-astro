@@ -24,18 +24,19 @@ import FakeDashboard from "./FakeDashboard.astro";
 	});
 
 	// console.log(screen.offsetWidth);
+	// https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr
 </script>
 <section class="LaptopSection__inner">
-	<!-- src="/videos/laptop--cropped.mp4" -->
-	<!-- src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr" -->
-	<video
-		class="LaptopSection__vid"
-		src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr"
-		muted
-		playsinline></video>
-	<div class="LaptopSection__screen">
-		<!-- <canvas></canvas> -->
-		<FakeDashboard />
+	<div class="LaptopSection__innerWrap">
+		<video
+			class="LaptopSection__vid"
+			src="/videos/laptop--cropped.mp4"
+			muted
+			playsinline></video>
+		<div class="LaptopSection__screen">
+			<!-- <canvas></canvas> -->
+			<FakeDashboard />
+		</div>
 	</div>
 </section>
 
@@ -45,6 +46,13 @@ import FakeDashboard from "./FakeDashboard.astro";
 			height: 100%;
 			width: max-content;
 			position: relative;
+			display: flex;
+		}
+
+		&__innerWrap {
+			position: relative;
+			height: max-content;
+			margin: auto 0;
 		}
 
 		&__vid {
