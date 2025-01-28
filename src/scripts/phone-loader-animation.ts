@@ -44,32 +44,36 @@ export const threeDotsToCheckmark = (
 		.to(".PhoneDotLoader__dot", {
 			// reset the dots
 			yPercent: 0,
-			duration: 0.2,
-			stagger: 0.05,
+			duration: 0.45,
+			stagger: 0.1,
 			// ease: "power2.inOut",
 		})
 		.to(".PhoneDotLoader__dot:nth-child(2)", {
 			// hide the middle dot
 			opacity: 0,
-			duration: 0.5,
+			duration: 0.3,
 			stagger: 0.1,
 			// ease: "power2.inOut",
 		})
-		.to(".circle", {
-			// animate (draw) the circle
-			// strokeDashoffset: 423.9,
-			strokeDashoffset: 847.8,
-			duration: 2.5,
-			ease: "power4.inOut",
-		})
+		.to(
+			".circle",
+			{
+				// animate (draw) the circle
+				// strokeDashoffset: 423.9,
+				strokeDashoffset: 847.8,
+				duration: 3,
+				ease: "power4.inOut",
+			},
+			"<"
+		)
 		// text bit part 1
-		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.01 }, "2")
-		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.01 }, "<")
+		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<")
+		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.001 }, "<")
 		.to(
 			loadingParts[index],
 			{
 				opacity: 1,
-				duration: 0.01,
+				duration: 0.001,
 				height: "4rem",
 			},
 			"<"
@@ -77,7 +81,7 @@ export const threeDotsToCheckmark = (
 		.to(
 			".PhoneSection__fakeConvoPart",
 			{
-				duration: 0.01,
+				duration: 0.001,
 				height: 0,
 			},
 			"<"
@@ -94,15 +98,15 @@ export const threeDotsToCheckmark = (
 		.fromTo(
 			splitElementsOne,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" },
+			{ opacity: 1, duration: 0.05, stagger: 0.03, width: "auto" },
 			">"
 		)
 		.to(reversedSplitElementsOne, {
 			opacity: 0,
 			width: 0,
-			duration: 0.08,
+			duration: 0.05,
 			stagger: 0.03,
-			delay: 2, // Pause between responses
+			delay: 0.2, // Pause between responses
 		})
 		.to(splitElContainer[0], {
 			opacity: 0,
@@ -111,47 +115,52 @@ export const threeDotsToCheckmark = (
 		})
 		// continue the rest of the animation
 		.to(
-			".PhoneDotLoader__dot:nth-child(1)",
+			".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3)",
 			{
-				// hide the first dot
+				// hide the first and last dot
 				opacity: 0,
 				duration: 0.3,
 				stagger: 0.1,
 				// ease: "power2.inOut",
 			},
-			"3"
+			"3.5"
 		)
 		.to(
 			".checkmarkPath",
 			{
 				// animate (drawing) the checkmark
 				strokeDashoffset: 80,
-				duration: 0.5,
+				duration: 0.8,
 				ease: "power4.out",
 			},
-			">+=3.5"
+			">+=0.4"
 		)
+		// .to(
+		// 	".PhoneDotLoader__dot:nth-child(3)",
+		// 	{
+		// 		// hide the last dot
+		// 		opacity: 0,
+		// 		duration: 0.5,
+		// 		stagger: 0.1,
+		// 		// ease: "power2.inOut",
+		// 	},
+		// 	"<"
+		// )
+		// text bit part 2
 		.to(
-			".PhoneDotLoader__dot:nth-child(3)",
+			splitElContainer[1],
 			{
-				// hide the last dot
-				opacity: 0,
-				duration: 0.5,
-				stagger: 0.1,
-				// ease: "power2.inOut",
+				opacity: 1,
+				height: "auto",
+				duration: 0.1,
 			},
 			"<"
 		)
-		// text bit part 2
-		.to(splitElContainer[1], {
-			opacity: 1,
-			height: "auto",
-			duration: 0.1,
-		})
 		.fromTo(
 			splitElementsTwo,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" }
+			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" },
+			"<"
 		)
 		.to(reversedSplitElementsTwo, {
 			opacity: 0,
@@ -179,13 +188,17 @@ export const threeDotsToCheckmark = (
 			"<"
 		)
 		// continue the rest of the animation
-		.to(".checkmarkPath", {
-			// animate (hiding) the checkmark
-			strokeDashoffset: 100,
-			delay: 1,
-			duration: 0.5,
-			ease: "power4.out",
-		})
+		.to(
+			".checkmarkPath",
+			{
+				// animate (hiding) the checkmark
+				strokeDashoffset: 100,
+				delay: 1,
+				duration: 0.5,
+				ease: "power4.out",
+			},
+			"<"
+		)
 		.to(".circle", {
 			// hide the circle
 			opacity: 0,
@@ -237,7 +250,7 @@ export const threeDotsToSpinner = (
 		.to(".PhoneDotLoader__dot", {
 			// reset the dots
 			yPercent: 0,
-			duration: 0.5,
+			duration: 0.45,
 			stagger: 0.1,
 			// ease: "power2.inOut",
 		})
@@ -245,16 +258,16 @@ export const threeDotsToSpinner = (
 			".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(1)",
 			{
 				// hide the first two dots
-				duration: 0.8,
+				duration: 0.3,
 				opacity: 0,
-				stagger: 0.5,
+				stagger: 0.15,
 				// ease: "power2.inOut",
 			}
 		)
 		.to(".circle", {
 			// animate (draw) the circle
 			strokeDashoffset: 847.8,
-			duration: 2.5,
+			duration: 2,
 			ease: "power4.inOut",
 		})
 		.to(
@@ -265,7 +278,7 @@ export const threeDotsToSpinner = (
 				duration: 0.5,
 				ease: "power4.out",
 			},
-			"<+=1.28"
+			"<+=1"
 		)
 		.to(
 			".PhoneDotLoader__dot:nth-child(3)",
