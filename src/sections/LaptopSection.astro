@@ -9,8 +9,13 @@ import FakeDashboard from "./FakeDashboard.astro";
 		const screen = document.querySelector(
 			".LaptopSection__screen"
 		) as HTMLElement;
+		const video = document.querySelector(
+			".LaptopSection__vid"
+		) as HTMLVideoElement;
 
-		screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
+		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
+		screen.style.width = `${video.offsetWidth * 0.7}px`;
+		screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
 		// screen.style.top = window.innerHeight - 140;
 		// screen.style.top = window.innerHeight - 140;
 		// screen.style.top = `calc(50% - ${screen.offsetHeight / 2}px)`;
@@ -60,12 +65,10 @@ import FakeDashboard from "./FakeDashboard.astro";
 			// top: 50px;
 			left: 50%;
 
-			width: 65%;
-			max-width: 75vw;
+			// width: 65%;
+			// max-width: 75vw;
 
-			max-height: 75vh;
-
-			// height: max-content;
+			// max-height: 75vh;
 
 			transform: translateX(-50%);
 			// transform: translate(-50%, -50%);
