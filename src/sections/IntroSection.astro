@@ -7,27 +7,6 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		<!-- <svg viewBox="0 0 3206 4293" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
 				class="IntroSection__path"
-				d="M1608.46 1231.5C-375.035 1347.5 -40.0524 4065.48 580.382 4178.9C2155.8 4466.89 1177.38 250.996 306.755 99"
-				stroke="#FF0000"
-				stroke-width="200"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-dasharray="10000"
-				stroke-dashoffset="10000"></path>
-			<path
-				class="IntroSection__path"
-				d="M1597 1231.5C3580.5 1347.5 3245.51 4065.48 2625.08 4178.9C1049.66 4466.89 2028.08 250.996 2898.71 99"
-				stroke="#FF0000"
-				stroke-width="200"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-dasharray="10000"
-				stroke-dashoffset="10000"></path>
-		</svg> -->
-
-		<svg viewBox="0 0 3206 4293" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path
-				class="IntroSection__path"
 				d="M1608.46 1231.5C-375.035 1347.5 -40.0524 4065.48 580.382 4178.9C2155.8 4466.89 1177.38 250.996 306.755 99 
 				   M1597 1231.5C3580.5 1347.5 3245.51 4065.48 2625.08 4178.9C1049.66 4466.89 2028.08 250.996 2898.71 99"
 				stroke="#FF0000"
@@ -36,7 +15,13 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 				stroke-linejoin="round"
 				stroke-dasharray="10000"
 				stroke-dashoffset="10000"></path>
-		</svg>
+		</svg> -->
+		<video
+			class="IntroSection__vid"
+			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/tcklrv2f0rj6e0eignbq"
+			muted
+			playsinline
+			autoplay></video>
 	</div>
 </SectionLayout>
 
@@ -45,6 +30,12 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		width: 100%;
 		display: grid;
 		place-items: center;
+
+		&__vid {
+			width: 100%;
+			height: 100vh;
+			object-fit: contain;
+		}
 
 		svg {
 			width: 100%;
