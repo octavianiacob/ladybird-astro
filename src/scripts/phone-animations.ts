@@ -19,8 +19,8 @@ const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 	dots.forEach((dot, i) => {
 		const animation = gsap.to(dot, {
-			yPercent: -300, // Move up
-			duration: 0.45, // Total duration
+			yPercent: -100, // Move up
+			duration: 0.5, // Total duration
 			ease: "ease.inOut", // Easing function
 			yoyo: true, // Reverse back to original
 			repeat: -1, // Infinite loop

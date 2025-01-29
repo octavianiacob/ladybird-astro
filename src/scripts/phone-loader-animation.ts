@@ -129,7 +129,7 @@ export const threeDotsToCheckmark = (
 			".checkmarkPath",
 			{
 				// animate (drawing) the checkmark
-				strokeDashoffset: 80,
+				strokeDashoffset: index === 1 ? 100 : 80,
 				duration: 0.8,
 				ease: "power4.out",
 			},
