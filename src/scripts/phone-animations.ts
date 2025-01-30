@@ -17,14 +17,14 @@ import {
 let animations: gsap.core.Tween[] = [];
 const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
-	dots.forEach((dot, i) => {
+	[...dots].reverse().forEach((dot, i) => {
 		const animation = gsap.to(dot, {
-			yPercent: -100, // Move up
-			duration: 0.5, // Total duration
-			ease: "ease.inOut", // Easing function
+			yPercent: -70, // Move up
+			duration: 0.6, // Total duration
+			ease: "linear", // Easing function
 			yoyo: true, // Reverse back to original
 			repeat: -1, // Infinite loop
-			delay: i * 0.1, // Stagger based on index
+			delay: i * 0.15, // Stagger based on index
 		});
 
 		animations.push(animation);
@@ -73,7 +73,7 @@ const playConversation = async () => {
 			)[index];
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".PhoneSection__convo__text")
-				[index].querySelectorAll(".char");
+				[index].querySelectorAll(".word");
 			const reversedSplitElements = [...splitElements].reverse();
 
 			timeline
@@ -85,13 +85,13 @@ const playConversation = async () => {
 				.fromTo(
 					splitElements,
 					{ opacity: 0, width: 0 },
-					{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" }
+					{ opacity: 1, duration: 0.5, stagger: 0.5, width: "auto" }
 				)
 				.to(reversedSplitElements, {
 					opacity: 0,
 					width: 0,
-					duration: 0.08,
-					stagger: 0.03,
+					duration: 0.25,
+					stagger: 0.2,
 					delay: 3, // Pause between responses
 				})
 				.to(splitElContainer, {

@@ -27,12 +27,12 @@ export const threeDotsToCheckmark = (
 
 	const splitElementsOne = loadingParts[index]
 		.querySelectorAll(".PhoneSection__loading__text")[0]
-		.querySelectorAll(".char");
+		.querySelectorAll(".word");
 	const reversedSplitElementsOne = [...splitElementsOne].reverse();
 
 	const splitElementsTwo = loadingParts[index]
 		.querySelectorAll(".PhoneSection__loading__text")[1]
-		.querySelectorAll(".char");
+		.querySelectorAll(".word");
 	const reversedSplitElementsTwo = [...splitElementsTwo].reverse();
 
 	pauseDotAnimations(dotAnimations);
@@ -98,14 +98,14 @@ export const threeDotsToCheckmark = (
 		.fromTo(
 			splitElementsOne,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.05, stagger: 0.03, width: "auto" },
+			{ opacity: 1, duration: 0.8, stagger: 0.3, width: "auto" },
 			">"
 		)
 		.to(reversedSplitElementsOne, {
 			opacity: 0,
 			width: 0,
-			duration: 0.05,
-			stagger: 0.03,
+			duration: 0.5,
+			stagger: 0.3,
 			delay: 0.2, // Pause between responses
 		})
 		.to(splitElContainer[0], {
@@ -159,7 +159,7 @@ export const threeDotsToCheckmark = (
 		.fromTo(
 			splitElementsTwo,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.08, stagger: 0.03, width: "auto" },
+			{ opacity: 1, duration: 0.8, stagger: 0.3, width: "auto" },
 			"<"
 		)
 		.to(reversedSplitElementsTwo, {

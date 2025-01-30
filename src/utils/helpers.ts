@@ -42,7 +42,7 @@ export const splitConvoTextIntoChars = (textElements: NodeListOf<Element>) => {
 	textElements.forEach((element) => {
 		// Ensure the element is valid
 		if (element instanceof HTMLElement) {
-			new SplitType(element, { types: "chars,words" });
+			new SplitType(element, { types: "words" });
 		} else {
 			console.error("Invalid element detected:", element);
 		}
