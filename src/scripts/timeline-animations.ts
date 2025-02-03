@@ -55,20 +55,13 @@ const plainTextSection = document.querySelector(
 
 const plainTl = gsap.timeline({
 	paused: true,
-	onStart: () => {
-		// document.body.style.overflow = "hidden"; // Prevent any manual scrolling
-	}, // Pause scrolling when animation starts
-	onComplete: () => {}, // Resume scrolling after animation ends
-	onReverseComplete: () => {
-		// document.body.style.overflow = ""; // Restore scrolling
-	}, // Resume scrolling after reversing
 });
 
 if (plainTextInnerElements.length > 0) {
 	plainTextInnerElements.forEach((_, index) => {
 		if (index < plainTextInnerElements.length - 1)
 			plainTl
-				.to({}, { duration: 1.5 }) // Pause before moving to next section
+				.to({}, { duration: 1.5 }) // Pause before moving to the next section
 				.to(".PlainTextSection", {
 					yPercent: -(100 / plainTextInnerElements.length) * (index + 1),
 					duration: 1,
@@ -76,24 +69,21 @@ if (plainTextInnerElements.length > 0) {
 				});
 	});
 
-	// ScrollTrigger to detect scroll direction
+	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
 		trigger: ".PlainTextSection",
 		start: "top top",
-		end: "top 5%", // Detects scroll-up movement
+		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
-			// plainTextSection.style.opacity = "1";
-			plainTl.restart(true, false);
-		}, // Auto-scroll forward when entering
-		onLeaveBack: () => {
-			// plainTextSection.style.opacity = "1";
-			plainTl.restart(true, false);
-		}, // Restart animation when scrolling up
-		onLeave: () => {
-			// plainTextSection.style.opacity = "0";
+			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
+			plainTl.restart(true, false); // Play from start when entering
 		},
-		pin: true,
-		// markers: true,
+		onLeaveBack: () => {
+			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
+			plainTl.restart(true, false); // Restart when scrolling back up
+		},
+		pin: true, // Keeps the section fixed while animation plays
+		// markers: true, // Uncomment for debugging
 	});
 }
 
