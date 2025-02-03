@@ -49,45 +49,55 @@ introTl.to(".IntroSection__path", {
 const plainTextInnerElements = document.querySelectorAll(
 	".PlainTextSection__inner"
 ) as NodeListOf<HTMLElement>;
+const plainTextSection = document.querySelector(
+	".PlainTextSection"
+) as HTMLElement;
+
+const plainTl = gsap.timeline({
+	paused: true,
+	onStart: () => {
+		// document.body.style.overflow = "hidden"; // Prevent any manual scrolling
+	}, // Pause scrolling when animation starts
+	onComplete: () => {}, // Resume scrolling after animation ends
+	onReverseComplete: () => {
+		// document.body.style.overflow = ""; // Restore scrolling
+	}, // Resume scrolling after reversing
+});
 
 if (plainTextInnerElements.length > 0) {
-	plainTextInnerElements.forEach((box, index) => {
-		// Set initial opacity for all sections
-		if (index === 0) {
-			box.style.opacity = "1"; // First section visible by default
-		} else {
-			box.style.opacity = "0"; // All other sections hidden initially
-		}
+	plainTextInnerElements.forEach((_, index) => {
+		if (index < plainTextInnerElements.length - 1)
+			plainTl
+				.to({}, { duration: 1.5 }) // Pause before moving to next section
+				.to(".PlainTextSection", {
+					yPercent: -(100 / plainTextInnerElements.length) * (index + 1),
+					duration: 1,
+					ease: "power2.inOut",
+				});
+	});
 
-		gsap.to(box, {
-			scrollTrigger: {
-				trigger: box,
-				start: "top top", // Start when this section hits the top
-				end: "bottom top", // End when this section leaves the viewport
-				pin: true, // Pin this section during the scroll
-				snap: {
-					snapTo: 1, // Snap to the next section (1 section per scroll)
-					duration: 0.25, // Smooth snap animation duration
-					ease: "power1.inOut", // Smooth easing for snap
-				},
-				onEnter: () => {
-					gsap.to(box, { opacity: 1, duration: 0.5 }); // Fade in incoming section
-				},
-				onLeave: () => {
-					gsap.to(box, { opacity: 0, duration: 0.5 }); // Fade out section being scrolled away
-				},
-				onEnterBack: () => {
-					gsap.to(box, { opacity: 1, duration: 0.5 }); // Fade in section when scrolling back
-				},
-				onLeaveBack: () => {
-					gsap.to(box, { opacity: 0, duration: 0.5 }); // Fade out section when scrolling back
-				},
-				// Optional: Add markers for debugging
-				// markers: false,
-			},
-		});
+	// ScrollTrigger to detect scroll direction
+	ScrollTrigger.create({
+		trigger: ".PlainTextSection",
+		start: "top top",
+		end: "top 5%", // Detects scroll-up movement
+		onEnter: () => {
+			// plainTextSection.style.opacity = "1";
+			plainTl.restart(true, false);
+		}, // Auto-scroll forward when entering
+		onLeaveBack: () => {
+			// plainTextSection.style.opacity = "1";
+			plainTl.restart(true, false);
+		}, // Restart animation when scrolling up
+		onLeave: () => {
+			// plainTextSection.style.opacity = "0";
+		},
+		pin: true,
+		// markers: true,
 	});
 }
+
+// plainTl.play();
 
 // -------------------------- Device Section Animation ---------------------------
 let isLaptopPlaying = false;
