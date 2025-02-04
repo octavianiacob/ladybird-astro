@@ -127,3 +127,46 @@ export function setDivToLargest16By10Size(div: HTMLElement) {
 	div.style.height = `${height}px`;
 	// Ensure block-level display
 }
+
+// helpers.ts
+
+// We'll store the current scroll position so that when we re-enable scroll
+// we can restore the page’s position.
+let scrollPosition = 0;
+
+/**
+ * Disables user scrolling.
+ * It fixes the document body at the current scroll position.
+ */
+export function disableScroll() {
+	// Save the current scroll position
+	scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+	// Set the body styles to "lock" the scroll.
+	// Using position: fixed prevents further scroll while preserving the current view.
+	document.body.style.overflow = "hidden";
+	document.body.style.position = "fixed";
+	document.body.style.top = `-${scrollPosition}px`;
+
+	// Optionally, if you're using Lenis you might want to pause it:
+	// lenis.stop();
+
+	console.log(window.pageYOffset, document.documentElement.scrollTop);
+}
+
+/**
+ * Enables user scrolling.
+ * It removes the styles added in disableScroll() and resets the scroll position.
+ */
+export function enableScroll() {
+	// Restore the body's scrollability
+	document.body.style.overflow = "";
+	document.body.style.position = "";
+	document.body.style.top = "";
+
+	// Restore the scroll position (if needed)
+	window.scrollTo(0, scrollPosition);
+
+	// Optionally, if you're using Lenis you might want to resume it:
+	// lenis.start();
+}

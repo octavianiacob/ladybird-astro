@@ -38,13 +38,56 @@ const introTl = gsap.timeline({
 	},
 });
 
-introTl.to(".IntroSection__path", {
-	// animate (draw) the circle
-	// strokeDashoffset: 423.9,
-	strokeDashoffset: 0,
-	duration: 3.5,
-	ease: "power4.inOut",
+introTl.to(".IntroSection", {
+	opacity: 1,
+	duration: 0.5,
 });
+
+let isMoving = false;
+
+window.addEventListener("scroll", (e) => {
+	// if scrollPosition is equal to viewport height, then enable scroll
+	console.log(window.scrollY, window.innerHeight);
+	if (window.scrollY < 10) {
+		isMoving = false;
+	}
+	if (
+		window.scrollY > window.innerHeight &&
+		window.scrollY < window.innerHeight * 2 &&
+		!isMoving
+	) {
+		disableScroll();
+	}
+});
+export function disableScroll() {
+	// Save the current scroll position
+	isMoving = true;
+
+	window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+
+	// isMoving = false;
+	// Set the body styles to "lock" the scroll.
+	// Using position: fixed prevents further scroll while preserving the current view.
+	document.body.style.overflow = "hidden";
+	document.body.style.position = "fixed";
+	document.body.style.top = `-${window.innerHeight}px`;
+
+	// Optionally, if you're using Lenis you might want to pause it:
+	// lenis.stop();
+}
+export function enableScroll() {
+	// Restore the body's scrollability
+	document.body.style.overflow = "";
+	document.body.style.position = "";
+	document.body.style.top = "";
+
+	// Restore the scroll position (if needed)
+	isMoving = true;
+	window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
+
+	// Optionally, if you're using Lenis you might want to resume it:
+	// lenis.start();
+}
 
 const plainTextInnerElements = document.querySelectorAll(
 	".PlainTextSection__inner"
@@ -55,6 +98,14 @@ const plainTextSection = document.querySelector(
 
 const plainTl = gsap.timeline({
 	paused: true,
+	onComplete: () => {
+		// Enable scroll when animation completes
+		enableScroll();
+	},
+});
+plainTl.to(".IntroSection", {
+	opacity: 0,
+	duration: 0.5,
 });
 
 if (plainTextInnerElements.length > 0) {
@@ -62,11 +113,21 @@ if (plainTextInnerElements.length > 0) {
 		if (index < plainTextInnerElements.length - 1)
 			plainTl
 				.to({}, { duration: 1.5 }) // Pause before moving to the next section
+				.to(
+					".PlainTextSection",
+					{
+						opacity: 1,
+						duration: 0.5,
+					},
+					"<"
+				)
 				.to(".PlainTextSection", {
 					yPercent: -(100 / plainTextInnerElements.length) * (index + 1),
 					duration: 1,
 					ease: "power2.inOut",
 				});
+		else if (index === plainTextInnerElements.length - 1)
+			plainTl.to(".PlainTextSection", { opacity: 0, duration: 1.5 }); // Pause before moving to the next section
 	});
 
 	// ScrollTrigger to detect scroll direction and pin the section
