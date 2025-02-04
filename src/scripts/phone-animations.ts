@@ -19,12 +19,12 @@ const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 	[...dots].reverse().forEach((dot, i) => {
 		const animation = gsap.to(dot, {
-			yPercent: -70, // Move up
+			yPercent: -80, // Move up
 			duration: 0.6, // Total duration
 			ease: "linear", // Easing function
 			yoyo: true, // Reverse back to original
 			repeat: -1, // Infinite loop
-			delay: i * 0.15, // Stagger based on index
+			delay: i * 0.22, // Stagger based on index
 		});
 
 		animations.push(animation);
@@ -73,7 +73,7 @@ const playConversation = async () => {
 			)[index];
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".PhoneSection__convo__text")
-				[index].querySelectorAll(".word");
+				[index].querySelectorAll(".char");
 			const reversedSplitElements = [...splitElements].reverse();
 
 			timeline
@@ -85,13 +85,13 @@ const playConversation = async () => {
 				.fromTo(
 					splitElements,
 					{ opacity: 0, width: 0 },
-					{ opacity: 1, duration: 0.5, stagger: 0.5, width: "auto" }
+					{ opacity: 1, duration: 0.05, stagger: 0.04, width: "auto" }
 				)
 				.to(reversedSplitElements, {
 					opacity: 0,
 					width: 0,
-					duration: 0.25,
-					stagger: 0.2,
+					duration: 0.05,
+					stagger: 0.05,
 					delay: 3, // Pause between responses
 				})
 				.to(splitElContainer, {
