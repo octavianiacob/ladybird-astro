@@ -78,9 +78,14 @@ export function disableScroll() {
 	isMoving = true;
 
 	// window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-	document
-		.getElementById("PlainTextSectionFixed")
-		?.scrollIntoView({ behavior: "smooth" });
+	// document
+	// 	.getElementById("PlainTextSectionFixed")
+	// 	?.scrollIntoView({ behavior: "smooth" });
+	const target = document.getElementById("PlainTextSectionFixed");
+	if (target) {
+		const topOffset = target.getBoundingClientRect().top + window.scrollY;
+		window.scrollTo({ top: topOffset, behavior: "smooth" });
+	}
 
 	// isMoving = false;
 	// Set the body styles to "lock" the scroll.
@@ -102,9 +107,14 @@ export function enableScroll() {
 	isMoving = true;
 
 	// window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
-	document
-		.getElementById("DeviceSection")
-		?.scrollIntoView({ behavior: "smooth" });
+	// document
+	// 	.getElementById("DeviceSection")
+	// 	?.scrollIntoView({ behavior: "smooth" });
+	const target = document.getElementById("DeviceSection");
+	if (target) {
+		const topOffset = target.getBoundingClientRect().top + window.scrollY;
+		window.scrollTo({ top: topOffset, behavior: "smooth" });
+	}
 
 	// Optionally, if you're using Lenis you might want to resume it:
 	// lenis.start();
