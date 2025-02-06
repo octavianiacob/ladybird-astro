@@ -77,7 +77,10 @@ export function disableScroll() {
 	// Save the current scroll position
 	isMoving = true;
 
-	window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+	// window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+	document
+		.getElementById("PlainTextSectionFixed")
+		?.scrollIntoView({ behavior: "smooth" });
 
 	// isMoving = false;
 	// Set the body styles to "lock" the scroll.
@@ -98,7 +101,10 @@ export function enableScroll() {
 	// Restore the scroll position (if needed)
 	isMoving = true;
 
-	window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
+	// window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
+	document
+		.getElementById("DeviceSection")
+		?.scrollIntoView({ behavior: "smooth" });
 
 	// Optionally, if you're using Lenis you might want to resume it:
 	// lenis.start();
