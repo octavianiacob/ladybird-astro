@@ -44,20 +44,34 @@ introTl.to(".IntroSection", {
 });
 
 let isMoving = false;
-
+let lastScrollTop = 0;
+let scrollTop = 0;
 window.addEventListener("scroll", (e) => {
+	scrollTop = window.scrollY || document.documentElement.scrollTop;
+
 	// if scrollPosition is equal to viewport height, then enable scroll
-	console.log(window.scrollY, window.innerHeight);
+	// console.log(window.scrollY, window.innerHeight);
 	if (window.scrollY < 10) {
 		isMoving = false;
 	}
 	if (
 		window.scrollY > window.innerHeight &&
-		window.scrollY < window.innerHeight * 2 &&
-		!isMoving
+		window.scrollY < window.innerHeight + 200 &&
+		// window.scrollY < window.innerHeight * 2 &&
+		!isMoving &&
+		scrollTop > lastScrollTop
 	) {
 		disableScroll();
 	}
+
+	if (scrollTop > lastScrollTop) {
+		gsap.to(".IntroSection", {
+			opacity: 1,
+			duration: 0.5,
+		});
+	}
+
+	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
 });
 export function disableScroll() {
 	// Save the current scroll position
@@ -83,6 +97,7 @@ export function enableScroll() {
 
 	// Restore the scroll position (if needed)
 	isMoving = true;
+
 	window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
 
 	// Optionally, if you're using Lenis you might want to resume it:
@@ -100,6 +115,7 @@ const plainTl = gsap.timeline({
 	paused: true,
 	onComplete: () => {
 		// Enable scroll when animation completes
+
 		enableScroll();
 	},
 });
