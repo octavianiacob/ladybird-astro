@@ -7,6 +7,10 @@ import { fadeInBox, fadeOutBox } from "./reusable-animations";
 import { autoplayObserver } from "./autoplay-observer";
 // import { animatePhoneText } from "./phone-animations";
 import { onMount } from "solid-js";
+import {
+	detectAutoScrollComplete,
+	runIfFromScratch,
+} from "./detect-auto-scroll-complete";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({
@@ -28,6 +32,8 @@ function raf(time: number) {
 
 requestAnimationFrame(raf);
 
+let shouldScrollThroughPlainText = true;
+
 const introTl = gsap.timeline({
 	scrollTrigger: {
 		trigger: ".IntroSection", // Section to trigger the animation
@@ -35,15 +41,17 @@ const introTl = gsap.timeline({
 		end: "bottom bottom",
 		scrub: false, // Link animation to scroll progress
 		// markers: true, // Enable for debugging
+		// onEnter: () => {
+		// 	shouldScrollThroughPlainText = true;
+		// },
 	},
 });
 
 introTl.to(".IntroSection", {
 	opacity: 1,
-	duration: 0.5,
+	duration: 0.25,
 });
 
-let isMoving = false;
 let lastScrollTop = 0;
 let scrollTop = 0;
 window.addEventListener("scroll", (e) => {
@@ -52,15 +60,17 @@ window.addEventListener("scroll", (e) => {
 	// if scrollPosition is equal to viewport height, then enable scroll
 	// console.log(window.scrollY, window.innerHeight);
 	if (window.scrollY < 10) {
-		isMoving = false;
+		// isMoving = false;
 	}
 	if (
 		window.scrollY > window.innerHeight &&
 		window.scrollY < window.innerHeight + 200 &&
 		// window.scrollY < window.innerHeight * 2 &&
-		!isMoving &&
+		// !isMoving &&
+		shouldScrollThroughPlainText &&
 		scrollTop > lastScrollTop
 	) {
+		scrollToPlainText();
 		disableScroll();
 	}
 
@@ -72,11 +82,27 @@ window.addEventListener("scroll", (e) => {
 	}
 
 	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
-});
-export function disableScroll() {
-	// Save the current scroll position
-	isMoving = true;
 
+	runIfFromScratch(() => {
+		shouldScrollThroughPlainText = true;
+	});
+});
+
+export const scrollToDevice = () => {
+	// window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
+	// document
+	// 	.getElementById("DeviceSection")
+	// 	?.scrollIntoView({ behavior: "smooth" });
+	shouldScrollThroughPlainText = false;
+
+	const target = document.getElementById("DeviceSection");
+	if (target) {
+		const topOffset = target.getBoundingClientRect().top + window.scrollY;
+		window.scrollTo({ top: topOffset, behavior: "smooth" });
+	}
+};
+
+export const scrollToPlainText = () => {
 	// window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
 	// document
 	// 	.getElementById("PlainTextSectionFixed")
@@ -86,8 +112,11 @@ export function disableScroll() {
 		const topOffset = target.getBoundingClientRect().top + window.scrollY;
 		window.scrollTo({ top: topOffset, behavior: "smooth" });
 	}
+};
 
-	// isMoving = false;
+export function disableScroll() {
+	// Save the current scroll position
+
 	// Set the body styles to "lock" the scroll.
 	// Using position: fixed prevents further scroll while preserving the current view.
 	document.body.style.overflow = "hidden";
@@ -103,21 +132,7 @@ export function enableScroll() {
 	document.body.style.position = "";
 	document.body.style.top = "";
 
-	// Restore the scroll position (if needed)
-	isMoving = true;
-
-	// window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
-	// document
-	// 	.getElementById("DeviceSection")
-	// 	?.scrollIntoView({ behavior: "smooth" });
-	const target = document.getElementById("DeviceSection");
-	if (target) {
-		const topOffset = target.getBoundingClientRect().top + window.scrollY;
-		window.scrollTo({ top: topOffset, behavior: "smooth" });
-	}
-
 	// Optionally, if you're using Lenis you might want to resume it:
-	// lenis.start();
 }
 
 const plainTextInnerElements = document.querySelectorAll(
@@ -133,6 +148,7 @@ const plainTl = gsap.timeline({
 		// Enable scroll when animation completes
 
 		enableScroll();
+		scrollToDevice();
 	},
 });
 plainTl.to(".IntroSection", {
@@ -169,11 +185,11 @@ if (plainTextInnerElements.length > 0) {
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
-			plainTl.restart(true, false); // Play from start when entering
+			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Play from start when entering
 		},
 		onLeaveBack: () => {
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
-			plainTl.restart(true, false); // Restart when scrolling back up
+			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Restart when scrolling back up
 		},
 		pin: true, // Keeps the section fixed while animation plays
 		// markers: true, // Uncomment for debugging
