@@ -126,17 +126,29 @@ export const scrollToPlainText = () => {
 };
 
 export function disableScroll() {
-	// Save the current scroll position
+	if (typeof window === "undefined") return; // Prevent SSR errors
 
-	// Set the body styles to "lock" the scroll.
-	// Using position: fixed prevents further scroll while preserving the current view.
+	// Save current scroll position
+	const scrollY = window.scrollY;
+
+	// Detect if on iOS Safari
+	const isIOS =
+		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+	// Use visualViewport.height for better accuracy on iOS
+	const viewportHeight = window.visualViewport?.height || window.innerHeight;
+
+	// Apply styles to lock scrolling without triggering layout shifts
 	document.body.style.overflow = "hidden";
 	document.body.style.position = "fixed";
-	document.body.style.top = `-${window.innerHeight}px`;
+	document.body.style.width = "100%";
+	document.body.style.top = `-${scrollY}px`;
+	document.body.style.height = `${viewportHeight}px`; // Prevents jumpy behavior on iOS
 
-	// Optionally, if you're using Lenis you might want to pause it:
-	// lenis.stop();
+	// Prevent iOS keyboard from breaking the layout
+	document.documentElement.style.overflow = "hidden";
 }
+
 export function enableScroll() {
 	// Restore the body's scrollability
 	document.body.style.overflow = "";
@@ -192,7 +204,7 @@ if (plainTextInnerElements.length > 0) {
 	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
 		trigger: ".PlainTextSection",
-		start: "top top",
+		start: "top 20%",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
@@ -203,7 +215,7 @@ if (plainTextInnerElements.length > 0) {
 			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Restart when scrolling back up
 		},
 		pin: true, // Keeps the section fixed while animation plays
-		// markers: true, // Uncomment for debugging
+		markers: true, // Uncomment for debugging
 	});
 }
 
