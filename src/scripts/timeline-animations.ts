@@ -56,6 +56,7 @@ let lastScrollTop = 0;
 let scrollTop = 0;
 window.addEventListener("scroll", (e) => {
 	scrollTop = window.scrollY || document.documentElement.scrollTop;
+	const viewportHeight = window.visualViewport?.height || window.innerHeight;
 
 	// if scrollPosition is equal to viewport height, then enable scroll
 	// console.log(window.scrollY, window.innerHeight);
@@ -63,8 +64,8 @@ window.addEventListener("scroll", (e) => {
 		// isMoving = false;
 	}
 	if (
-		window.scrollY > window.innerHeight &&
-		window.scrollY < window.innerHeight + 200 &&
+		window.scrollY > viewportHeight &&
+		window.scrollY < viewportHeight + 200 &&
 		// window.scrollY < window.innerHeight * 2 &&
 		// !isMoving &&
 		shouldScrollThroughPlainText &&
