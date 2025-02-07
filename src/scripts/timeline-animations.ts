@@ -103,15 +103,26 @@ export const scrollToDevice = () => {
 };
 
 export const scrollToPlainText = () => {
-	// window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-	// document
-	// 	.getElementById("PlainTextSectionFixed")
-	// 	?.scrollIntoView({ behavior: "smooth" });
+	if (typeof window === "undefined") return; // Prevent SSR errors
+
 	const target = document.getElementById("PlainTextSectionFixed");
-	if (target) {
-		const topOffset = target.getBoundingClientRect().top + window.scrollY;
-		window.scrollTo({ top: topOffset, behavior: "smooth" });
-	}
+	if (!target) return;
+
+	const topOffset = target.getBoundingClientRect().top + window.scrollY;
+
+	// Detect if on iOS (Safari mobile browsers)
+	const isIOS =
+		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+	// Adjust for iOS Safari address bar if necessary
+	const viewportHeight = window.visualViewport?.height || window.innerHeight;
+	const adjustedOffset = isIOS
+		? Math.min(topOffset, document.body.scrollHeight - viewportHeight)
+		: topOffset;
+
+	requestAnimationFrame(() => {
+		window.scrollTo({ top: adjustedOffset, behavior: "smooth" });
+	});
 };
 
 export function disableScroll() {
