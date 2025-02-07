@@ -16,11 +16,21 @@ import FakeDashboard from "./FakeDashboard.astro";
 		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
 		screen.style.width = `${video.offsetWidth * 0.7}px`;
 		screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
-		// screen.style.top = window.innerHeight - 140;
-		// screen.style.top = window.innerHeight - 140;
-		// screen.style.top = `calc(50% - ${screen.offsetHeight / 2}px)`;
-		// log viewport height
-		// console.log(window.innerHeight);
+
+		// if screen width less than 832
+		if (screen.offsetWidth < 832) {
+			screen.style.width = `${video.offsetWidth * 0.6}px`;
+			screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
+		}
+		if (screen.offsetWidth < 596) {
+			screen.style.width = `${video.offsetWidth * 0.5}px`;
+			screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
+		}
+
+		if (screen.offsetWidth < 420) {
+			screen.style.width = `${video.offsetWidth * 0.48}px`;
+			screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
+		}
 	});
 
 	// console.log(screen.offsetWidth);
@@ -31,7 +41,7 @@ import FakeDashboard from "./FakeDashboard.astro";
 	<div class="LaptopSection__innerWrap">
 		<video
 			class="LaptopSection__vid"
-			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr"
+			src="/videos/laptop--cropped.mp4"
 			muted
 			playsinline></video>
 		<div class="LaptopSection__screen">
@@ -61,8 +71,9 @@ import FakeDashboard from "./FakeDashboard.astro";
 			// height: 100%;
 			// max-height: 80vh;
 
+			// width: 100vw;
 			width: 100%;
-			max-width: clamp(0px, 80vw, 1440px);
+			max-width: clamp(0px, 100vw, 1440px);
 			object-fit: contain;
 
 			pointer-events: none;
@@ -92,7 +103,7 @@ import FakeDashboard from "./FakeDashboard.astro";
 	@media (max-width: 1024px) {
 		.LaptopSection {
 			&__screen {
-				top: 2%;
+				// top: 2%;
 			}
 		}
 	}
@@ -100,7 +111,7 @@ import FakeDashboard from "./FakeDashboard.astro";
 	@media (max-width: 465px) {
 		.LaptopSection {
 			&__screen {
-				top: 1.5%;
+				// top: 1.5%;
 			}
 		}
 	}
