@@ -142,7 +142,7 @@ export function disableScroll() {
 	document.body.style.overflow = "hidden";
 	document.body.style.position = "fixed";
 	document.body.style.width = "100%";
-	document.body.style.top = `-${scrollY}px`;
+	document.body.style.top = `-${viewportHeight}px`;
 	// document.body.style.height = `${viewportHeight}px`; // Prevents jumpy behavior on iOS
 
 	// Prevent iOS keyboard from breaking the layout
