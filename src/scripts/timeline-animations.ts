@@ -144,7 +144,7 @@ export function disableScroll() {
 	document.body.style.position = "fixed";
 	document.body.style.width = "100%";
 	document.body.style.top = `-${
-		isIOS ? viewportHeight + 90 : viewportHeight
+		isIOS ? viewportHeight + 100 : viewportHeight
 	}px`;
 	// document.body.style.height = `${viewportHeight}px`; // Prevents jumpy behavior on iOS
 
@@ -218,7 +218,7 @@ if (plainTextInnerElements.length > 0) {
 			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Restart when scrolling back up
 		},
 		pin: true, // Keeps the section fixed while animation plays
-		markers: true, // Uncomment for debugging
+		// markers: true, // Uncomment for debugging
 	});
 }
 
