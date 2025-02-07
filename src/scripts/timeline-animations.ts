@@ -144,7 +144,7 @@ export function disableScroll() {
 	document.body.style.position = "fixed";
 	document.body.style.width = "100%";
 	document.body.style.top = `-${
-		isIOS ? viewportHeight + 70 : viewportHeight
+		isIOS ? viewportHeight + 84 : viewportHeight
 	}px`;
 	// document.body.style.height = `${viewportHeight}px`; // Prevents jumpy behavior on iOS
 
