@@ -94,13 +94,16 @@ export const scrollToDevice = () => {
 	// document
 	// 	.getElementById("DeviceSection")
 	// 	?.scrollIntoView({ behavior: "smooth" });
+
 	shouldScrollThroughPlainText = false;
 
-	const target = document.getElementById("DeviceSection");
-	if (target) {
-		const topOffset = target.getBoundingClientRect().top + window.scrollY;
-		window.scrollTo({ top: topOffset, behavior: "smooth" });
-	}
+	// const target = document.getElementById("DeviceSection");
+	// if (target) {
+	// 	const topOffset = target.getBoundingClientRect().top + window.scrollY;
+	// 	window.scrollTo({ top: topOffset, behavior: "smooth" });
+	// }
+
+	window.scrollTo({ top: window.innerHeight * 3, behavior: "smooth" });
 };
 
 export const scrollToPlainText = () => {
