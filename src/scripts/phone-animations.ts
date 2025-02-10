@@ -85,7 +85,7 @@ const playConversation = async () => {
 				.fromTo(
 					splitElements,
 					{ opacity: 0, width: 0 },
-					{ opacity: 1, duration: 0.05, stagger: 0.04, width: "auto" }
+					{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" }
 				)
 				.to(reversedSplitElements, {
 					opacity: 0,
