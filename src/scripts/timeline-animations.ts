@@ -103,7 +103,7 @@ export const scrollToDevice = () => {
 	// 	window.scrollTo({ top: topOffset, behavior: "smooth" });
 	// }
 
-	window.scrollTo({ top: window.innerHeight * 3, behavior: "smooth" });
+	window.scrollTo({ top: window.innerHeight * 3 + 20, behavior: "smooth" });
 };
 
 export const scrollToPlainText = () => {
