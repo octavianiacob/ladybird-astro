@@ -37,7 +37,7 @@ import PhoneSection from "./PhoneSection.astro";
 
 			display: grid;
 			place-items: center;
-			padding: 2.5rem 0;
+			padding: 3rem 0;
 		}
 
 		&__main {
@@ -60,7 +60,7 @@ import PhoneSection from "./PhoneSection.astro";
 
 			display: grid;
 			place-items: center;
-			height: calc(100dvh - 200px);
+			height: calc(100dvh - 180px);
 		}
 		.LaptopSection {
 			// opacity: 0;
@@ -68,7 +68,21 @@ import PhoneSection from "./PhoneSection.astro";
 
 			display: grid;
 			place-items: center;
-			height: calc(100dvh - 200px);
+			height: calc(100dvh - 180px);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.DeviceSection {
+			&__top {
+				padding: 2.5rem 0;
+			}
+			&__main {
+				.PhoneSection,
+				.LaptopSection {
+					height: calc(100dvh - 230px);
+				}
+			}
 		}
 	}
 </style>
