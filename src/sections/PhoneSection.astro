@@ -70,7 +70,7 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 		&__wrap {
 			position: relative;
 			width: max-content;
-			height: 100%;
+			height: calc(100dvh - 180px);
 		}
 		&__inner {
 			// max-height: 80vh;
@@ -123,6 +123,14 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 					width: 0;
 					opacity: 0;
 				}
+			}
+		}
+	}
+
+	@media (max-width: 768px) and (pointer: coarse) {
+		.PhoneSection {
+			&__wrap {
+				height: calc(100dvh - 250px);
 			}
 		}
 	}
