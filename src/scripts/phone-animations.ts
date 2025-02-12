@@ -56,7 +56,7 @@ const playConversation = async () => {
 					.to(convoPart, {
 						opacity: 1,
 						duration: 0.3,
-						height: "4rem",
+						height: "4.5rem",
 					})
 					.to(
 						".PhoneSection__fakeConvoPart",
@@ -111,7 +111,7 @@ const playConversation = async () => {
 						".PhoneSection__fakeConvoPart",
 						{
 							duration: 0.3,
-							height: "4rem",
+							height: "4.5rem",
 						},
 						"<"
 					);
