@@ -39,7 +39,9 @@ import PhoneSection from "./PhoneSection.astro";
 	.DeviceSection {
 		background-color: #ffffff;
 		width: 100vw;
-		height: 150vh; // Ensure enough space for scrolling
+		// height: clamp(0px, 350vh, 3072px); // Ensure enough space for scrolling
+		// height: 200vh; // Ensure enough space for scrolling
+		height: 320vh; // Ensure enough space for scrolling
 		overflow: hidden;
 
 		&__top {
@@ -94,7 +96,7 @@ import PhoneSection from "./PhoneSection.astro";
 	// if it's ios
 	@media (max-width: 768px) and (pointer: coarse) {
 		.DeviceSection {
-			height: 100vh; // Ensure enough space for scrolling
+			height: 280vh; // Ensure enough space for scrolling
 			&__top {
 				padding: 2.5rem 0;
 			}

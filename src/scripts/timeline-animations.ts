@@ -209,7 +209,7 @@ if (plainTextInnerElements.length > 0) {
 
 	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
-		trigger: ".PlainTextSectionWrapper",
+		trigger: ".PlainTextSection",
 		start: "top 20%",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
@@ -266,7 +266,7 @@ onMount(() => {
 	// Pin the TabToggle
 	gsap.to(".DeviceSection__top", {
 		scrollTrigger: {
-			trigger: ".DeviceSectionWrapper",
+			trigger: ".DeviceSection",
 			start: "top top",
 			end: "+=200%",
 			pin: true,
@@ -290,7 +290,7 @@ onMount(() => {
 		scrollTrigger: {
 			trigger: ".PhoneSection",
 			start: "top top",
-			end: "bottom top",
+			end: "+=50%",
 			scrub: true, // Sync animation with scroll
 		},
 		yPercent: -50,
@@ -301,7 +301,7 @@ onMount(() => {
 		scrollTrigger: {
 			trigger: ".LaptopSection",
 			start: "center center", // Adjust the timing as needed
-			end: "center top",
+			end: "+=50%",
 			scrub: true,
 			snap: {
 				snapTo: 1,
