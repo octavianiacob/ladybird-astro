@@ -290,10 +290,11 @@ onMount(() => {
 		scrollTrigger: {
 			trigger: ".PhoneSection",
 			start: "top top",
-			end: "+=50%",
+			end: "+=150%",
 			scrub: true, // Sync animation with scroll
 		},
 		yPercent: -50,
+		ease: "power4.inOut",
 	});
 
 	// Fade in and play LaptopSection video
