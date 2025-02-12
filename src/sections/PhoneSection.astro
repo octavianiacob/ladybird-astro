@@ -19,8 +19,10 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 	import { isIOS } from "../utils/helpers";
 
 	const PhoneSection__inner = document.querySelector(".PhoneSection__inner")!;
+	const PhoneSection = document.querySelector(".PhoneSection__inner")!;
 	if (isIOS()) {
 		PhoneSection__inner.classList.add("PhoneSection__inner--isIOS");
+		PhoneSection.classList.add("PhoneSection--isIOS");
 	}
 </script>
 
