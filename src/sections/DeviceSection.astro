@@ -22,12 +22,14 @@ import PhoneSection from "./PhoneSection.astro";
 		<div class="DeviceSection__top">
 			<TabToggle tabItems={tabItems} />
 		</div>
-		<div class="DeviceSection__main">
-			<div class="PhoneSection">
-				<PhoneSection />
-			</div>
-			<div class="LaptopSection">
-				<LaptopSection />
+		<div class="DeviceSection__mainWrap">
+			<div class="DeviceSection__main">
+				<div class="PhoneSection">
+					<PhoneSection />
+				</div>
+				<div class="LaptopSection">
+					<LaptopSection />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -37,7 +39,7 @@ import PhoneSection from "./PhoneSection.astro";
 	.DeviceSection {
 		background-color: #ffffff;
 		width: 100vw;
-		height: 300vh; // Ensure enough space for scrolling
+		height: 150vh; // Ensure enough space for scrolling
 		overflow: hidden;
 
 		&__top {
@@ -49,6 +51,11 @@ import PhoneSection from "./PhoneSection.astro";
 			display: grid;
 			place-items: center;
 			padding: 3rem 0;
+		}
+
+		&__mainWrap {
+			height: 100vh;
+			overflow: hidden;
 		}
 
 		&__main {
@@ -84,22 +91,10 @@ import PhoneSection from "./PhoneSection.astro";
 		}
 	}
 
-	// @media (max-width: 768px) {
-	// 	.DeviceSection {
-	// 		&__top {
-	// 			padding: 2.5rem 0;
-	// 		}
-	// 		&__main {
-	// 			.PhoneSection,
-	// 			.LaptopSection {
-	// 				height: calc(100dvh - 200px);
-	// 			}
-	// 		}
-	// 	}
-	// }
 	// if it's ios
 	@media (max-width: 768px) and (pointer: coarse) {
 		.DeviceSection {
+			height: 100vh; // Ensure enough space for scrolling
 			&__top {
 				padding: 2.5rem 0;
 			}

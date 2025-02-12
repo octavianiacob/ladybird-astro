@@ -14,24 +14,9 @@ import FakeDashboard from "./FakeDashboard.astro";
 		) as HTMLVideoElement;
 
 		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
-		let newWidth = window.innerWidth * 0.7;
+		let newWidth = Math.min(window.innerWidth, 1440) * 0.7;
 		screen.style.width = `${newWidth}px`;
 		screen.style.height = `${(newWidth * 10) / 16}px`;
-
-		// if screen width less than 832
-		// if (screen.offsetWidth < 832) {
-		// 	screen.style.width = `${screen.offsetWidth * 0.6}px`;
-		// 	screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
-		// }
-		// if (cc.offsetWidth < 596) {
-		// 	screen.style.width = `${video.offsetWidth * 0.5}px`;
-		// 	screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
-		// }
-
-		// if (screen.offsetWidth < 420) {
-		// 	screen.style.width = `${video.offsetWidth * 0.48}px`;
-		// 	screen.style.height = `${(screen.offsetWidth * 10) / 16}px`;
-		// }
 	});
 
 	// console.log(screen.offsetWidth);

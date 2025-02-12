@@ -209,7 +209,7 @@ if (plainTextInnerElements.length > 0) {
 
 	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
-		trigger: ".PlainTextSection",
+		trigger: ".PlainTextSectionWrapper",
 		start: "top 20%",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
@@ -268,7 +268,7 @@ onMount(() => {
 		scrollTrigger: {
 			trigger: ".DeviceSectionWrapper",
 			start: "top top",
-			end: "bottom bottom",
+			end: "+=200%",
 			pin: true,
 
 			onEnter: () => {
@@ -404,8 +404,8 @@ const bottomTl = gsap.timeline({
 	scrollTrigger: {
 		trigger: ".BottomSectionWrapper", // Wrapper for all boxes
 		// pin: true,
-		start: "top 50%",
-		end: `+=100%`, // Scroll to the end of the page
+		start: "top 10%",
+		end: `+=20%`, // Scroll to the end of the page
 		scrub: true, // Smooth linking with scroll
 		// markers: true, // Enable for debugging
 	},
