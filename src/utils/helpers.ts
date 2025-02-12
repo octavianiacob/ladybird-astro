@@ -174,3 +174,33 @@ export function enableScroll() {
 export function isIOS() {
 	return /iPad|iPhone|iPod/.test(navigator.userAgent);
 }
+
+export function smoothScrollTo(
+	targetPosition: number,
+	duration: number = 2000
+): void {
+	const start = window.scrollY;
+	const distance = targetPosition - start;
+	const startTime = performance.now();
+
+	function scrollStep(currentTime: number) {
+		const elapsedTime = currentTime - startTime;
+		const progress = Math.min(elapsedTime / duration, 1);
+
+		// Ease-in-out quadratic function for smoother scrolling
+		const easeInOutQuad =
+			progress < 0.5
+				? 2 * progress * progress
+				: 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+		window.scrollTo(0, start + distance * easeInOutQuad);
+
+		if (elapsedTime < duration) {
+			requestAnimationFrame(scrollStep);
+		}
+	}
+
+	requestAnimationFrame(scrollStep);
+}
+
+

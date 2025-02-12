@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import SplitType from "split-type";
 import { Power2, Power4 } from "gsap";
 import Lenis from "@studio-freight/lenis";
@@ -11,8 +12,10 @@ import {
 	detectAutoScrollComplete,
 	runIfFromScratch,
 } from "./detect-auto-scroll-complete";
+import { smoothScrollTo } from "../utils/helpers";
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 ScrollTrigger.config({
 	ignoreMobileResize: true,
 });
@@ -75,7 +78,7 @@ window.addEventListener("scroll", (e) => {
 		disableScroll();
 	}
 
-	if (scrollTop > lastScrollTop) {
+	if (scrollTop > lastScrollTop && shouldScrollThroughPlainText) {
 		gsap.to(".IntroSection", {
 			opacity: 1,
 			duration: 0.5,
@@ -103,7 +106,28 @@ export const scrollToDevice = () => {
 	// 	window.scrollTo({ top: topOffset, behavior: "smooth" });
 	// }
 
-	window.scrollTo({ top: window.innerHeight * 3 + 20, behavior: "smooth" });
+	// window.scrollTo({ top: window.innerHeight * 3 + 20, behavior: "smooth" });
+
+	// smoothScrollTo(window.innerHeight * 2 + 20, 1000);
+	const tl = gsap.timeline({
+		ease: "power4.inOut",
+	});
+	tl.to(".IntroSection", {
+		duration: 0.05,
+		opacity: 0,
+	})
+		.to(
+			".PlainTextSection",
+			{
+				duration: 0.05,
+				opacity: 0,
+			},
+			"<"
+		)
+		.to(window, {
+			duration: 0.5,
+			scrollTo: window.innerHeight * 2 + 20,
+		});
 };
 
 export const scrollToPlainText = () => {
