@@ -13,6 +13,17 @@ import {
 import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 ---
 
+<script>
+	// if isIOS, add --isIOS to classname
+
+	import { isIOS } from "../utils/helpers";
+
+	const PhoneSection__inner = document.querySelector(".PhoneSection__inner")!;
+	if (isIOS()) {
+		PhoneSection__inner.classList.add("PhoneSection__inner--isIOS");
+	}
+</script>
+
 <div class="PhoneSection__wrap">
 	<img src="/images/iphone-shadow.jpg" alt="Phone" class="PhoneSection__bg" />
 	<div class="PhoneSection__inner">
@@ -129,12 +140,12 @@ import PhoneDotLoader from "../components/PhoneDotLoader.astro";
 
 	@media (max-width: 768px) and (pointer: coarse) {
 		.PhoneSection {
-			&__wrap {
+			&__wrap--isIOS {
 				height: calc(100dvh - 200px);
 			}
 
-			&__inner {
-				padding: 1rem 5.4rem;
+			&__inner--isIOS {
+				padding: 1rem 5.8rem;
 			}
 		}
 	}

@@ -170,3 +170,7 @@ export function enableScroll() {
 	// Optionally, if you're using Lenis you might want to resume it:
 	// lenis.start();
 }
+
+export function isIOS() {
+	return /iPad|iPhone|iPod/.test(navigator.userAgent);
+}
