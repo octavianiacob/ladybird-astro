@@ -9,6 +9,12 @@ export const pauseDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
 	});
 };
 
+export const resumeDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
+	dotAnimations.forEach((animation) => {
+		animation.play();
+	});
+};
+
 export const threeDotsToCheckmark = (
 	dotAnimations: gsap.core.Tween[],
 	afterFunc: () => void,

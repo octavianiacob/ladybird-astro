@@ -8,6 +8,8 @@ import {
 	splitConvoTextIntoWords,
 } from "../utils/helpers";
 import {
+	pauseDotAnimations,
+	resumeDotAnimations,
 	spinFunc,
 	threeDotsToCheckmark,
 	threeDotsToSpinner,
@@ -71,6 +73,9 @@ const playConversation = async () => {
 			const splitElContainer = convoParts[convoIndex].querySelectorAll(
 				".PhoneSection__convo__text"
 			)[index];
+			console.log("splitElContainer", splitElContainer);
+			let isAI = splitElContainer.className.includes("--AI");
+
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".PhoneSection__convo__text")
 				[index].querySelectorAll(".char");
@@ -81,6 +86,21 @@ const playConversation = async () => {
 					opacity: 1,
 					height: "auto",
 					duration: 0.1,
+					onComplete: () => {
+						if (!isAI) {
+							pauseDotAnimations(animations);
+
+							gsap.to(".PhoneDotLoader__dot", {
+								// reset the dots
+								yPercent: 0,
+								duration: 0.25,
+								stagger: 0.1,
+								// ease: "power2.inOut",
+							});
+						} else {
+							resumeDotAnimations(animations);
+						}
+					},
 				})
 				.fromTo(
 					splitElements,
