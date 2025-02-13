@@ -12,7 +12,7 @@ import {
 	detectAutoScrollComplete,
 	runIfFromScratch,
 } from "./detect-auto-scroll-complete";
-import { smoothScrollTo } from "../utils/helpers";
+import { smoothScrollTo, switchTab } from "../utils/helpers";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
@@ -115,6 +115,9 @@ export const scrollToDevice = () => {
 	tl.to(".IntroSection", {
 		duration: 0.05,
 		opacity: 0,
+		onComplete: () => {
+			switchTab(0);
+		},
 	})
 		.to(
 			".PlainTextSection",
@@ -256,14 +259,8 @@ let isLaptopPlaying = false;
 
 const laptopEnterFunc = () => {
 	// set the active tab
-	const tabItems = document.querySelectorAll(".TabToggle__button");
-	tabItems.forEach((tabItem, ind) => {
-		if (tabItem.classList.contains("TabToggle__button--active")) {
-			tabItem.classList.remove("TabToggle__button--active");
-		}
-	});
 
-	tabItems[1].classList.add("TabToggle__button--active");
+	switchTab(1);
 
 	// Play the video and hide the screen
 	const video = document.querySelector(
@@ -297,14 +294,8 @@ onMount(() => {
 
 			onEnter: () => {
 				// Reset the active tab
-				const tabItems = document.querySelectorAll(".TabToggle__button");
-				tabItems.forEach((tabItem, ind) => {
-					if (tabItem.classList.contains("TabToggle__button--active")) {
-						tabItem.classList.remove("TabToggle__button--active");
-					}
-				});
 
-				tabItems[0].classList.add("TabToggle__button--active");
+				switchTab(0);
 			},
 		},
 	});
@@ -339,14 +330,7 @@ onMount(() => {
 			onEnterBack: () => laptopEnterFunc(),
 			onLeaveBack: () => {
 				// set the active tab
-				const tabItems = document.querySelectorAll(".TabToggle__button");
-				tabItems.forEach((tabItem, ind) => {
-					if (tabItem.classList.contains("TabToggle__button--active")) {
-						tabItem.classList.remove("TabToggle__button--active");
-					}
-				});
-
-				tabItems[0].classList.add("TabToggle__button--active");
+				switchTab(0);
 
 				const video = document.querySelector(
 					".LaptopSection__vid"

@@ -203,4 +203,13 @@ export function smoothScrollTo(
 	requestAnimationFrame(scrollStep);
 }
 
+export const switchTab = (ind: number) => {
+	const tabItems = document.querySelectorAll(".TabToggle__button");
+	tabItems.forEach((tabItem, ind) => {
+		if (tabItem.classList.contains("TabToggle__button--active")) {
+			tabItem.classList.remove("TabToggle__button--active");
+		}
+	});
 
+	tabItems[ind].classList.add("TabToggle__button--active");
+};
