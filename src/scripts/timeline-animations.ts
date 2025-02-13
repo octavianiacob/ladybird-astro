@@ -78,12 +78,12 @@ window.addEventListener("scroll", (e) => {
 		disableScroll();
 	}
 
-	if (scrollTop > lastScrollTop && shouldScrollThroughPlainText) {
-		gsap.to(".IntroSection", {
-			opacity: 1,
-			duration: 0.5,
-		});
-	}
+	// if (scrollTop > lastScrollTop && shouldScrollThroughPlainText) {
+	// 	gsap.to(".IntroSection", {
+	// 		opacity: 1,
+	// 		duration: 0.5,
+	// 	});
+	// }
 
 	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
 
