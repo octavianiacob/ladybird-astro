@@ -9,6 +9,7 @@ import {
 } from "../utils/helpers";
 import {
 	pauseDotAnimations,
+	resetPhoneAnims,
 	resumeDotAnimations,
 	spinFunc,
 	threeDotsToCheckmark,
@@ -38,8 +39,13 @@ regularDotMovement();
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
+const onLeave = () => {
+	resetPhoneAnims(animations);
+	timelines.forEach((timeline) => timeline.kill());
+};
+
 const playConversation = async () => {
-	console.log("playConversation");
+	onLeave();
 	// Split all conversation text into words/characters
 	const textElements = document.querySelectorAll(".PhoneSection__convo__text");
 	splitConvoTextIntoChars(textElements);
@@ -161,19 +167,20 @@ const playConversation = async () => {
 // Helper function for loader animation
 const runLoaderWithSpinner = async (index: number) => {
 	await new Promise<void>((resolve) => {
-		threeDotsToCheckmark(
+		const checkTl = threeDotsToCheckmark(
 			animations,
-			() => threeDotsToSpinner(animations, resolve, index),
+			() => {
+				const spinTl = threeDotsToSpinner(animations, resolve, index);
+				timelines.push(spinTl);
+			},
 			index
 		);
+		timelines.push(checkTl);
 	});
 };
 
 // Select the element to observe
 const targetElement = document.querySelector(".PhoneSection");
-const onLeave = () => {
-	timelines.forEach((timeline) => timeline.kill());
-};
 
 if (targetElement) {
 	autoplayObserver(targetElement, playConversation, onLeave);

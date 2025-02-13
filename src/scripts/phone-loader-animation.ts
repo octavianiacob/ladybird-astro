@@ -64,14 +64,19 @@ export const threeDotsToCheckmark = (
 		.to(
 			".circle",
 			{
-				// animate (draw) the circle
-				// strokeDashoffset: 423.9,
-				strokeDashoffset: 847.8,
-				duration: 3,
+				opacity: 1,
+				duration: 0.001,
 				ease: "power4.inOut",
 			},
 			"<"
 		)
+		.to(".circle", {
+			// animate (draw) the circle
+			// strokeDashoffset: 423.9,
+			strokeDashoffset: 847.8,
+			duration: 3,
+			ease: "power4.inOut",
+		})
 		// text bit part 1
 		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<")
 		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.001 }, "<")
@@ -338,6 +343,8 @@ export const threeDotsToSpinner = (
 				afterFunc();
 			},
 		});
+
+	return spinnerTl;
 };
 
 export const spinFunc = (dotAnimations: gsap.core.Tween[]) => {
@@ -396,4 +403,56 @@ export const resetLoaderAnimation = () => {
 		loadingPart.style.opacity = "0";
 		loadingPart.style.height = "0";
 	});
+};
+
+export const resetPhoneAnims = (dotAnimations: gsap.core.Tween[]) => {
+	pauseDotAnimations(dotAnimations);
+
+	const loadingParts = document.querySelectorAll(".PhoneSection__loadingPart");
+	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
+	loadingParts.forEach((loadingPart) => {
+		loadingPart.style.opacity = "0";
+		loadingPart.style.height = "0";
+	});
+	convoParts.forEach((convoPart) => {
+		convoPart.style.opacity = "0";
+		convoPart.style.height = "0";
+	});
+
+	const spinnerTl = gsap.timeline({});
+	spinnerTl
+		.to(".PhoneDotLoader__dot", {
+			// reset the dots
+			yPercent: 0,
+			opacity: 1,
+			duration: 0.001,
+			stagger: 0.01,
+			// ease: "power2.inOut",
+		})
+		.to(
+			".circle",
+			{
+				// hide the circle
+				opacity: 0,
+				duration: 0.001,
+				ease: "power4.inOut",
+			},
+			"<"
+		)
+		.to(".circle", {
+			// reset the circle
+			strokeDashoffset: 282.6,
+			duration: 0.001,
+			ease: "power4.inOut",
+		})
+		.to(
+			".checkmarkPath",
+			{
+				// animate (hiding) the checkmark
+				strokeDashoffset: 100,
+				duration: 0.001,
+				ease: "power4.out",
+			},
+			"<"
+		);
 };
