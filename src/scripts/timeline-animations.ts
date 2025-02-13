@@ -126,7 +126,7 @@ export const scrollToDevice = () => {
 		)
 		.to(window, {
 			duration: 0.5,
-			scrollTo: window.innerHeight * 2 + 20,
+			scrollTo: ".DeviceSection",
 		});
 };
 
