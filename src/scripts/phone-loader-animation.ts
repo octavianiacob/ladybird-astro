@@ -54,13 +54,17 @@ export const threeDotsToCheckmark = (
 			stagger: 0.1,
 			// ease: "power2.inOut",
 		})
-		.to(".PhoneDotLoader__dot:nth-child(2)", {
-			// hide the middle dot
-			opacity: 0,
-			duration: 0.3,
-			stagger: 0.1,
-			// ease: "power2.inOut",
-		})
+		// .to(".PhoneDotLoader__dot:nth-child(2)", {
+		.to(
+			".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(1)",
+			{
+				// hide the middle and first dots
+				opacity: 0,
+				duration: 0.3,
+				stagger: 0.1,
+				// ease: "power2.inOut",
+			}
+		)
 		.to(
 			".circle",
 			{
