@@ -183,7 +183,7 @@ const runLoaderWithSpinner = async (index: number) => {
 const targetElement = document.querySelector(".PhoneSection");
 
 if (targetElement) {
-	autoplayObserver(targetElement, playConversation, onLeave);
+	// autoplayObserver(targetElement, playConversation, onLeave);
 } else {
 	console.error("Element .DeviceSectionWrapper not found.");
 }
