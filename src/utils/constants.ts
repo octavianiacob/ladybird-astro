@@ -56,7 +56,7 @@ export const patientConvo_pt5 = [
 ];
 
 export const convoLoadingText = [
-	["Identity verification…", "Verified"],
+	["Verifying…", "Verified"],
 	["Analaysing…", ""],
 	["Booking…", "Booked"],
 	["Sending…", "Sent"],
