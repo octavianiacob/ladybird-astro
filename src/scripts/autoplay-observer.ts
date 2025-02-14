@@ -1,3 +1,8 @@
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export const autoplayObserver = (
 	targetElement: Element | null,
 	onEnter: () => void,
@@ -32,4 +37,25 @@ export const autoplayObserver = (
 	if (targetElement) {
 		observer.observe(targetElement);
 	}
+};
+
+export const autoplayObserverUsingGSAP = (
+	targetElement: Element | null,
+	onEnter: () => void,
+	onLeave: () => void
+) => {
+	// GSAP ScrollTrigger logic
+	ScrollTrigger.create({
+		trigger: targetElement,
+		start: "top 70%", // Trigger when 70% of the section is in view
+		end: "bottom 30%", // Trigger when 30% of the section is out of view
+		onEnter: () => {
+			console.log("Animation starts as section enters the viewport");
+			onEnter(); // Play the animation
+		},
+		onLeaveBack: () => {
+			console.log("Section is out of view");
+			onLeave(); // Run the function for leaving the section
+		},
+	});
 };

@@ -1,7 +1,10 @@
 import gsap from "gsap";
 import { Power2, Power4 } from "gsap";
 import SplitType from "split-type";
-import { autoplayObserver } from "./autoplay-observer";
+import {
+	autoplayObserver,
+	autoplayObserverUsingGSAP,
+} from "./autoplay-observer";
 import { patientConvo_pt1 } from "../utils/constants";
 import {
 	splitConvoTextIntoChars,
@@ -183,7 +186,7 @@ const runLoaderWithSpinner = async (index: number) => {
 const targetElement = document.querySelector(".PhoneSection");
 
 if (targetElement) {
-	// autoplayObserver(targetElement, playConversation, onLeave);
+	autoplayObserverUsingGSAP(targetElement, playConversation, onLeave);
 } else {
 	console.error("Element .DeviceSectionWrapper not found.");
 }
