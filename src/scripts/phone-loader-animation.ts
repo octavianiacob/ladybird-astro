@@ -80,17 +80,51 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
+		// .to(
+		// 	".circle",
+		// 	{
+		// 		// animate (draw) the circle
+		// 		// strokeDashoffset: 423.9,
+		// 		strokeDashoffset: 847.8,
+		// 		duration: 3,
+		// 		ease: "power4.inOut",
+		// 	},
+		// 	">-=1"
+		// )
+		.to(
+			".circle",
+			{
+				// animate (draw) the circle
+				// strokeDashoffset: 423.9,
+				strokeDashoffset: 500,
+				duration: 3,
+				ease: "power4.inOut",
+			},
+			">-=1"
+		)
+		.to(
+			".PhoneDotLoader__spinner",
+			{
+				// animate (draw) the circle
+				// strokeDashoffset: 423.9,
+				rotate: -540,
+				duration: 3,
+				ease: "power4.inOut",
+			},
+			">-=2"
+		)
 		.to(
 			".circle",
 			{
 				// animate (draw) the circle
 				// strokeDashoffset: 423.9,
 				strokeDashoffset: 847.8,
-				duration: 3,
+				duration: 2.5,
 				ease: "power4.inOut",
 			},
-			">-=1"
+			"<+=0.2"
 		)
+
 		.to(
 			".PhoneDotLoader__dot:nth-child(1)",
 			{
@@ -108,12 +142,23 @@ export const threeDotsToCheckmark = (
 				// hide the last dot
 				scale: 0,
 				opacity: 0,
-				xPercent: -300,
 				duration: 0.45,
 				// ease: "power2.inOut",
 			},
-			">+=1.8"
+			">"
 		)
+		// .to(
+		// 	".PhoneDotLoader__dot:nth-child(3)",
+		// 	{
+		// 		// hide the last dot
+		// 		scale: 0,
+		// 		opacity: 0,
+		// 		xPercent: -300,
+		// 		duration: 0.45,
+		// 		// ease: "power2.inOut",
+		// 	},
+		// 	">+=1.8"
+		// )
 
 		// text bit part 1
 		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<")
@@ -239,7 +284,7 @@ export const threeDotsToCheckmark = (
 				stagger: 0.1,
 				// ease: "power2.inOut",
 			},
-			"3.5"
+			"3.1"
 		)
 		.to(
 			".checkmarkPath",
