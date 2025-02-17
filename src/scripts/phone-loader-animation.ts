@@ -146,7 +146,15 @@ export const threeDotsToCheckmark = (
 				// ease: "power2.inOut",
 
 				onComplete: () => {
-					if (index === 1) afterFunc();
+					if (index === 1) {
+						gsap.to(".circle", {
+							// reset the circle
+							strokeDashoffset: 282.6,
+							duration: 0.001,
+							ease: "power4.inOut",
+						});
+						afterFunc();
+					}
 				},
 			},
 			"<"
@@ -212,70 +220,74 @@ export const threeDotsToCheckmark = (
 				width: 0,
 				duration: 0.05,
 				stagger: 0.05,
-				delay: 0.2, // Pause between responses
+				// delay: 0.2, // Pause between responses
 			},
-			"<"
+			"<-=0.8"
 		)
-		.to(splitElContainer[0], {
-			opacity: 0,
-			duration: 0.1,
-			height: 0,
+		.to(
+			splitElContainer[0],
+			{
+				opacity: 0,
+				duration: 0.1,
+				height: 0,
 
-			onComplete: () => {
-				if (index === 1) {
-					const convoParts = document.querySelectorAll(
-						".PhoneSection__convoPart"
-					);
-					const miniTl = gsap.timeline({});
-					miniTl
-						.to(".PhoneDotLoader__dot:nth-child(3)", {
-							// reset last dot xPercent
-							xPercent: 0,
-							duration: 0.0001,
-							// ease: "power2.inOut",
-						})
-						.to(".circle", {
-							// hide the circle
-							opacity: 0,
-							duration: 0.001,
-							ease: "power4.inOut",
-						})
-						.to(splitElContainer[1], {
-							opacity: 0,
-							height: 0,
-							duration: 0.001,
-						})
-						.to(
-							loadingParts[index],
-							{
+				onComplete: () => {
+					if (index === 1) {
+						const convoParts = document.querySelectorAll(
+							".PhoneSection__convoPart"
+						);
+						const miniTl = gsap.timeline({});
+						miniTl
+							.to(".PhoneDotLoader__dot:nth-child(3)", {
+								// reset last dot xPercent
+								xPercent: 0,
+								duration: 0.0001,
+								// ease: "power2.inOut",
+							})
+							.to(".circle", {
+								// hide the circle
 								opacity: 0,
 								duration: 0.001,
+								ease: "power4.inOut",
+							})
+							.to(splitElContainer[1], {
+								opacity: 0,
 								height: 0,
-							},
-							"<"
-						)
-						.to(
-							convoParts[2],
-							{
-								height: "4.5rem",
 								duration: 0.001,
-							},
-							"<"
-						)
+							})
+							.to(
+								loadingParts[index],
+								{
+									opacity: 0,
+									duration: 0.001,
+									height: 0,
+								},
+								"<"
+							)
+							.to(
+								convoParts[2],
+								{
+									height: "4.5rem",
+									duration: 0.001,
+								},
+								"<"
+							)
 
-						.to(".circle", {
-							// reset the circle
-							strokeDashoffset: 282.6,
-							duration: 0.001,
-							ease: "power4.inOut",
+							.to(".circle", {
+								// reset the circle
+								strokeDashoffset: 282.6,
+								duration: 0.001,
+								ease: "power4.inOut",
 
-							onComplete: () => {
-								spinnerTl.kill();
-							},
-						});
-				}
+								onComplete: () => {
+									spinnerTl.kill();
+								},
+							});
+					}
+				},
 			},
-		})
+			">-=0.2"
+		)
 		// continue the rest of the animation
 		.to(
 			".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3)",
