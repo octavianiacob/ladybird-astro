@@ -101,8 +101,8 @@ const playConversation = async () => {
 							gsap.to(".PhoneDotLoader__dot", {
 								// reset the dots
 								yPercent: 0,
-								duration: 0.25,
-								stagger: 0.1,
+								duration: 0.6,
+								stagger: 0.25,
 								// ease: "power2.inOut",
 							});
 						} else {
