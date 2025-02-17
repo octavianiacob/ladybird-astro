@@ -102,17 +102,18 @@ export const threeDotsToCheckmark = (
 			},
 			">-=2"
 		)
-		// .to(
-		// 	".PhoneDotLoader__dot:nth-child(3)",
-		// 	{
-		// 		// hide the last dot
-		// 		scale: 0,
-		// 		opacity: 0,
-		// 		duration: 0.45,
-		// 		// ease: "power2.inOut",
-		// 	},
-		// 	">"
-		// )
+		.to(
+			".PhoneDotLoader__dot:nth-child(3)",
+			{
+				// hide the last dot
+				scale: 0,
+				opacity: 0,
+				xPercent: -300,
+				duration: 0.45,
+				// ease: "power2.inOut",
+			},
+			">+=1.8"
+		)
 
 		// text bit part 1
 		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<")
@@ -178,6 +179,12 @@ export const threeDotsToCheckmark = (
 					);
 					const miniTl = gsap.timeline({});
 					miniTl
+						.to(".PhoneDotLoader__dot:nth-child(3)", {
+							// reset last dot xPercent
+							xPercent: 0,
+							duration: 0.0001,
+							// ease: "power2.inOut",
+						})
 						.to(".circle", {
 							// hide the circle
 							opacity: 0,
@@ -242,7 +249,7 @@ export const threeDotsToCheckmark = (
 				duration: 0.8,
 				ease: "power4.out",
 			},
-			">+=0.4"
+			">+=0.3"
 		)
 		// text bit part 2
 		.to(
@@ -326,6 +333,12 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
+		.to(".PhoneDotLoader__dot:nth-child(3)", {
+			// reset last dot xPercent
+			xPercent: 0,
+			duration: 0.0001,
+			// ease: "power2.inOut",
+		})
 		.to(
 			".PhoneDotLoader__dot",
 			{
