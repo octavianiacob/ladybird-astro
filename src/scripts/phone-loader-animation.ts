@@ -66,6 +66,17 @@ export const threeDotsToCheckmark = (
 			}
 		)
 		.to(
+			".PhoneDotLoader__dot",
+			{
+				// scale down the dots
+				scale: 0.75,
+				duration: 0.45,
+				stagger: 0.1,
+				// ease: "power2.inOut",
+			},
+			"<"
+		)
+		.to(
 			".circle",
 			{
 				opacity: 1,
@@ -116,17 +127,77 @@ export const threeDotsToCheckmark = (
 			{ opacity: 1, duration: 0.05, stagger: 0.05, width: "auto" },
 			">"
 		)
-		.to(reversedSplitElementsOne, {
+		.to(".circle", {
+			// hide the circle
 			opacity: 0,
-			width: 0,
-			duration: 0.05,
-			stagger: 0.05,
-			delay: 0.2, // Pause between responses
+			duration: 0.001,
+			ease: "power4.inOut",
 		})
+		.to(
+			reversedSplitElementsOne,
+			{
+				opacity: 0,
+				width: 0,
+				duration: 0.05,
+				stagger: 0.05,
+				delay: 0.2, // Pause between responses
+			},
+			"<"
+		)
 		.to(splitElContainer[0], {
 			opacity: 0,
 			duration: 0.1,
 			height: 0,
+
+			onComplete: () => {
+				if (index === 1) {
+					const convoParts = document.querySelectorAll(
+						".PhoneSection__convoPart"
+					);
+					const miniTl = gsap.timeline({});
+					miniTl
+						.to(".circle", {
+							// hide the circle
+							opacity: 0,
+							duration: 0.001,
+							ease: "power4.inOut",
+						})
+						.to(splitElContainer[1], {
+							opacity: 0,
+							height: 0,
+							duration: 0.001,
+						})
+						.to(
+							loadingParts[index],
+							{
+								opacity: 0,
+								duration: 0.001,
+								height: 0,
+							},
+							"<"
+						)
+						.to(
+							convoParts[2],
+							{
+								height: "4.5rem",
+								duration: 0.001,
+							},
+							"<"
+						)
+
+						.to(".circle", {
+							// reset the circle
+							strokeDashoffset: 282.6,
+							duration: 0.001,
+							ease: "power4.inOut",
+
+							onComplete: () => {
+								afterFunc();
+								spinnerTl.kill();
+							},
+						});
+				}
+			},
 		})
 		// continue the rest of the animation
 		.to(
@@ -150,17 +221,6 @@ export const threeDotsToCheckmark = (
 			},
 			">+=0.4"
 		)
-		// .to(
-		// 	".PhoneDotLoader__dot:nth-child(3)",
-		// 	{
-		// 		// hide the last dot
-		// 		opacity: 0,
-		// 		duration: 0.5,
-		// 		stagger: 0.1,
-		// 		// ease: "power2.inOut",
-		// 	},
-		// 	"<"
-		// )
 		// text bit part 2
 		.to(
 			splitElContainer[1],
@@ -174,7 +234,12 @@ export const threeDotsToCheckmark = (
 		.fromTo(
 			splitElementsTwo,
 			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.05, stagger: 0.05, width: "auto" },
+			{
+				opacity: 1,
+				duration: 0.05,
+				stagger: 0.05,
+				width: "auto",
+			},
 			"<"
 		)
 		.to(reversedSplitElementsTwo, {
@@ -194,6 +259,7 @@ export const threeDotsToCheckmark = (
 			duration: 0.3,
 			height: 0,
 		})
+
 		.to(
 			".PhoneSection__fakeConvoPart",
 			{
@@ -203,6 +269,7 @@ export const threeDotsToCheckmark = (
 			"<"
 		)
 		// continue the rest of the animation
+
 		.to(
 			".checkmarkPath",
 			{
@@ -236,14 +303,142 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
-		.to(".PhoneDotLoader__dot", {
-			// show the dots again
+		// .to(
+		// 	".PhoneDotLoader__dot:nth-child(3)",
+		// 	{
+		// 		// hide the middle and first dots
+		// 		yPercent: -200,
+		// 		duration: 0.3,
+		// 		// ease: "power2.inOut",
+		// 	},
+		// 	">"
+		// )
+		// .to(
+		// 	".PhoneDotLoader__dot:nth-child(2)",
+		// 	{
+		// 		// hide the middle and first dots
+		// 		yPercent: -150,
+		// 		duration: 0.3,
+		// 		// ease: "power2.inOut",
+		// 	},
+		// 	"<"
+		// )
+		// .to(
+		// 	".PhoneDotLoader__dot:nth-child(1)",
+		// 	{
+		// 		// hide the middle and first dots
+		// 		yPercent: -100,
+		// 		duration: 0.3,
+		// 		// ease: "power2.inOut",
+		// 	},
+		// 	"<"
+		// )
+
+		.to(
+			".PhoneDotLoader__dot",
+			{
+				// show the dots again
+				yPercent: 0,
+				opacity: 0,
+				scale: 1,
+				duration: 0.5,
+				stagger: 0.2,
+				ease: "power4.out",
+
+				onComplete: () => {
+					afterFunc();
+				},
+			},
+			"<"
+		);
+
+	return spinnerTl;
+};
+
+export const threeDotsToSpinner = (
+	dotAnimations: gsap.core.Tween[],
+	afterFunc: () => void,
+	index: number
+) => {
+	pauseDotAnimations(dotAnimations);
+
+	// do not autoplay
+	const spinnerTl = gsap.timeline({});
+
+	if (index === 1)
+		spinnerTl
+			.to(".PhoneDotLoader__dot", {
+				// scale up the dots
+				scale: 1,
+				duration: 0.2,
+				stagger: 0.1,
+				// ease: "power2.inOut",
+			})
+			.to(".PhoneDotLoader__dot", {
+				// up
+				yPercent: -300,
+				duration: 0.8,
+				stagger: 0.2,
+				// ease: "power2.inOut",
+			})
+			.to(
+				".PhoneDotLoader__dot",
+				{
+					// down
+					yPercent: 0,
+					opacity: 1,
+					duration: 0.8,
+					stagger: 0.2,
+					// ease: "power2.inOut",
+				},
+				"<=0.6"
+			)
+			.to(
+				".PhoneDotLoader__dot",
+				{
+					// up
+					yPercent: -300,
+					duration: 0.8,
+					stagger: 0.2,
+					// ease: "power2.inOut",
+
+					onComplete: () => {
+						// restart the dot animations
+						dotAnimations.forEach((animation) => {
+							animation.play();
+						});
+
+						afterFunc();
+					},
+				},
+				"<=0.6"
+			);
+	// .to(
+	// 	".PhoneDotLoader__dot",
+	// 	{
+	// 		// down
+	// 		yPercent: 0,
+	// 		duration: 0.8,
+	// 		stagger: 0.2,
+	// 		// ease: "power2.inOut",
+	// 	},
+	// 	"<=0.6"
+	// );
+	else
+		spinnerTl.to(".PhoneDotLoader__dot", {
+			// scale up the dots
+			scale: 1,
 			opacity: 1,
-			duration: 0.5,
-			stagger: 0.2,
-			ease: "power4.out",
+			duration: 0.2,
+			stagger: 0.1,
+			// ease: "power2.inOut",
 
 			onComplete: () => {
+				// restart the dot animations
+				dotAnimations.forEach((animation) => {
+					animation.play();
+				});
+
 				afterFunc();
 			},
 		});
@@ -251,7 +446,7 @@ export const threeDotsToCheckmark = (
 	return spinnerTl;
 };
 
-export const threeDotsToSpinner = (
+export const threeDotsToSpinnerOld = (
 	dotAnimations: gsap.core.Tween[],
 	afterFunc: () => void,
 	index: number
@@ -279,6 +474,17 @@ export const threeDotsToSpinner = (
 				// ease: "power2.inOut",
 			}
 		)
+		.to(
+			".PhoneDotLoader__dot",
+			{
+				// scale down the dots
+				scale: 0.75,
+				duration: 0.45,
+				stagger: 0.1,
+				// ease: "power2.inOut",
+			},
+			"<"
+		)
 		.to(".circle", {
 			// animate (draw) the circle
 			strokeDashoffset: 847.8,
@@ -294,6 +500,17 @@ export const threeDotsToSpinner = (
 				ease: "power4.out",
 			},
 			"<+=1"
+		)
+		.to(
+			".PhoneDotLoader__dot",
+			{
+				// scale up the dots
+				scale: 1,
+				duration: 0.2,
+				stagger: 0.1,
+				// ease: "power2.inOut",
+			},
+			"<"
 		)
 		.to(
 			".PhoneDotLoader__dot:nth-child(3)",
@@ -349,56 +566,6 @@ export const threeDotsToSpinner = (
 		});
 
 	return spinnerTl;
-};
-
-export const spinFunc = (dotAnimations: gsap.core.Tween[]) => {
-	pauseDotAnimations(dotAnimations);
-
-	// do not autoplay
-	const spinnerTl = gsap.timeline({});
-
-	spinnerTl;
-	// .to(".circle", {
-	// 	opacity: 0, // Animate from full dash-offset to 0
-	// 	duration: 0.1, // Duration of the animation in seconds
-	// 	ease: "power1.inOut", // Easing function
-	// })
-	// .to(".circle", {
-	// 	strokeDashoffset: 282.6, // Animate from full dash-offset to 0
-	// 	duration: 0.1, // Duration of the animation in seconds
-	// 	ease: "power1.inOut", // Easing function
-	// })
-	// .to(".circle", {
-	// 	strokeDashoffset: 282.6, // Animate from full dash-offset to 0
-	// 	duration: 0.1, // Duration of the animation in seconds
-	// 	ease: "power1.inOut", // Easing function
-	// })
-	// .to(".circle", {
-	// 	opacity: 1, //
-	// 	duration: 0.01, // Duration of the animation in seconds
-	// 	ease: "power1.inOut", // Easing function
-	// });
-	// .to(".circle", {
-	// 	strokeDashoffset: 423.9, // Animate from full dash-offset to 0
-	// 	duration: 1, // Duration of the animation in seconds
-	// 	ease: "power1.inOut", // Easing function
-	// })
-
-	// 	.to(".PhoneDotLoader__spinner", {
-	// 		animation: "spinner_svv2 1.5s infinite cubic-bezier(0.2, 0.8, 0.3, 1)",
-	// 		duration: 0.1,
-
-	// 		// repeat: -1,
-	// 	})
-	// 	.to(
-	// 		".spinner_P7sC",
-	// 		{
-	// 			duration: 0.1,
-	// 			fill: "red",
-	// 			// ease: "power2.inOut",
-	// 		},
-	// 		"+=0.3"
-	// 	);
 };
 
 export const resetLoaderAnimation = () => {

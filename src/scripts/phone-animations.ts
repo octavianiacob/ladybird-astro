@@ -14,7 +14,6 @@ import {
 	pauseDotAnimations,
 	resetPhoneAnims,
 	resumeDotAnimations,
-	spinFunc,
 	threeDotsToCheckmark,
 	threeDotsToSpinner,
 } from "./phone-loader-animation";
