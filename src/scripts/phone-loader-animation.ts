@@ -527,7 +527,8 @@ export const threeDotsToSpinner = (
 					stagger: 0.1,
 					// ease: "power2.inOut",
 				},
-				"1.24"
+				"1.28"
+				// "1.24"
 			);
 	else
 		spinnerTl.to(".PhoneDotLoader__dot", {
