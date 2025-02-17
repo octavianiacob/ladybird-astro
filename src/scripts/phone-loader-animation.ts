@@ -105,7 +105,7 @@ export const threeDotsToCheckmark = (
 		.to(
 			".PhoneDotLoader__spinner",
 			{
-				// animate (draw) the circle
+				// rotate (draw) the circle
 				// strokeDashoffset: 423.9,
 				rotate: -540,
 				duration: 3,
@@ -145,7 +145,7 @@ export const threeDotsToCheckmark = (
 				duration: 0.45,
 				// ease: "power2.inOut",
 			},
-			">"
+			"<"
 		)
 		// .to(
 		// 	".PhoneDotLoader__dot:nth-child(3)",
