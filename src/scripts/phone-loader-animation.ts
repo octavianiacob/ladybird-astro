@@ -449,6 +449,7 @@ export const threeDotsToSpinner = (
 
 	if (index === 1)
 		spinnerTl
+
 			.to(".PhoneDotLoader__dot", {
 				// scale up the dots
 				scale: 1,
@@ -516,6 +517,29 @@ export const threeDotsToSpinner = (
 					},
 				},
 				"<=0.6"
+			)
+			.to(
+				".PhoneDotLoader__dot:nth-child(1)",
+				{
+					// show left dot for smoother sync
+					yPercent: 0,
+					duration: 0.0001,
+					// ease: "power2.inOut",
+				},
+				"0.98"
+			)
+			.to(
+				".PhoneDotLoader__dot:nth-child(1)",
+				{
+					// show left and right dots
+					yPercent: 0,
+					opacity: 1,
+					scale: 1,
+					duration: 0.3,
+					// ease: "power2.inOut",
+				},
+				">"
+				// "1.24"
 			)
 			.to(
 				".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3), .PhoneDotLoader__dot:nth-child(2)",
