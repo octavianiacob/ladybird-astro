@@ -463,18 +463,6 @@ export const threeDotsToSpinner = (
 				},
 				"<=0.6"
 			)
-			.to(
-				".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3), .PhoneDotLoader__dot:nth-child(2)",
-				{
-					// show left and right dots
-					opacity: 1,
-					scale: 1,
-					duration: 0.8,
-					stagger: 0.3,
-					// ease: "power2.inOut",
-				},
-				"<"
-			)
 			// .to(
 			// 	".PhoneDotLoader__dot:nth-child(2)",
 			// 	{
@@ -516,6 +504,18 @@ export const threeDotsToSpinner = (
 					},
 				},
 				"<=0.6"
+			)
+			.to(
+				".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3), .PhoneDotLoader__dot:nth-child(2)",
+				{
+					// show left and right dots
+					opacity: 1,
+					scale: 1,
+					duration: 0.3,
+					stagger: 0.1,
+					// ease: "power2.inOut",
+				},
+				"1.24"
 			);
 	else
 		spinnerTl.to(".PhoneDotLoader__dot", {
