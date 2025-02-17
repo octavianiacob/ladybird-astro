@@ -3,15 +3,15 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 ---
 
 <script>
-	import { DotLottie } from "@lottiefiles/dotlottie-web";
+	// import { DotLottie } from "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js";
 
-	const dotLottie = new DotLottie({
-		autoplay: true,
-		loop: false,
-		canvas: document.querySelector("#lottie-animation"),
-		src: "https://lottie.host/fd4bef2a-ccdf-4a64-b30a-1069247751a2/s3fvfZFE18.lottie", // or .json file
-		// src: "https://lottie.host/0cbdb3ef-2fa5-4d1d-9e4e-f66c879e010d/D0bRr9d93F.lottie", // or .json file
-	});
+	// const dotLottie = new DotLottie({
+	// 	autoplay: true,
+	// 	loop: false,
+	// 	canvas: document.querySelector("#lottie-animation"),
+	// 	src: "/logo.json", // or .json file
+	// 	// src: "https://lottie.host/0cbdb3ef-2fa5-4d1d-9e4e-f66c879e010d/D0bRr9d93F.lottie", // or .json file
+	// });
 
 	// const animation = lottie.loadAnimation({
 	// 	container: document.getElementById("lottie-animation"),
@@ -26,15 +26,15 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 
 <SectionLayout className="">
 	<div class="IntroSection">
-		<!-- <video
+		<video
 			class="IntroSection__vid"
 			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/tcklrv2f0rj6e0eignbq"
 			muted
 			playsinline
-			autoplay></video> -->
+			autoplay></video>
 
 		<!-- <div id="lottie-animation"></div> -->
-		<canvas id="lottie-animation" style="width: 800px; height:800px;"></canvas>
+		<!-- <canvas id="lottie-animation" style="width: 800px; height:800px;"></canvas> -->
 	</div>
 </SectionLayout>
 
