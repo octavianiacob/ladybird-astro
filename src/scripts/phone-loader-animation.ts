@@ -369,6 +369,17 @@ export const threeDotsToCheckmark = (
 			ease: "power4.inOut",
 		})
 		.to(
+			".PhoneDotLoader__spinner",
+			{
+				// reset rotate (draw) the circle
+				// strokeDashoffset: 423.9,
+				rotate: 0,
+				duration: 0.0001,
+				ease: "power4.inOut",
+			},
+			"<"
+		)
+		.to(
 			".circle",
 			{
 				// show the circle again (invisible)
