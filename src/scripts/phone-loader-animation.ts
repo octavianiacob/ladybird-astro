@@ -343,7 +343,7 @@ export const threeDotsToCheckmark = (
 			width: 0,
 			duration: 0.05,
 			stagger: 0.03,
-			delay: 3, // Pause between responses
+			delay: 1, // Pause between responses
 		})
 		.to(splitElContainer[1], {
 			opacity: 0,
@@ -370,7 +370,7 @@ export const threeDotsToCheckmark = (
 			{
 				// animate (hiding) the checkmark
 				strokeDashoffset: 100,
-				delay: 1,
+				delay: 0.5,
 				duration: 0.5,
 				ease: "power4.out",
 			},
@@ -443,7 +443,8 @@ export const threeDotsToCheckmark = (
 				onComplete: () => {
 					afterFunc();
 				},
-			}
+			},
+			"<"
 		);
 
 	return spinnerTl;

@@ -65,13 +65,13 @@ const playConversation = async () => {
 				timeline
 					.to(convoPart, {
 						opacity: 1,
-						duration: 0.3,
+						duration: 0.05,
 						height: "4.5rem",
 					})
 					.to(
 						".PhoneSection__fakeConvoPart",
 						{
-							duration: 0.3,
+							duration: 0.05,
 							height: 0,
 						},
 						"<"
