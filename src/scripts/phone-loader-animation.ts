@@ -160,7 +160,7 @@ export const threeDotsToCheckmark = (
 					}
 				},
 			},
-			"<"
+			"<-=0.04"
 		)
 		// .to(
 		// 	".PhoneDotLoader__dot:nth-child(3)",
@@ -308,7 +308,8 @@ export const threeDotsToCheckmark = (
 				duration: 0.8,
 				ease: "power4.out",
 			},
-			">+=0.3"
+			">-=0.2"
+			// ">+=0.3"
 		)
 		// text bit part 2
 		.to(
@@ -575,7 +576,7 @@ export const threeDotsToSpinner = (
 						afterFunc();
 					},
 				},
-				"1.5"
+				"1.1"
 			);
 	else
 		spinnerTl.to(".PhoneDotLoader__dot", {
