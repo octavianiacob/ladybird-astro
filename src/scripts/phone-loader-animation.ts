@@ -1,6 +1,9 @@
 import gsap, { Power1, Power4 } from "gsap";
 import Snap from "snapsvg-cjs-ts";
-import { splitConvoTextIntoChars } from "../utils/helpers";
+import {
+	splitConvoTextIntoChars,
+	splitConvoTextIntoWords,
+} from "../utils/helpers";
 // import MorphSVGPlugin from "../../gsap/MorphSVGPlugin";
 
 export const pauseDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
@@ -25,7 +28,7 @@ export const threeDotsToCheckmark = (
 	const textElements = loadingParts[index].querySelectorAll(
 		".PhoneSection__loading__text"
 	);
-	splitConvoTextIntoChars(textElements);
+	splitConvoTextIntoWords(textElements);
 
 	const splitElContainer = loadingParts[index].querySelectorAll(
 		".PhoneSection__loading__text"
@@ -33,12 +36,12 @@ export const threeDotsToCheckmark = (
 
 	const splitElementsOne = loadingParts[index]
 		.querySelectorAll(".PhoneSection__loading__text")[0]
-		.querySelectorAll(".char");
+		.querySelectorAll(".word");
 	const reversedSplitElementsOne = [...splitElementsOne].reverse();
 
 	const splitElementsTwo = loadingParts[index]
 		.querySelectorAll(".PhoneSection__loading__text")[1]
-		.querySelectorAll(".char");
+		.querySelectorAll(".word");
 	const reversedSplitElementsTwo = [...splitElementsTwo].reverse();
 
 	pauseDotAnimations(dotAnimations);
@@ -75,7 +78,7 @@ export const threeDotsToCheckmark = (
 			{
 				// scale down the right dot
 				scale: 0.75,
-				duration: 0.45,
+				duration: 0.15,
 				// ease: "power2.inOut",
 			},
 			"<"
@@ -100,7 +103,7 @@ export const threeDotsToCheckmark = (
 				duration: 3,
 				ease: "power4.inOut",
 			},
-			">-=1"
+			">-=1.2"
 		)
 		.to(
 			".PhoneDotLoader__spinner",
@@ -111,7 +114,7 @@ export const threeDotsToCheckmark = (
 				duration: 3,
 				ease: "power4.inOut",
 			},
-			">-=2"
+			">-=2.08"
 		)
 		.to(
 			".circle",
@@ -173,8 +176,8 @@ export const threeDotsToCheckmark = (
 		// )
 
 		// text bit part 1
-		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<-=1.2")
-		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.001 }, "<")
+		.to(splitElementsTwo, { opacity: 0, duration: 0.001 }, "<-=1.2")
+		.to(splitElementsOne, { opacity: 0, duration: 0.001 }, "<")
 		.to(
 			loadingParts[index],
 			{
@@ -203,8 +206,8 @@ export const threeDotsToCheckmark = (
 		)
 		.fromTo(
 			splitElementsOne,
-			{ opacity: 0, width: 0 },
-			{ opacity: 1, duration: 0.05, stagger: 0.05, width: "auto" },
+			{ opacity: 0 },
+			{ opacity: 1, duration: 0.6, stagger: 0.2 },
 			">"
 		)
 		.to(".circle", {
@@ -218,8 +221,8 @@ export const threeDotsToCheckmark = (
 			{
 				opacity: 0,
 				width: 0,
-				duration: 0.05,
-				stagger: 0.05,
+				duration: 0.001,
+				// stagger: 0.3,
 				// delay: 0.2, // Pause between responses
 			},
 			"<-=0.8"
@@ -319,12 +322,11 @@ export const threeDotsToCheckmark = (
 		)
 		.fromTo(
 			splitElementsTwo,
-			{ opacity: 0, width: 0 },
+			{ opacity: 0 },
 			{
 				opacity: 1,
-				duration: 0.05,
-				stagger: 0.05,
-				width: "auto",
+				duration: 0.6,
+				stagger: 0.3,
 			},
 			"<"
 		)
@@ -337,8 +339,8 @@ export const threeDotsToCheckmark = (
 		.to(reversedSplitElementsTwo, {
 			opacity: 0,
 			width: 0,
-			duration: 0.05,
-			stagger: 0.03,
+			duration: 0.001,
+			// stagger: 0.3,
 			delay: 1, // Pause between responses
 		})
 		.to(splitElContainer[1], {

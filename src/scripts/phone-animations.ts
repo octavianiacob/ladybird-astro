@@ -7,6 +7,7 @@ import {
 } from "./autoplay-observer";
 import { patientConvo_pt1 } from "../utils/constants";
 import {
+	findWhiteSpaceNodes,
 	splitConvoTextIntoChars,
 	splitConvoTextIntoWords,
 } from "../utils/helpers";
@@ -50,7 +51,7 @@ const playConversation = async () => {
 	onLeave();
 	// Split all conversation text into words/characters
 	const textElements = document.querySelectorAll(".PhoneSection__convo__text");
-	splitConvoTextIntoChars(textElements);
+	splitConvoTextIntoWords(textElements);
 
 	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
 
@@ -86,8 +87,13 @@ const playConversation = async () => {
 
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".PhoneSection__convo__text")
-				[index].querySelectorAll(".char");
+				[index].querySelectorAll(".word");
 			const reversedSplitElements = [...splitElements].reverse();
+			const whiteSpaces = findWhiteSpaceNodes(
+				convoParts[convoIndex].querySelectorAll(".PhoneSection__convo__text")[
+					index
+				]
+			);
 
 			timeline
 				.to(
@@ -114,18 +120,12 @@ const playConversation = async () => {
 					},
 					"<"
 				)
-				.fromTo(
-					splitElements,
-					{ opacity: 0, width: 0 },
-					{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" },
-					"<"
-				)
-				.to(
-					splitElements,
-					// 5 word rule
-					{ opacity: 0, width: 0, duration: 0.1, stagger: 0.06 },
-					"<+=1.5"
-				)
+				// .fromTo(
+				// 	splitElements,
+				// 	{ opacity: 0, width: 0 },
+				// 	{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" },
+				// 	"<"
+				// )
 				// .to(reversedSplitElements, {
 				// 	opacity: 0,
 				// 	width: 0,
@@ -133,6 +133,67 @@ const playConversation = async () => {
 				// 	stagger: 0.05,
 				// 	delay: 3, // Pause between responses
 				// })
+				.to(splitElements, { opacity: 0, duration: 0.001 }, "<")
+				.fromTo(
+					// show the first 5 words
+					splitElements,
+					{ opacity: 0 },
+					{ opacity: 1, duration: 0.6, stagger: 0.3 },
+					"<"
+				)
+				.to(
+					// hide the first 5 words
+					splitElements,
+					{ opacity: 0, width: 0, duration: 0.001 }
+					// "<+=1.8"
+				)
+				// .fromTo(
+				// 	// show the first 5 words
+				// 	[...splitElements]?.slice(0, 5),
+				// 	{ opacity: 0 },
+				// 	{ opacity: 1, duration: 0.4, stagger: 0.2 },
+				// 	"<"
+				// )
+				// .to(
+				// 	// hide the first 5 words
+				// 	[...splitElements]?.slice(0, 5),
+				// 	{ opacity: 0, width: 0, duration: 0.001 },
+				// 	"<+=1.2"
+				// )
+				// .fromTo(
+				// 	// show the next 5 words (if available)
+				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
+				// 	{ opacity: 0 },
+				// 	{
+				// 		opacity: 1,
+				// 		width: "auto",
+				// 		x: -12,
+				// 		duration: splitElements?.length > 5 ? 0.4 : 0.0001,
+				// 		stagger: 0.2,
+				// 	},
+				// 	"<"
+				// )
+				// .to(
+				// 	// xPercent reset to avoid slide-in effect
+				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
+				// 	// 5 word rule
+				// 	{
+				// 		xPercent: 0,
+				// 		duration: 0.0001,
+				// 	},
+				// 	"<+=1.8"
+				// )
+				// .to(
+				// 	// hide the next 5 words (if available)
+				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
+				// 	// 5 word rule
+				// 	{
+				// 		opacity: 0,
+				// 		duration: splitElements?.length > 5 ? 0.4 : 0.0001,
+				// 	},
+				// 	">+=1"
+				// )
+
 				.to(splitElContainer, {
 					opacity: 0,
 					duration: 0.01,

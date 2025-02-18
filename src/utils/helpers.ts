@@ -1,9 +1,9 @@
 import SplitType from "split-type";
 
 // Function to split all instances of the class into words
-export const splitConvoTextIntoWords = (selector: string) => {
+export const splitConvoTextIntoWords = (textElements: NodeListOf<Element>) => {
 	// Query all elements with the specified class
-	const textElements = document.querySelectorAll(selector);
+	// const textElements = document.querySelectorAll(selector);
 
 	if (textElements.length === 0) {
 		console.warn(
@@ -212,4 +212,12 @@ export const switchTab = (ind: number) => {
 	});
 
 	tabItems[ind].classList.add("TabToggle__button--active");
+};
+
+export const findWhiteSpaceNodes = (parent: Element) => {
+	parent.childNodes.forEach((node) => {
+		if (node.nodeType === 3 && !node.nodeValue?.trim()) {
+			console.log("Whitespace node found:", node);
+		}
+	});
 };
