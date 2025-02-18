@@ -120,13 +120,19 @@ const playConversation = async () => {
 					{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" },
 					"<"
 				)
-				.to(reversedSplitElements, {
-					opacity: 0,
-					width: 0,
-					duration: 0.05,
-					stagger: 0.05,
-					delay: 3, // Pause between responses
-				})
+				.to(
+					splitElements,
+					// 5 word rule
+					{ opacity: 0, width: 0, duration: 0.1, stagger: 0.06 },
+					"<+=1.5"
+				)
+				// .to(reversedSplitElements, {
+				// 	opacity: 0,
+				// 	width: 0,
+				// 	duration: 0.05,
+				// 	stagger: 0.05,
+				// 	delay: 3, // Pause between responses
+				// })
 				.to(splitElContainer, {
 					opacity: 0,
 					duration: 0.01,
