@@ -173,7 +173,7 @@ export const threeDotsToCheckmark = (
 		// )
 
 		// text bit part 1
-		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<")
+		.to(splitElementsTwo, { opacity: 0, width: 0, duration: 0.001 }, "<-=1.2")
 		.to(splitElementsOne, { opacity: 0, width: 0, duration: 0.001 }, "<")
 		.to(
 			loadingParts[index],
@@ -374,7 +374,7 @@ export const threeDotsToCheckmark = (
 				duration: 0.5,
 				ease: "power4.out",
 			},
-			"<"
+			"<-=1"
 		)
 
 		.to(".circle", {
@@ -427,11 +427,24 @@ export const threeDotsToCheckmark = (
 				stagger: 0.06,
 				ease: "power4.out",
 
+				// onComplete: () => {
+				// 	afterFunc();
+				// },
+			},
+			"<-=0.28"
+		)
+		.to(
+			{},
+			{
+				// handle afterFunc
+				duration: 0.001,
+				ease: "power4.out",
+
 				onComplete: () => {
 					afterFunc();
 				},
 			},
-			"<-=0.28"
+			"<"
 		);
 
 	return spinnerTl;
@@ -476,17 +489,7 @@ export const threeDotsToSpinner = (
 				},
 				"<=0.6"
 			)
-			// .to(
-			// 	".PhoneDotLoader__dot:nth-child(2)",
-			// 	{
-			// 		// show left and right dots
-			// 		opacity: 1,
-			// 		scale: 1,
-			// 		duration: 0.8,
-			// 		// ease: "power2.inOut",
-			// 	},
-			// 	"<"
-			// )
+
 			.to(
 				".PhoneDotLoader__dot",
 				{
@@ -495,6 +498,14 @@ export const threeDotsToSpinner = (
 					duration: 0.8,
 					stagger: 0.2,
 					// ease: "power2.inOut",
+					onComplete: () => {
+						// restart the dot animations
+						dotAnimations.forEach((animation) => {
+							animation.play();
+						});
+
+						afterFunc();
+					},
 				},
 				"<=0.6"
 			)
@@ -507,14 +518,14 @@ export const threeDotsToSpinner = (
 					stagger: 0.2,
 					// ease: "power2.inOut",
 
-					onComplete: () => {
-						// restart the dot animations
-						dotAnimations.forEach((animation) => {
-							animation.play();
-						});
+					// onComplete: () => {
+					// 	// restart the dot animations
+					// 	dotAnimations.forEach((animation) => {
+					// 		animation.play();
+					// 	});
 
-						afterFunc();
-					},
+					// 	afterFunc();
+					// },
 				},
 				"<=0.6"
 			)
