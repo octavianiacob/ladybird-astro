@@ -12,6 +12,30 @@ export const pauseDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
 	});
 };
 
+export const pauseDotAnimationsSeamlessly = (
+	dotAnimations: gsap.core.Tween[],
+	dots: NodeListOf<Element>
+) => {
+	dotAnimations.reverse().forEach((animation, i) => {
+		const dot = dots[dots.length - 1 - i]; // Start from the last dot
+
+		// Calculate time until the dot naturally reaches yPercent: 0
+		const timeRemaining = (1 - animation.progress()) * animation.duration();
+
+		// Wait for the dot to reach yPercent: 0, then pause it
+		setTimeout(() => {
+			gsap.to(dot, {
+				yPercent: 0,
+				duration: 0.6, // Smooth transition
+				ease: "power2.out",
+				onComplete: () => {
+					animation.pause();
+				}, // Pause once it reaches 0
+			});
+		}, timeRemaining * 1000 + i * 200); // Small delay for smooth reverse pause
+	});
+};
+
 export const resumeDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
 	dotAnimations.forEach((animation) => {
 		animation.play();

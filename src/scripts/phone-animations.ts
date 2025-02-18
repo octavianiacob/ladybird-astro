@@ -13,6 +13,7 @@ import {
 } from "../utils/helpers";
 import {
 	pauseDotAnimations,
+	pauseDotAnimationsSeamlessly,
 	resetPhoneAnims,
 	resumeDotAnimations,
 	threeDotsToCheckmark,
@@ -21,6 +22,7 @@ import {
 
 // -------------------------- Dot Loader Animation ---------------------------
 let animations: gsap.core.Tween[] = [];
+
 const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 	[...dots].reverse().forEach((dot, i) => {
@@ -104,15 +106,8 @@ const playConversation = async () => {
 						duration: 0.1,
 						onComplete: () => {
 							if (!isAI) {
-								pauseDotAnimations(animations);
-
-								gsap.to(".PhoneDotLoader__dot", {
-									// reset the dots
-									yPercent: 0,
-									duration: 0.6,
-									stagger: 0.25,
-									// ease: "power2.inOut",
-								});
+								const dots = document.querySelectorAll(".PhoneDotLoader__dot");
+								pauseDotAnimationsSeamlessly(animations, dots);
 							} else {
 								resumeDotAnimations(animations);
 							}
