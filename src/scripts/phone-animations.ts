@@ -138,13 +138,13 @@ const playConversation = async () => {
 					// show the first 5 words
 					splitElements,
 					{ opacity: 0 },
-					{ opacity: 1, duration: 0.6, stagger: 0.3 },
-					"<"
+					{ opacity: 1, duration: 0.8, stagger: 0.6 },
+					"<+=0.3"
 				)
 				.to(
 					// hide the first 5 words
 					splitElements,
-					{ opacity: 0, width: 0, duration: 0.001 }
+					{ opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
 					// "<+=1.8"
 				)
 				// .fromTo(

@@ -427,14 +427,25 @@ export const threeDotsToCheckmark = (
 				opacity: 1,
 				scale: 1,
 				duration: 0.2,
+				ease: "power4.out",
+			},
+			"<-=1.1"
+			// "<-=0.28"
+		)
+		.to(
+			".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(3)",
+			{
+				// show the dots again
+				yPercent: 0,
+				opacity: 1,
+				scale: 1,
+				duration: 0.2,
 				stagger: 0.06,
 				ease: "power4.out",
-
-				// onComplete: () => {
-				// 	afterFunc();
-				// },
-			},
-			"<-=0.28"
+			}
+			// ">-0.06"
+			// "<+=0.06"
+			// "<-=0.28"
 		)
 		.to(
 			{},
@@ -447,7 +458,9 @@ export const threeDotsToCheckmark = (
 					afterFunc();
 				},
 			},
-			"<-=0.2"
+			"<-=0.22"
+			// "<-=0.22"
+			// "<-=0.2"
 		);
 
 	return spinnerTl;
