@@ -165,7 +165,7 @@ export const threeDotsToCheckmark = (
 		// 		// hide the last dot
 		// 		scale: 0,
 		// 		opacity: 0,
-		// 		xPercent: -300,
+		// 		xPercent: -100,
 		// 		duration: 0.45,
 		// 		// ease: "power2.inOut",
 		// 	},
@@ -334,7 +334,7 @@ export const threeDotsToCheckmark = (
 		)
 		.to(".PhoneDotLoader__dot", {
 			// move dots up slightly for fancy effect
-			yPercent: -100,
+			yPercent: -80,
 			duration: 0.0001,
 			ease: "power4.out",
 		})
@@ -443,8 +443,7 @@ export const threeDotsToCheckmark = (
 				onComplete: () => {
 					afterFunc();
 				},
-			},
-			"<"
+			}
 		);
 
 	return spinnerTl;
@@ -472,7 +471,7 @@ export const threeDotsToSpinner = (
 			})
 			.to(".PhoneDotLoader__dot", {
 				// up
-				yPercent: -300,
+				yPercent: -80,
 				duration: 0.8,
 				stagger: 0.2,
 				// ease: "power2.inOut",
@@ -494,7 +493,7 @@ export const threeDotsToSpinner = (
 				".PhoneDotLoader__dot",
 				{
 					// up
-					yPercent: -300,
+					yPercent: -80,
 					duration: 0.8,
 					stagger: 0.2,
 					// ease: "power2.inOut",
