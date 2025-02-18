@@ -16,7 +16,7 @@ export const pauseDotAnimationsSeamlessly = (
 	dotAnimations: gsap.core.Tween[],
 	dots: NodeListOf<Element>
 ) => {
-	dotAnimations.reverse().forEach((animation, i) => {
+	[...dotAnimations.reverse()].forEach((animation, i) => {
 		const dot = dots[dots.length - 1 - i]; // Start from the last dot
 
 		// Calculate time until the dot naturally reaches yPercent: 0
@@ -26,19 +26,41 @@ export const pauseDotAnimationsSeamlessly = (
 		setTimeout(() => {
 			gsap.to(dot, {
 				yPercent: 0,
-				duration: 0.6, // Smooth transition
+				duration: 0.8, // Smooth transition
 				ease: "power2.out",
 				onComplete: () => {
 					animation.pause();
+
+					gsap.to(dot, {
+						yPercent: 0,
+						duration: 0.8, // Smooth transition
+						ease: "power2.out",
+					});
 				}, // Pause once it reaches 0
 			});
-		}, timeRemaining * 1000 + i * 200); // Small delay for smooth reverse pause
+		}, timeRemaining * 1000 + i * 220); // Small delay for smooth reverse pause
 	});
 };
 
 export const resumeDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
 	dotAnimations.forEach((animation) => {
-		animation.play();
+		// restart animation
+		// animation.play();
+		[...dotAnimations].reverse().forEach((animation, i) => {
+			animation.restart();
+			animation.pause();
+			animation.play(i * 0.22);
+		});
+	});
+};
+
+export const restartDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
+	// restart animation with 0.22 second delay
+
+	dotAnimations.forEach((animation, i) => {
+		animation.restart();
+		animation.pause();
+		animation.play(i * 0.22);
 	});
 };
 
