@@ -255,15 +255,11 @@ export const threeDotsToCheckmark = (
 								height: 0,
 								duration: 0.001,
 							})
-							.to(
-								loadingParts[index],
-								{
-									opacity: 0,
-									duration: 0.001,
-									height: 0,
-								},
-								"<"
-							)
+							.to(loadingParts[index], {
+								opacity: 0,
+								duration: 0.001,
+								height: 0,
+							})
 							.to(
 								convoParts[2],
 								{
@@ -350,11 +346,15 @@ export const threeDotsToCheckmark = (
 			duration: 0.1,
 			height: 0,
 		})
-		.to(loadingParts[index], {
-			opacity: 0,
-			duration: 0.3,
-			height: 0,
-		})
+		.to(
+			loadingParts[index],
+			{
+				opacity: 0,
+				duration: 0.3,
+				height: 0,
+			},
+			"<-=0.7"
+		)
 		.to(
 			".PhoneSection__fakeConvoPart",
 			{
@@ -444,7 +444,7 @@ export const threeDotsToCheckmark = (
 					afterFunc();
 				},
 			},
-			"<"
+			"<-=0.2"
 		);
 
 	return spinnerTl;
@@ -504,7 +504,7 @@ export const threeDotsToSpinner = (
 							animation.play();
 						});
 
-						afterFunc();
+						// afterFunc();
 					},
 				},
 				"<=0.6"
@@ -564,6 +564,16 @@ export const threeDotsToSpinner = (
 				},
 				"1.28"
 				// "1.24"
+			)
+			.to(
+				{},
+				{
+					duration: 0.001,
+					onComplete: () => {
+						afterFunc();
+					},
+				},
+				"1.5"
 			);
 	else
 		spinnerTl.to(".PhoneDotLoader__dot", {

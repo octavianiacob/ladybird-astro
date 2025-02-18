@@ -65,13 +65,13 @@ const playConversation = async () => {
 				timeline
 					.to(convoPart, {
 						opacity: 1,
-						duration: 0.05,
+						duration: 0.01,
 						height: "4.5rem",
 					})
 					.to(
 						".PhoneSection__fakeConvoPart",
 						{
-							duration: 0.05,
+							duration: 0.01,
 							height: 0,
 						},
 						"<"
@@ -90,30 +90,35 @@ const playConversation = async () => {
 			const reversedSplitElements = [...splitElements].reverse();
 
 			timeline
-				.to(splitElContainer, {
-					opacity: 1,
-					height: "auto",
-					duration: 0.1,
-					onComplete: () => {
-						if (!isAI) {
-							pauseDotAnimations(animations);
+				.to(
+					splitElContainer,
+					{
+						opacity: 1,
+						height: "auto",
+						duration: 0.1,
+						onComplete: () => {
+							if (!isAI) {
+								pauseDotAnimations(animations);
 
-							gsap.to(".PhoneDotLoader__dot", {
-								// reset the dots
-								yPercent: 0,
-								duration: 0.6,
-								stagger: 0.25,
-								// ease: "power2.inOut",
-							});
-						} else {
-							resumeDotAnimations(animations);
-						}
+								gsap.to(".PhoneDotLoader__dot", {
+									// reset the dots
+									yPercent: 0,
+									duration: 0.6,
+									stagger: 0.25,
+									// ease: "power2.inOut",
+								});
+							} else {
+								resumeDotAnimations(animations);
+							}
+						},
 					},
-				})
+					"<"
+				)
 				.fromTo(
 					splitElements,
 					{ opacity: 0, width: 0 },
-					{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" }
+					{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" },
+					"<"
 				)
 				.to(reversedSplitElements, {
 					opacity: 0,
@@ -124,7 +129,7 @@ const playConversation = async () => {
 				})
 				.to(splitElContainer, {
 					opacity: 0,
-					duration: 0.1,
+					duration: 0.01,
 					height: 0,
 				});
 
