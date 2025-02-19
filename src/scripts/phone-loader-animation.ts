@@ -388,19 +388,30 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
+		.to(reversedSplitElementsTwo, {
+			opacity: 0,
+			width: 0,
+			duration: 0.001,
+			// stagger: 0.3,
+			delay: 0.1,
+		})
 		.to(".PhoneDotLoader__dot", {
 			// move dots up slightly for fancy effect
 			yPercent: -80,
 			duration: 0.0001,
 			ease: "power4.out",
 		})
-		.to(reversedSplitElementsTwo, {
-			opacity: 0,
-			width: 0,
-			duration: 0.001,
-			// stagger: 0.3,
-			delay: 1, // Pause between responses
-		})
+		.to(
+			reversedSplitElementsTwo,
+			{
+				opacity: 0,
+				width: 0,
+				duration: 0.001,
+				// stagger: 0.3,
+				delay: 1, // Pause between responses
+			}
+			// "<-=0.1"
+		)
 		.to(splitElContainer[1], {
 			opacity: 0,
 			duration: 0.1,
