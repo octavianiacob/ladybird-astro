@@ -92,7 +92,10 @@ export const threeDotsToCheckmark = (
 		.querySelectorAll(".word");
 	const reversedSplitElementsTwo = [...splitElementsTwo].reverse();
 
-	pauseDotAnimationsSeamlessly(dotAnimations, document.querySelectorAll(".PhoneDotLoader__dot"));
+	pauseDotAnimationsSeamlessly(
+		dotAnimations,
+		document.querySelectorAll(".PhoneDotLoader__dot")
+	);
 	const spinnerTl = gsap.timeline({});
 
 	console.log("textElements", textElements);
@@ -319,7 +322,13 @@ export const threeDotsToCheckmark = (
 								},
 								"<"
 							)
-
+							.to(".PhoneDotLoader__spinner", {
+								// reset rotate (draw) the circle
+								// strokeDashoffset: 423.9,
+								rotate: 0,
+								duration: 0.0001,
+								ease: "power4.inOut",
+							})
 							.to(".circle", {
 								// reset the circle
 								strokeDashoffset: 282.6,
