@@ -43,14 +43,16 @@ export const pauseDotAnimationsSeamlessly = (
 };
 
 export const resumeDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
-	dotAnimations.forEach((animation) => {
-		// restart animation
-		// animation.play();
-		[...dotAnimations].reverse().forEach((animation, i) => {
-			animation.restart();
-			animation.pause();
-			animation.play(i * 0.22);
-		});
+	// dotAnimations.forEach((animation) => {
+	// restart animation
+	// animation.play();
+
+	// });
+
+	[...dotAnimations].forEach((animation, i) => {
+		animation.restart();
+		animation.pause();
+		animation.play(i * 0.22);
 	});
 };
 
@@ -90,7 +92,7 @@ export const threeDotsToCheckmark = (
 		.querySelectorAll(".word");
 	const reversedSplitElementsTwo = [...splitElementsTwo].reverse();
 
-	pauseDotAnimations(dotAnimations);
+	pauseDotAnimationsSeamlessly(dotAnimations, document.querySelectorAll(".PhoneDotLoader__dot"));
 	const spinnerTl = gsap.timeline({});
 
 	console.log("textElements", textElements);

@@ -105,10 +105,15 @@ const playConversation = async () => {
 						height: "auto",
 						duration: 0.1,
 						onComplete: () => {
+							if (convoIndex === 0 && index === 0) {
+								[...animations].reverse().forEach((animation, i) => {
+									animation.play(i * 0.22);
+								});
+							}
 							if (!isAI) {
 								const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 								pauseDotAnimationsSeamlessly(animations, dots);
-							} else {
+							} else if (animations[0].paused()) {
 								resumeDotAnimations(animations);
 							}
 						},
