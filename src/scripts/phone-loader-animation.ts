@@ -101,13 +101,13 @@ export const threeDotsToCheckmark = (
 	console.log("textElements", textElements);
 
 	spinnerTl
-		.to(".PhoneDotLoader__dot", {
-			// reset the dots
-			yPercent: 0,
-			duration: 0.45,
-			stagger: 0.1,
-			// ease: "power2.inOut",
-		})
+		// .to(".PhoneDotLoader__dot", {
+		// 	// reset the dots
+		// 	yPercent: 0,
+		// 	duration: 0.45,
+		// 	stagger: 0.1,
+		// 	// ease: "power2.inOut",
+		// })
 		.to(
 			".circle",
 			{
@@ -584,9 +584,8 @@ export const threeDotsToSpinner = (
 					// ease: "power2.inOut",
 					onComplete: () => {
 						// restart the dot animations
-						dotAnimations.forEach((animation) => {
-							animation.play();
-						});
+
+						resumeDotAnimations(dotAnimations);
 
 						// afterFunc();
 					},
@@ -670,9 +669,8 @@ export const threeDotsToSpinner = (
 
 			onComplete: () => {
 				// restart the dot animations
-				dotAnimations.forEach((animation) => {
-					animation.play();
-				});
+
+				resumeDotAnimations(dotAnimations);
 
 				afterFunc();
 			},
