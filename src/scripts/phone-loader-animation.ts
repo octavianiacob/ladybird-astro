@@ -275,7 +275,7 @@ export const threeDotsToCheckmark = (
 			reversedSplitElementsOne,
 			{
 				opacity: 0,
-				width: 0,
+				// width: 0,
 				duration: 0.001,
 				// stagger: 0.3,
 				// delay: 0.2, // Pause between responses
@@ -394,7 +394,7 @@ export const threeDotsToCheckmark = (
 		)
 		.to(reversedSplitElementsTwo, {
 			opacity: 0,
-			width: 0,
+			// width: 0,
 			duration: 0.001,
 			// stagger: 0.3,
 			delay: 0.1,
@@ -409,7 +409,7 @@ export const threeDotsToCheckmark = (
 			reversedSplitElementsTwo,
 			{
 				opacity: 0,
-				width: 0,
+				// width: 0,
 				duration: 0.001,
 				// stagger: 0.3,
 				delay: 1, // Pause between responses

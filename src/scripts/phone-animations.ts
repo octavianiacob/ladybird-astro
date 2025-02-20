@@ -133,8 +133,8 @@ const playConversation = async () => {
 				// 	stagger: 0.05,
 				// 	delay: 3, // Pause between responses
 				// })
-				.to(splitElements, { opacity: 0, width: 0, duration: 0.001 }, "<")
-				.to(splitElements, { width: "auto", stagger: 0.6, duration: 0.8 }, "<")
+				// .to(splitElements, { opacity: 0, width: 0, duration: 0.001 }, "<")
+				// .to(splitElements, { width: "auto", stagger: 0.6, duration: 0.8 }, "<")
 				.fromTo(
 					// show the first 5 words
 					splitElements,
