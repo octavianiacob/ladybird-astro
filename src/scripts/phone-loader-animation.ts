@@ -367,7 +367,7 @@ export const threeDotsToCheckmark = (
 				// animate (drawing) the checkmark
 				strokeDashoffset: index === 1 ? 100 : 80,
 				duration: 0.8,
-				ease: "power4.out",
+				ease: "power1.out",
 			},
 			">-=0.2"
 			// ">+=0.3"
