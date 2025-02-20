@@ -52,7 +52,7 @@ export const resumeDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
 	[...dotAnimations].forEach((animation, i) => {
 		animation.restart();
 		animation.pause();
-		animation.play(i * 0.22);
+		animation.play(i * 0.2);
 	});
 };
 
@@ -207,6 +207,10 @@ export const threeDotsToCheckmark = (
 							duration: 0.001,
 							ease: "power4.inOut",
 						});
+						pauseDotAnimationsSeamlessly(
+							dotAnimations,
+							document.querySelectorAll(".PhoneDotLoader__dot")
+						);
 						afterFunc();
 					}
 				},
@@ -395,12 +399,12 @@ export const threeDotsToCheckmark = (
 			// stagger: 0.3,
 			delay: 0.1,
 		})
-		.to(".PhoneDotLoader__dot", {
-			// move dots up slightly for fancy effect
-			yPercent: -80,
-			duration: 0.0001,
-			ease: "power4.out",
-		})
+		// .to(".PhoneDotLoader__dot", {
+		// 	// move dots up slightly for fancy effect
+		// 	yPercent: -80,
+		// 	duration: 0.0001,
+		// 	ease: "power4.out",
+		// })
 		.to(
 			reversedSplitElementsTwo,
 			{
@@ -491,7 +495,7 @@ export const threeDotsToCheckmark = (
 			".PhoneDotLoader__dot",
 			{
 				// show the dots again
-				yPercent: 0,
+				// yPercent: 0,
 				opacity: 1,
 				scale: 1,
 				duration: 0.2,
@@ -504,7 +508,7 @@ export const threeDotsToCheckmark = (
 			".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(3)",
 			{
 				// show the dots again
-				yPercent: 0,
+				// yPercent: 0,
 				opacity: 1,
 				scale: 1,
 				duration: 0.2,
@@ -544,121 +548,152 @@ export const threeDotsToSpinner = (
 	// do not autoplay
 	const spinnerTl = gsap.timeline({});
 
-	if (index === 1)
-		spinnerTl
+	// if (index === 1) {
+	// 	spinnerTl
 
+	// 		.to(".PhoneDotLoader__dot", {
+	// 			// scale up the dots
+	// 			scale: 1,
+	// 			duration: 0.2,
+	// 			stagger: 0.1,
+	// 			// ease: "power2.inOut",
+	// 		})
+	// 		.to(".PhoneDotLoader__dot", {
+	// 			// up
+	// 			yPercent: -80,
+	// 			duration: 0.8,
+	// 			stagger: 0.2,
+	// 			// ease: "power2.inOut",
+	// 		})
+
+	// 		.to(
+	// 			".PhoneDotLoader__dot",
+	// 			{
+	// 				// down
+	// 				yPercent: 0,
+	// 				duration: 0.8,
+	// 				stagger: 0.2,
+	// 				// ease: "power2.inOut",
+	// 			},
+	// 			"<=0.6"
+	// 		)
+
+	// 		.to(
+	// 			".PhoneDotLoader__dot",
+	// 			{
+	// 				// up
+	// 				yPercent: -80,
+	// 				duration: 0.8,
+	// 				stagger: 0.2,
+	// 				// ease: "power2.inOut",
+	// 				onComplete: () => {
+	// 					// restart the dot animations
+
+	// 					resumeDotAnimations(dotAnimations);
+
+	// 					// afterFunc();
+	// 				},
+	// 			},
+	// 			"<=0.6"
+	// 		)
+	// 		.to(
+	// 			".PhoneDotLoader__dot",
+	// 			{
+	// 				// down
+	// 				yPercent: 0,
+	// 				duration: 0.8,
+	// 				stagger: 0.2,
+	// 				// ease: "power2.inOut",
+
+	// 				// onComplete: () => {
+	// 				// 	// restart the dot animations
+	// 				// 	dotAnimations.forEach((animation) => {
+	// 				// 		animation.play();
+	// 				// 	});
+
+	// 				// 	afterFunc();
+	// 				// },
+	// 			},
+	// 			"<=0.6"
+	// 		)
+	// 		.to(
+	// 			".PhoneDotLoader__dot:nth-child(1)",
+	// 			{
+	// 				// show left dot for smoother sync
+	// 				yPercent: 0,
+	// 				duration: 0.0001,
+	// 				// ease: "power2.inOut",
+	// 			},
+	// 			"0.98"
+	// 		)
+	// 		.to(
+	// 			".PhoneDotLoader__dot:nth-child(1)",
+	// 			{
+	// 				// show left and right dots
+	// 				yPercent: 0,
+	// 				opacity: 1,
+	// 				scale: 1,
+	// 				duration: 0.3,
+	// 				// ease: "power2.inOut",
+	// 			},
+	// 			">"
+	// 			// "1.24"
+	// 		)
+	// 		.to(
+	// 			".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3), .PhoneDotLoader__dot:nth-child(2)",
+	// 			{
+	// 				// show left and right dots
+	// 				opacity: 1,
+	// 				scale: 1,
+	// 				duration: 0.3,
+	// 				stagger: 0.1,
+	// 				// ease: "power2.inOut",
+	// 			},
+	// 			"1.28"
+	// 			// "1.24"
+	// 		)
+	// 		.to(
+	// 			{},
+	// 			{
+	// 				duration: 0.001,
+	// 				onComplete: () => {
+	// 					afterFunc();
+	// 				},
+	// 			},
+	// 			"1.1"
+	// 		);
+	// }
+
+	if (index === 1) {
+		spinnerTl
+			.to(
+				{},
+				{
+					duration: 0.83,
+					// ease: "power2.inOut",
+				}
+			)
 			.to(".PhoneDotLoader__dot", {
-				// scale up the dots
+				// down
+				opacity: 1,
 				scale: 1,
-				duration: 0.2,
-				stagger: 0.1,
-				// ease: "power2.inOut",
-			})
-			.to(".PhoneDotLoader__dot", {
-				// up
-				yPercent: -80,
 				duration: 0.8,
 				stagger: 0.2,
 				// ease: "power2.inOut",
 			})
-
-			.to(
-				".PhoneDotLoader__dot",
-				{
-					// down
-					yPercent: 0,
-					duration: 0.8,
-					stagger: 0.2,
-					// ease: "power2.inOut",
-				},
-				"<=0.6"
-			)
-
-			.to(
-				".PhoneDotLoader__dot",
-				{
-					// up
-					yPercent: -80,
-					duration: 0.8,
-					stagger: 0.2,
-					// ease: "power2.inOut",
-					onComplete: () => {
-						// restart the dot animations
-
-						resumeDotAnimations(dotAnimations);
-
-						// afterFunc();
-					},
-				},
-				"<=0.6"
-			)
-			.to(
-				".PhoneDotLoader__dot",
-				{
-					// down
-					yPercent: 0,
-					duration: 0.8,
-					stagger: 0.2,
-					// ease: "power2.inOut",
-
-					// onComplete: () => {
-					// 	// restart the dot animations
-					// 	dotAnimations.forEach((animation) => {
-					// 		animation.play();
-					// 	});
-
-					// 	afterFunc();
-					// },
-				},
-				"<=0.6"
-			)
-			.to(
-				".PhoneDotLoader__dot:nth-child(1)",
-				{
-					// show left dot for smoother sync
-					yPercent: 0,
-					duration: 0.0001,
-					// ease: "power2.inOut",
-				},
-				"0.98"
-			)
-			.to(
-				".PhoneDotLoader__dot:nth-child(1)",
-				{
-					// show left and right dots
-					yPercent: 0,
-					opacity: 1,
-					scale: 1,
-					duration: 0.3,
-					// ease: "power2.inOut",
-				},
-				">"
-				// "1.24"
-			)
-			.to(
-				".PhoneDotLoader__dot:nth-child(1), .PhoneDotLoader__dot:nth-child(3), .PhoneDotLoader__dot:nth-child(2)",
-				{
-					// show left and right dots
-					opacity: 1,
-					scale: 1,
-					duration: 0.3,
-					stagger: 0.1,
-					// ease: "power2.inOut",
-				},
-				"1.28"
-				// "1.24"
-			)
 			.to(
 				{},
 				{
-					duration: 0.001,
+					duration: 0.0001,
+					// ease: "power2.inOut",
 					onComplete: () => {
+						// restart the dot animations
+						resumeDotAnimations(dotAnimations);
 						afterFunc();
 					},
-				},
-				"1.1"
+				}
 			);
-	else
+	} else
 		spinnerTl.to(".PhoneDotLoader__dot", {
 			// scale up the dots
 			scale: 1,
