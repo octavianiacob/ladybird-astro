@@ -29,7 +29,7 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 	<div class="IntroSection">
 		<video
 			class="IntroSection__vid"
-			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/tcklrv2f0rj6e0eignbq"
+			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/rw028haokxfkute9yr3k"
 			muted
 			playsinline
 			autoplay></video>
@@ -75,6 +75,14 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 			position: absolute;
 			bottom: 2rem;
 			right: 2rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.IntroSection {
+			&__vid {
+				object-fit: cover;
+			}
 		}
 	}
 </style>
