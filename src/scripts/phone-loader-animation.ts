@@ -367,8 +367,9 @@ export const threeDotsToCheckmark = (
 			{
 				// animate (drawing) the checkmark
 				strokeDashoffset: index === 1 ? 100 : 80,
-				duration: 0.8,
-				ease: "power1.out",
+				duration: 0.2,
+				// duration: 0.8,
+				ease: "linear",
 			},
 			">-=0.2"
 			// ">+=0.3"
@@ -446,9 +447,10 @@ export const threeDotsToCheckmark = (
 			{
 				// animate (hiding) the checkmark
 				strokeDashoffset: 100,
-				delay: 0.5,
-				duration: 0.5,
-				ease: "power4.out",
+				duration: 0.2,
+				// duration: 0.5,
+				delay: 0.9,
+				ease: "linear",
 			},
 			"<-=1"
 		)
@@ -502,8 +504,9 @@ export const threeDotsToCheckmark = (
 				duration: 0.2,
 				ease: "power4.out",
 			},
-			"<-=1.1"
-			// "<-=0.28"
+			"<-=0.6"
+			// "<-=0.7"
+			// "<-=1.1"
 		)
 		.to(
 			".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(3)",
@@ -895,7 +898,7 @@ export const resetPhoneAnims = (dotAnimations: gsap.core.Tween[]) => {
 				// animate (hiding) the checkmark
 				strokeDashoffset: 100,
 				duration: 0.001,
-				ease: "power4.out",
+				ease: "linear",
 			},
 			"<"
 		);
