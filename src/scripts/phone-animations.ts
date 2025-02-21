@@ -39,6 +39,11 @@ const regularDotMovement = () => {
 	});
 };
 
+export const resetDotsCompletely = () => {
+	animations = [];
+	regularDotMovement();
+};
+
 regularDotMovement();
 
 // -------------------------- Conversation Animation ---------------------------
@@ -47,6 +52,9 @@ let timelines: gsap.core.Timeline[] = [];
 const onLeave = () => {
 	resetPhoneAnims(animations);
 	timelines.forEach((timeline) => timeline.kill());
+	timelines = [];
+
+	// resetDotsCompletely();
 };
 
 const playConversation = async () => {
@@ -64,7 +72,16 @@ const playConversation = async () => {
 		});
 
 		[...convoPart.children].forEach((response, index) => {
+			const splitElContainer = convoParts[convoIndex].querySelectorAll(
+				".PhoneSection__convo__text"
+			)[index];
+			let isAI = splitElContainer.className.includes("--AI");
+
 			if (index === 0) {
+				if (!isAI) {
+					resetDotsCompletely();
+				}
+
 				timeline
 					.to(convoPart, {
 						opacity: 1,
@@ -80,12 +97,6 @@ const playConversation = async () => {
 						"<"
 					);
 			}
-
-			const splitElContainer = convoParts[convoIndex].querySelectorAll(
-				".PhoneSection__convo__text"
-			)[index];
-			console.log("splitElContainer", splitElContainer);
-			let isAI = splitElContainer.className.includes("--AI");
 
 			const splitElements = convoParts[convoIndex]
 				.querySelectorAll(".PhoneSection__convo__text")
@@ -109,32 +120,17 @@ const playConversation = async () => {
 								[...animations].reverse().forEach((animation, i) => {
 									animation.play(i * 0.22);
 								});
-							}
-							if (!isAI) {
+							} else if (!isAI) {
 								const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 								pauseDotAnimationsSeamlessly(animations, dots);
 							} else if (animations[0].paused()) {
-								resumeDotAnimations(animations);
+								resetDotsCompletely();
 							}
 						},
 					},
 					"<"
 				)
-				// .fromTo(
-				// 	splitElements,
-				// 	{ opacity: 0, width: 0 },
-				// 	{ opacity: 1, duration: 0.1, stagger: 0.06, width: "auto" },
-				// 	"<"
-				// )
-				// .to(reversedSplitElements, {
-				// 	opacity: 0,
-				// 	width: 0,
-				// 	duration: 0.05,
-				// 	stagger: 0.05,
-				// 	delay: 3, // Pause between responses
-				// })
-				// .to(splitElements, { opacity: 0, width: 0, duration: 0.001 }, "<")
-				// .to(splitElements, { width: "auto", stagger: 0.6, duration: 0.8 }, "<")
+
 				.fromTo(
 					// show the first 5 words
 					splitElements,
@@ -148,57 +144,18 @@ const playConversation = async () => {
 					{ opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
 					// "<+=1.8"
 				)
-				// .fromTo(
-				// 	// show the first 5 words
-				// 	[...splitElements]?.slice(0, 5),
-				// 	{ opacity: 0 },
-				// 	{ opacity: 1, duration: 0.4, stagger: 0.2 },
-				// 	"<"
-				// )
-				// .to(
-				// 	// hide the first 5 words
-				// 	[...splitElements]?.slice(0, 5),
-				// 	{ opacity: 0, width: 0, duration: 0.001 },
-				// 	"<+=1.2"
-				// )
-				// .fromTo(
-				// 	// show the next 5 words (if available)
-				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
-				// 	{ opacity: 0 },
-				// 	{
-				// 		opacity: 1,
-				// 		width: "auto",
-				// 		x: -12,
-				// 		duration: splitElements?.length > 5 ? 0.4 : 0.0001,
-				// 		stagger: 0.2,
-				// 	},
-				// 	"<"
-				// )
-				// .to(
-				// 	// xPercent reset to avoid slide-in effect
-				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
-				// 	// 5 word rule
-				// 	{
-				// 		xPercent: 0,
-				// 		duration: 0.0001,
-				// 	},
-				// 	"<+=1.8"
-				// )
-				// .to(
-				// 	// hide the next 5 words (if available)
-				// 	splitElements?.length > 5 ? [...splitElements]?.slice(5) : {},
-				// 	// 5 word rule
-				// 	{
-				// 		opacity: 0,
-				// 		duration: splitElements?.length > 5 ? 0.4 : 0.0001,
-				// 	},
-				// 	">+=1"
-				// )
 
 				.to(splitElContainer, {
 					opacity: 0,
 					duration: 0.01,
 					height: 0,
+
+					onComplete: () => {
+						if (index === convoPart.children.length - 1 && isAI) {
+							const dots = document.querySelectorAll(".PhoneDotLoader__dot");
+							pauseDotAnimationsSeamlessly(animations, dots);
+						}
+					},
 				});
 
 			if (index === convoPart.children.length - 1) {

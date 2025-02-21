@@ -4,6 +4,7 @@ import {
 	splitConvoTextIntoChars,
 	splitConvoTextIntoWords,
 } from "../utils/helpers";
+import { resetDotsCompletely } from "./phone-animations";
 // import MorphSVGPlugin from "../../gsap/MorphSVGPlugin";
 
 export const pauseDotAnimations = (dotAnimations: gsap.core.Tween[]) => {
@@ -688,7 +689,9 @@ export const threeDotsToSpinner = (
 					// ease: "power2.inOut",
 					onComplete: () => {
 						// restart the dot animations
-						resumeDotAnimations(dotAnimations);
+						// resumeDotAnimations(dotAnimations);
+						// resetDotsCompletely();
+
 						afterFunc();
 					},
 				}
@@ -705,7 +708,8 @@ export const threeDotsToSpinner = (
 			onComplete: () => {
 				// restart the dot animations
 
-				resumeDotAnimations(dotAnimations);
+				// resumeDotAnimations(dotAnimations);
+				// resetDotsCompletely();
 
 				afterFunc();
 			},
@@ -845,7 +849,7 @@ export const resetLoaderAnimation = () => {
 };
 
 export const resetPhoneAnims = (dotAnimations: gsap.core.Tween[]) => {
-	pauseDotAnimations(dotAnimations);
+	// pauseDotAnimations(dotAnimations);
 
 	const loadingParts = document.querySelectorAll(".PhoneSection__loadingPart");
 	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
