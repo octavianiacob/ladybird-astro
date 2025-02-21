@@ -191,6 +191,14 @@ export function enableScroll() {
 	// Optionally, if you're using Lenis you might want to resume it:
 }
 
+const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
+
+skipBtn.addEventListener("click", () => {
+	shouldScrollThroughPlainText = false;
+	enableScroll();
+	scrollToDevice();
+});
+
 const plainTextInnerElements = document.querySelectorAll(
 	".PlainTextSection__inner"
 ) as NodeListOf<HTMLElement>;

@@ -1,5 +1,6 @@
 ---
 const { textList } = Astro.props;
+import ArrowButton from "../components/ArrowButton.astro";
 import TabToggle from "../components/TabToggle.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 ---
@@ -15,6 +16,10 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 				))
 			}
 		</div>
+
+		<span class="skipBtn">
+			<ArrowButton label="Skip" />
+		</span>
 	</div>
 </SectionLayout>
 
@@ -23,6 +28,13 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		height: 100vh;
 		overflow: hidden;
 		width: 100%;
+		position: relative;
+
+		.skipBtn {
+			position: absolute;
+			bottom: 2rem;
+			right: 2rem;
+		}
 	}
 	.PlainTextSection {
 		background-color: #ffffff;
