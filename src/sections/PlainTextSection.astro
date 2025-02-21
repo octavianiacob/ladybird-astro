@@ -5,6 +5,22 @@ import TabToggle from "../components/TabToggle.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 ---
 
+<script>
+	function setFullHeight() {
+		const innerElements = document.querySelectorAll(
+			".PlainTextSection__inner"
+		) as NodeListOf<HTMLElement>;
+
+		innerElements.forEach((element) => {
+			element.style.height = `${window.innerHeight}px`;
+		});
+	}
+
+	// Set on load and resize
+	window.addEventListener("load", setFullHeight);
+	window.addEventListener("resize", setFullHeight);
+</script>
+
 <SectionLayout className="PlainTextSectionWrapper">
 	<div class="PlainTextSectionFixed" id="PlainTextSectionFixed">
 		<div class="PlainTextSection">
