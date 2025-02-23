@@ -41,12 +41,16 @@ const introTl = gsap.timeline({
 	scrollTrigger: {
 		trigger: ".IntroSection", // Section to trigger the animation
 		start: "top 20%",
+		// start: "top top",
 		end: "bottom bottom",
 		scrub: false, // Link animation to scroll progress
-		// markers: true, // Enable for debugging
+		markers: true, // Enable for debugging
 		// onEnter: () => {
 		// 	shouldScrollThroughPlainText = true;
 		// },
+		onEnterBack: () => {
+			shouldScrollThroughPlainText = true;
+		},
 	},
 });
 
@@ -55,83 +59,70 @@ introTl.to(".IntroSection", {
 	duration: 0.25,
 });
 
-let lastScrollTop = 0;
-let scrollTop = 0;
-// window.addEventListener("scroll", (e) => {
-// 	scrollTop = window.scrollY || document.documentElement.scrollTop;
-// 	const viewportHeight = window.visualViewport?.height || window.innerHeight;
+// const fixTl = gsap.timeline({
+// 	scrollTrigger: {
+// 		trigger: ".PlainTextSectionFixed",
+// 		start: "top 40%",
+// 		end: "bottom bottom",
+// 		markers: true,
+// 	},
 
-// 	// if scrollPosition is equal to viewport height, then enable scroll
-// 	// console.log(window.scrollY, window.innerHeight);
-// 	if (window.scrollY < 10) {
-// 		// isMoving = false;
-// 	}
-// 	if (
-// 		window.scrollY > viewportHeight &&
-// 		window.scrollY < viewportHeight + 200 &&
-// 		// window.scrollY < window.innerHeight * 2 &&
-// 		// !isMoving &&
-// 		shouldScrollThroughPlainText &&
-// 		scrollTop > lastScrollTop
-// 	) {
-// 		// scrollToPlainText();
+// 	onComplete: () => {
+// 		// Enable scroll when animation completes
 
-// 		console.log("scrolling to fix...");
-// 		gsap.to(
-// 			{},
-// 			{
-// 				scrollTo: "#PlainTextSectionFixed",
-// 				duration: 0.001,
+// 		disableScroll();
 
-// 				onComplete: () => {
-// 					disableScroll();
-// 				},
-// 			}
-// 		);
-// 	}
-
-// 	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
-
-// 	runIfFromScratch(() => {
-// 		shouldScrollThroughPlainText = true;
-// 	});
+// 		runIfFromScratch(() => {
+// 			shouldScrollThroughPlainText = true;
+// 		});
+// 	},
 // });
 
-const fixTl = gsap.timeline({
-	scrollTrigger: {
-		trigger: ".PlainTextSectionFixed",
-		start: "top 40%",
-		end: "bottom bottom",
-		// markers: true,
+// fixTl.to(window, {
+// 	scrollTo: ".PlainTextSectionWrapper",
+// 	duration: 0.001,
+// });
+
+ScrollTrigger.create({
+	trigger: ".PlainTextSectionFixed",
+	start: "top 40%",
+	end: "bottom bottom",
+	// markers: true,
+	onEnter: () => {
+		console.log("onEnter", shouldScrollThroughPlainText);
+
+		if (shouldScrollThroughPlainText)
+			gsap.to(window, {
+				scrollTo: { y: ".PlainTextSectionWrapper" },
+				duration: 0.25,
+				ease: "power2.out",
+
+				onComplete: () => {
+					// Enable scroll when animation completes
+
+					disableScroll();
+
+					// runIfFromScratch(() => {
+					shouldScrollThroughPlainText = false;
+					// });
+				},
+			});
 	},
-});
+	onEnterBack: () => {
+		gsap.to(".IntroSection", {
+			opacity: 1,
+			duration: 0.25,
 
-fixTl.to(window, {
-	scrollTo: ".PlainTextSectionWrapper",
-	duration: 0.001,
-
-	onComplete: () => {
-		disableScroll();
+			onComplete: () => {
+				// shouldScrollThroughPlainText = true;
+			},
+		});
 	},
 });
 
 export const scrollToDevice = () => {
-	// window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
-	// document
-	// 	.getElementById("DeviceSection")
-	// 	?.scrollIntoView({ behavior: "smooth" });
-
 	shouldScrollThroughPlainText = false;
 
-	// const target = document.getElementById("DeviceSection");
-	// if (target) {
-	// 	const topOffset = target.getBoundingClientRect().top + window.scrollY;
-	// 	window.scrollTo({ top: topOffset, behavior: "smooth" });
-	// }
-
-	// window.scrollTo({ top: window.innerHeight * 3 + 20, behavior: "smooth" });
-
-	// smoothScrollTo(window.innerHeight * 2 + 20, 1000);
 	const tl = gsap.timeline({
 		ease: "power4.inOut",
 	});
@@ -155,29 +146,6 @@ export const scrollToDevice = () => {
 			scrollTo: ".DeviceSection",
 		});
 };
-
-// export const scrollToPlainText = () => {
-// 	if (typeof window === "undefined") return; // Prevent SSR errors
-
-// 	const target = document.getElementById("PlainTextSectionFixed");
-// 	if (!target) return;
-
-// 	const topOffset = target.getBoundingClientRect().top + window.scrollY;
-
-// 	// Detect if on iOS (Safari mobile browsers)
-// 	const isIOS =
-// 		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-// 	// Adjust for iOS Safari address bar if necessary
-// 	const viewportHeight = window.visualViewport?.height || window.innerHeight;
-// 	const adjustedOffset = isIOS
-// 		? Math.min(topOffset, document.body.scrollHeight - viewportHeight)
-// 		: topOffset;
-
-// 	requestAnimationFrame(() => {
-// 		window.scrollTo({ top: adjustedOffset, behavior: "smooth" });
-// 	});
-// };
 
 export function disableScroll() {
 	if (typeof window === "undefined") return; // Prevent SSR errors
@@ -213,14 +181,6 @@ export function enableScroll() {
 
 	// Optionally, if you're using Lenis you might want to resume it:
 }
-
-const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
-
-skipBtn.addEventListener("click", () => {
-	shouldScrollThroughPlainText = false;
-	enableScroll();
-	scrollToDevice();
-});
 
 const plainTextInnerElements = document.querySelectorAll(
 	".PlainTextSection__inner"
@@ -289,6 +249,16 @@ if (plainTextInnerElements.length > 0) {
 		// markers: true, // Uncomment for debugging
 	});
 }
+
+const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
+
+skipBtn.addEventListener("click", () => {
+	shouldScrollThroughPlainText = false;
+	enableScroll();
+	scrollToDevice();
+
+	plainTl.kill();
+});
 
 // -------------------------- Device Section Animation ---------------------------
 let isLaptopPlaying = false;
