@@ -16,10 +16,10 @@ import { smoothScrollTo, switchTab } from "../utils/helpers";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
-ScrollTrigger.config({
-	ignoreMobileResize: true,
-});
-ScrollTrigger.normalizeScroll(true);
+// ScrollTrigger.config({
+// 	ignoreMobileResize: true,
+// });
+// ScrollTrigger.normalizeScroll(true);
 
 /* ---- Lenis Smooth Scroll ----- */
 const lenis = new Lenis({
@@ -57,39 +57,62 @@ introTl.to(".IntroSection", {
 
 let lastScrollTop = 0;
 let scrollTop = 0;
-window.addEventListener("scroll", (e) => {
-	scrollTop = window.scrollY || document.documentElement.scrollTop;
-	const viewportHeight = window.visualViewport?.height || window.innerHeight;
+// window.addEventListener("scroll", (e) => {
+// 	scrollTop = window.scrollY || document.documentElement.scrollTop;
+// 	const viewportHeight = window.visualViewport?.height || window.innerHeight;
 
-	// if scrollPosition is equal to viewport height, then enable scroll
-	// console.log(window.scrollY, window.innerHeight);
-	if (window.scrollY < 10) {
-		// isMoving = false;
-	}
-	if (
-		window.scrollY > viewportHeight &&
-		window.scrollY < viewportHeight + 200 &&
-		// window.scrollY < window.innerHeight * 2 &&
-		// !isMoving &&
-		shouldScrollThroughPlainText &&
-		scrollTop > lastScrollTop
-	) {
-		scrollToPlainText();
+// 	// if scrollPosition is equal to viewport height, then enable scroll
+// 	// console.log(window.scrollY, window.innerHeight);
+// 	if (window.scrollY < 10) {
+// 		// isMoving = false;
+// 	}
+// 	if (
+// 		window.scrollY > viewportHeight &&
+// 		window.scrollY < viewportHeight + 200 &&
+// 		// window.scrollY < window.innerHeight * 2 &&
+// 		// !isMoving &&
+// 		shouldScrollThroughPlainText &&
+// 		scrollTop > lastScrollTop
+// 	) {
+// 		// scrollToPlainText();
+
+// 		console.log("scrolling to fix...");
+// 		gsap.to(
+// 			{},
+// 			{
+// 				scrollTo: "#PlainTextSectionFixed",
+// 				duration: 0.001,
+
+// 				onComplete: () => {
+// 					disableScroll();
+// 				},
+// 			}
+// 		);
+// 	}
+
+// 	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
+
+// 	runIfFromScratch(() => {
+// 		shouldScrollThroughPlainText = true;
+// 	});
+// });
+
+const fixTl = gsap.timeline({
+	scrollTrigger: {
+		trigger: ".PlainTextSectionFixed",
+		start: "top top",
+		end: "bottom bottom",
+		markers: true,
+	},
+});
+
+fixTl.to(window, {
+	scrollTo: ".PlainTextSectionWrapper",
+	duration: 0.001,
+
+	onComplete: () => {
 		disableScroll();
-	}
-
-	// if (scrollTop > lastScrollTop && shouldScrollThroughPlainText) {
-	// 	gsap.to(".IntroSection", {
-	// 		opacity: 1,
-	// 		duration: 0.5,
-	// 	});
-	// }
-
-	lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
-
-	runIfFromScratch(() => {
-		shouldScrollThroughPlainText = true;
-	});
+	},
 });
 
 export const scrollToDevice = () => {
@@ -133,28 +156,28 @@ export const scrollToDevice = () => {
 		});
 };
 
-export const scrollToPlainText = () => {
-	if (typeof window === "undefined") return; // Prevent SSR errors
+// export const scrollToPlainText = () => {
+// 	if (typeof window === "undefined") return; // Prevent SSR errors
 
-	const target = document.getElementById("PlainTextSectionFixed");
-	if (!target) return;
+// 	const target = document.getElementById("PlainTextSectionFixed");
+// 	if (!target) return;
 
-	const topOffset = target.getBoundingClientRect().top + window.scrollY;
+// 	const topOffset = target.getBoundingClientRect().top + window.scrollY;
 
-	// Detect if on iOS (Safari mobile browsers)
-	const isIOS =
-		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+// 	// Detect if on iOS (Safari mobile browsers)
+// 	const isIOS =
+// 		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-	// Adjust for iOS Safari address bar if necessary
-	const viewportHeight = window.visualViewport?.height || window.innerHeight;
-	const adjustedOffset = isIOS
-		? Math.min(topOffset, document.body.scrollHeight - viewportHeight)
-		: topOffset;
+// 	// Adjust for iOS Safari address bar if necessary
+// 	const viewportHeight = window.visualViewport?.height || window.innerHeight;
+// 	const adjustedOffset = isIOS
+// 		? Math.min(topOffset, document.body.scrollHeight - viewportHeight)
+// 		: topOffset;
 
-	requestAnimationFrame(() => {
-		window.scrollTo({ top: adjustedOffset, behavior: "smooth" });
-	});
-};
+// 	requestAnimationFrame(() => {
+// 		window.scrollTo({ top: adjustedOffset, behavior: "smooth" });
+// 	});
+// };
 
 export function disableScroll() {
 	if (typeof window === "undefined") return; // Prevent SSR errors
@@ -224,7 +247,13 @@ if (plainTextInnerElements.length > 0) {
 	plainTextInnerElements.forEach((_, index) => {
 		if (index < plainTextInnerElements.length - 1)
 			plainTl
-				.to({}, { duration: 1.5 }) // Pause before moving to the next section
+				.to(
+					{},
+					{
+						// duration: 4.5,
+						duration: 1.5,
+					}
+				) // Pause before moving to the next section
 				.to(
 					".PlainTextSection",
 					{
@@ -245,7 +274,8 @@ if (plainTextInnerElements.length > 0) {
 	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
 		trigger: ".PlainTextSection",
-		start: "top 20%",
+		// start: "top 20%",
+		start: "top top",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
@@ -259,8 +289,6 @@ if (plainTextInnerElements.length > 0) {
 		// markers: true, // Uncomment for debugging
 	});
 }
-
-// plainTl.play();
 
 // -------------------------- Device Section Animation ---------------------------
 let isLaptopPlaying = false;
