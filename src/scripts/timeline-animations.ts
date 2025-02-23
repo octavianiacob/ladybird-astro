@@ -102,7 +102,7 @@ const fixTl = gsap.timeline({
 		trigger: ".PlainTextSectionFixed",
 		start: "top 40%",
 		end: "bottom bottom",
-		markers: true,
+		// markers: true,
 	},
 });
 
