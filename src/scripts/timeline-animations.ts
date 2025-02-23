@@ -16,10 +16,10 @@ import { smoothScrollTo, switchTab } from "../utils/helpers";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
-// ScrollTrigger.config({
-// 	ignoreMobileResize: true,
-// });
-// ScrollTrigger.normalizeScroll(true);
+ScrollTrigger.config({
+	ignoreMobileResize: true,
+});
+ScrollTrigger.normalizeScroll(true);
 
 /* ---- Lenis Smooth Scroll ----- */
 const lenis = new Lenis({
@@ -100,7 +100,7 @@ let scrollTop = 0;
 const fixTl = gsap.timeline({
 	scrollTrigger: {
 		trigger: ".PlainTextSectionFixed",
-		start: "top top",
+		start: "top 40%",
 		end: "bottom bottom",
 		markers: true,
 	},
@@ -274,8 +274,8 @@ if (plainTextInnerElements.length > 0) {
 	// ScrollTrigger to detect scroll direction and pin the section
 	ScrollTrigger.create({
 		trigger: ".PlainTextSection",
-		// start: "top 20%",
-		start: "top top",
+		start: "top 20%",
+		// start: "top top",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
