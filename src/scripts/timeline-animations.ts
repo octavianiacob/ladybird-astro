@@ -16,10 +16,10 @@ import { smoothScrollTo, switchTab } from "../utils/helpers";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
-// ScrollTrigger.config({
-// 	ignoreMobileResize: true,
-// });
-// ScrollTrigger.normalizeScroll(true);
+ScrollTrigger.config({
+	ignoreMobileResize: true,
+});
+ScrollTrigger.normalizeScroll(true);
 
 /* ---- Lenis Smooth Scroll ----- */
 const lenis = new Lenis({
