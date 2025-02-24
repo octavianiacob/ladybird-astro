@@ -102,11 +102,6 @@ const playConversation = async () => {
 				.querySelectorAll(".PhoneSection__convo__text")
 				[index].querySelectorAll(".word");
 			const reversedSplitElements = [...splitElements].reverse();
-			const whiteSpaces = findWhiteSpaceNodes(
-				convoParts[convoIndex].querySelectorAll(".PhoneSection__convo__text")[
-					index
-				]
-			);
 
 			timeline
 				.to(

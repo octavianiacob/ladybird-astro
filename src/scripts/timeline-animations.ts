@@ -44,13 +44,7 @@ const introTl = gsap.timeline({
 		// start: "top top",
 		end: "bottom bottom",
 		scrub: false, // Link animation to scroll progress
-		markers: true, // Enable for debugging
-		// onEnter: () => {
-		// 	shouldScrollThroughPlainText = true;
-		// },
-		onEnterBack: () => {
-			shouldScrollThroughPlainText = true;
-		},
+		// markers: true, // Enable for debugging
 	},
 });
 
@@ -59,29 +53,37 @@ introTl.to(".IntroSection", {
 	duration: 0.25,
 });
 
-// const fixTl = gsap.timeline({
-// 	scrollTrigger: {
-// 		trigger: ".PlainTextSectionFixed",
-// 		start: "top 40%",
-// 		end: "bottom bottom",
-// 		markers: true,
-// 	},
+let scrollDirection = 0;
 
-// 	onComplete: () => {
-// 		// Enable scroll when animation completes
+const introTl2 = gsap.timeline({
+	scrollTrigger: {
+		trigger: ".IntroSection", // Section to trigger the animation
+		start: "top top",
+		// start: "top top",
+		end: "bottom bottom",
+		scrub: false, // Link animation to scroll progress
+		// markers: true, // Enable for debugging
 
-// 		disableScroll();
+		onEnterBack: () => {
+			// console.log("intro2 onEnterBack");
+			if (scrollDirection === -1) {
+				shouldScrollThroughPlainText = true;
+			}
+		},
 
-// 		runIfFromScratch(() => {
-// 			shouldScrollThroughPlainText = true;
-// 		});
-// 	},
-// });
+		onUpdate: (self) => {
+			if (self.direction !== scrollDirection) {
+				scrollDirection = self.direction;
+			}
 
-// fixTl.to(window, {
-// 	scrollTo: ".PlainTextSectionWrapper",
-// 	duration: 0.001,
-// });
+			console.log(
+				"scrollDirection",
+				scrollDirection,
+				shouldScrollThroughPlainText
+			);
+		},
+	},
+});
 
 ScrollTrigger.create({
 	trigger: ".PlainTextSectionFixed",
@@ -101,10 +103,7 @@ ScrollTrigger.create({
 					// Enable scroll when animation completes
 
 					disableScroll();
-
-					// runIfFromScratch(() => {
 					shouldScrollThroughPlainText = false;
-					// });
 				},
 			});
 	},
@@ -112,17 +111,11 @@ ScrollTrigger.create({
 		gsap.to(".IntroSection", {
 			opacity: 1,
 			duration: 0.25,
-
-			onComplete: () => {
-				// shouldScrollThroughPlainText = true;
-			},
 		});
 	},
 });
 
 export const scrollToDevice = () => {
-	shouldScrollThroughPlainText = false;
-
 	const tl = gsap.timeline({
 		ease: "power4.inOut",
 	});
@@ -131,6 +124,7 @@ export const scrollToDevice = () => {
 		opacity: 0,
 		onComplete: () => {
 			switchTab(0);
+			shouldScrollThroughPlainText = false;
 		},
 	})
 		.to(
@@ -238,13 +232,14 @@ if (plainTextInnerElements.length > 0) {
 		// start: "top top",
 		end: "+=" + window.innerHeight, // Pin for the entire viewport height
 		onEnter: () => {
+			console.log("onEnter plain", shouldScrollThroughPlainText);
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
 			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Play from start when entering
 		},
-		onLeaveBack: () => {
-			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
-			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Restart when scrolling back up
-		},
+		// onLeaveBack: () => {
+		// 	gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
+		// 	if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Restart when scrolling back up
+		// },
 		pin: true, // Keeps the section fixed while animation plays
 		// markers: true, // Uncomment for debugging
 	});
@@ -313,6 +308,12 @@ onMount(() => {
 			start: "top top",
 			end: "+=150%",
 			scrub: true, // Sync animation with scroll
+
+			onEnter: () => {
+				// Reset the active tab
+
+				console.log("onEnter phone", shouldScrollThroughPlainText);
+			},
 		},
 		yPercent: -50,
 		ease: "power4.inOut",
@@ -355,30 +356,6 @@ onMount(() => {
 		opacity: 1,
 		duration: 1,
 	});
-
-	// // Fade out LaptopSection and reset video
-	// gsap.to(".LaptopSection", {
-	// 	scrollTrigger: {
-	// 		trigger: ".LaptopSection",
-	// 		start: "bottom center",
-	// 		end: "bottom top",
-	// 		scrub: true,
-	// 		onLeave: () => {
-	// 			const video = document.querySelector(
-	// 				".LaptopSection__vid"
-	// 			) as HTMLVideoElement;
-	// 			if (video) {
-	// 				if (screen) screen.style.opacity = "0"; // Hide screen during video playback
-	// 				video.pause();
-	// 				video.currentTime = 0; // Reset when fully scrolled out
-	// 				isLaptopPlaying = false;
-	// 			}
-	// 		},
-	// 	},
-	// 	// opacity: 0,
-	// 	// delay: 4
-	// 	markers: true,
-	// });
 
 	// Handle video end event
 	const video = document.querySelector(
