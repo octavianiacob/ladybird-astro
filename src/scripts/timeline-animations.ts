@@ -36,6 +36,7 @@ function raf(time: number) {
 requestAnimationFrame(raf);
 
 let shouldScrollThroughPlainText = true;
+let isAutomatedScrolling = false;
 
 const introTl = gsap.timeline({
 	scrollTrigger: {
@@ -66,7 +67,7 @@ const introTl2 = gsap.timeline({
 
 		onEnterBack: () => {
 			// console.log("intro2 onEnterBack");
-			if (scrollDirection === -1) {
+			if (scrollDirection === -1 && !isAutomatedScrolling) {
 				shouldScrollThroughPlainText = true;
 			}
 		},
@@ -93,10 +94,10 @@ ScrollTrigger.create({
 	onEnter: () => {
 		console.log("onEnter", shouldScrollThroughPlainText);
 
-		if (shouldScrollThroughPlainText)
+		if (shouldScrollThroughPlainText && !isAutomatedScrolling)
 			gsap.to(window, {
 				scrollTo: { y: ".PlainTextSectionWrapper" },
-				duration: 0.25,
+				duration: 0.05,
 				ease: "power2.out",
 
 				onComplete: () => {
@@ -124,7 +125,7 @@ export const scrollToDevice = () => {
 		opacity: 0,
 		onComplete: () => {
 			switchTab(0);
-			shouldScrollThroughPlainText = false;
+			isAutomatedScrolling = true;
 		},
 	})
 		.to(
@@ -234,7 +235,8 @@ if (plainTextInnerElements.length > 0) {
 		onEnter: () => {
 			console.log("onEnter plain", shouldScrollThroughPlainText);
 			gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
-			if (shouldScrollThroughPlainText) plainTl.restart(true, false); // Play from start when entering
+			if (shouldScrollThroughPlainText && !isAutomatedScrolling)
+				plainTl.restart(true, false); // Play from start when entering
 		},
 		// onLeaveBack: () => {
 		// 	gsap.set(".PlainTextSection", { yPercent: 0 }); // Instantly reset position
@@ -256,6 +258,20 @@ skipBtn.addEventListener("click", () => {
 });
 
 // -------------------------- Device Section Animation ---------------------------
+
+const deviceTl = gsap.timeline({
+	scrollTrigger: {
+		trigger: ".DeviceSection",
+		start: "top top",
+		end: "bottom bottom",
+		// markers: true,
+
+		onEnter: () => {
+			// shouldScrollThroughPlainText = false;
+		},
+	},
+});
+
 let isLaptopPlaying = false;
 
 const laptopEnterFunc = () => {
