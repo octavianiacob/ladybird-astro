@@ -274,7 +274,7 @@ export const actionCallTranscript2 = [
 	{
 		speaker: "AI",
 		text: "Hello, you’ve reached the GP Centre. Could you confirm your full name, please?",
-		time: "10:00",
+		time: "09:28",
 	},
 	// {
 	// 	type: "action",

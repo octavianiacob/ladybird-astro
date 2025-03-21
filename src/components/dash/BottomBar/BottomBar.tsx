@@ -128,7 +128,7 @@ const BottomBar = () => {
 				splitElements,
 				{
 					// opacity: 0,
-					color: "#eeeeee",
+					color: "#8080808C",
 				},
 				{
 					// opacity: 1,
