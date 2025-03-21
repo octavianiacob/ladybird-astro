@@ -18,7 +18,7 @@ const CallTranscript = ({ transcript, actions }: CallTranscriptProps) => {
 			<div className="CallTranscript__convo">
 				<h3>Transcript</h3>
 				{transcript.map((log, index) => (
-					<div className="CallTranscript__item">
+					<div className="CallTranscript__item" key={index}>
 						<img src="/images/memoji.png" />
 						<div className="CallTranscript__item__main">
 							<p className="speaker">{log.speaker}</p>

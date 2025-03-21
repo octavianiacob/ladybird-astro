@@ -19,37 +19,25 @@ interface CallTranscriptProps {
 		color: string;
 	}[];
 	isPlaying: boolean;
+	trafficColor: string;
+	timeline: gsap.core.Timeline;
+	setTimeline: React.Dispatch<React.SetStateAction<gsap.core.Timeline>>;
 }
 
 const LiveCallTranscript = ({
 	transcript,
 	actions,
 	isPlaying,
+	trafficColor,
+	timeline,
+	setTimeline,
 }: CallTranscriptProps) => {
 	const [currTime, setCurrTime] = useState(0);
 	const [ourInterval, setOurInterval] = useState(0);
 	const [currSpeaking, setCurrSpeaking] = useState("green");
-	const [timeline, setTimeline] = useState<gsap.core.Timeline>(gsap.timeline());
 	// const [show]
 
 	const endTime = 20;
-
-	let animations: gsap.core.Tween[] = [];
-	const regularDotMovement = (className: string) => {
-		const dots = document.querySelectorAll(className);
-		[...dots].reverse().forEach((dot, i) => {
-			const animation = gsap.to(dot, {
-				yPercent: -80, // Move up
-				duration: 0.6, // Total duration
-				ease: "linear", // Easing function
-				yoyo: true, // Reverse back to original
-				repeat: -1, // Infinite loop
-				delay: i * 0.22, // Stagger based on index
-			});
-
-			animations.push(animation);
-		});
-	};
 
 	useEffect(() => {
 		if (isPlaying) {
@@ -72,13 +60,6 @@ const LiveCallTranscript = ({
 		const convoPart = document.querySelector(
 			".LiveCallTranscript__CallTranscript__convo__items__inner"
 		) as HTMLElement;
-
-		setTimeline(
-			gsap.timeline({
-				defaults: { ease: Power4.easeOut },
-				// paused: false,
-			})
-		);
 
 		const convoItems = document.querySelectorAll(
 			".LiveCallTranscript__CallTranscript__item"
@@ -133,33 +114,24 @@ const LiveCallTranscript = ({
 						duration: 0.1,
 
 						onComplete: () => {
+							console.log("index", index);
+							localStorage.setItem("convoInd", index.toString());
+
 							console.log("onComplete");
 							if (isAction) {
-								setCurrSpeaking(isAI ? "#04db00" : col);
-
+								timeline.pause();
+								// timeline.resume();
 								const tl = gsap.timeline({});
 
 								tl.to(".PhonePlayerBar__buttons", {
 									height: "auto",
-								})
-									.to(
-										".BottomBar__bar__flexWrap",
-										{
-											height: 0,
-										},
-										"<"
-									)
-									.to(".PhonePlayerBar__buttons", {
-										height: 0,
-										delay: 2,
-									})
-									.to(
-										".BottomBar__bar__flexWrap",
-										{
-											height: "auto",
-										},
-										"<"
-									);
+								}).to(
+									".BottomBar__bar__flexWrap",
+									{
+										opacity: 0.3,
+									},
+									"<"
+								);
 							}
 						},
 					},
@@ -180,7 +152,7 @@ const LiveCallTranscript = ({
 
 				.fromTo(
 					// show the first 5 words
-					splitElements,
+					isAction ? {} : splitElements,
 					{
 						// opacity: 0,
 						color: "#eeeeee",
@@ -188,25 +160,9 @@ const LiveCallTranscript = ({
 					{
 						// opacity: 1,
 						width: "auto",
-						color: col,
+						color: "#000",
 						duration: 0.8,
 						stagger: 0.6,
-
-						onStart: () => {
-							regularDotMovement(`.PhoneDotLoader__dot--${index}`);
-						},
-						onComplete: () => {
-							pauseDotAnimationsSeamlessly(
-								animations,
-								document.querySelectorAll(`.PhoneDotLoader__dot--${index}`)
-							);
-
-							if (isAction) {
-								gsap.to(".PhonePlayerBar__buttons", {
-									height: 0,
-								});
-							}
-						},
 					},
 					"<+=0.3"
 				)
@@ -248,6 +204,8 @@ const LiveCallTranscript = ({
 		}, (timeline.duration() / 25) * 1000);
 	}, []);
 
+	console.log("trafficColor", trafficColor);
+
 	return (
 		<div className="LiveCallTranscript">
 			<div className="LiveCallTranscript__CallTranscript">
@@ -273,7 +231,7 @@ const LiveCallTranscript = ({
 										</p>
 										<div
 											className={`timelineLine timelineLine--${
-												log.speaker === "action" ? log.color : ""
+												log.speaker === "action" ? "action" : ""
 											}`}
 										></div>
 										{/* {log.speaker === "action" ? (

@@ -103,7 +103,10 @@ const FakeDashboard = () => {
 
 						{["Sarah Johnson", "Kobe Crawford"].map(
 							(item: string, ind: number) => (
-								<div className="FakeDashboard__rightBar__callList__calls__item">
+								<div
+									className="FakeDashboard__rightBar__callList__calls__item"
+									key={ind}
+								>
 									<div className="FakeDashboard__rightBar__callList__calls__item__content">
 										<p className="name">{item}</p>
 										<p className="">Aug 16, 2024, 2:12 pm</p>

@@ -62,15 +62,15 @@
 					color: #eeeeee;
 					font-weight: 600;
 
-					&--red {
-						color: #ff0000;
-					}
-					&--amber {
-						color: #ff8c00;
-					}
-					&--green {
-						color: #04db00;
-					}
+					// &--red {
+					// 	color: #ff0000;
+					// }
+					// &--amber {
+					// 	color: #ff8c00;
+					// }
+					// &--green {
+					// 	color: #04db00;
+					// }
 				}
 
 				.timelineCircle {
@@ -108,15 +108,19 @@
 					background-color: #000000;
 					// z-index: 1;
 
-					&--red {
-						background-color: #ff0000;
-					}
-					&--amber {
+					&--action {
 						background-color: #ff8c00;
 					}
-					&--green {
-						background-color: #04db00;
-					}
+
+					// &--red {
+					// 	background-color: #ff0000;
+					// }
+					// &--amber {
+					// 	background-color: #ff8c00;
+					// }
+					// &--green {
+					// 	background-color: #04db00;
+					// }
 				}
 
 				.loadWrapper {

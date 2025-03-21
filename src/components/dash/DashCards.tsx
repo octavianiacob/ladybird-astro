@@ -39,7 +39,7 @@ const DashCards = () => {
 		<>
 			<div className="DashCards">
 				{dashCards.map((card, ind) => (
-					<div className="DashCard">
+					<div className="DashCard" key={ind}>
 						{/* <span
 							className="DashCard__icon"
 							dangerouslySetInnerHTML={{ __html: card.icon }}
