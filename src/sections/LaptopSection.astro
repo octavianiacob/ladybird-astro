@@ -14,7 +14,8 @@ import FakeDashboard from "./FakeDashboard";
 		) as HTMLVideoElement;
 
 		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
-		let newWidth = Math.min(window.innerWidth, 1440) * 0.7;
+		let newWidth = Math.min(window.innerWidth, 1224) * 0.7;
+		// let newWidth = Math.min(window.innerWidth, 1440) * 0.7;
 		screen.style.width = `${newWidth}px`;
 		screen.style.height = `${(newWidth * 10) / 16}px`;
 	});
@@ -49,6 +50,7 @@ import FakeDashboard from "./FakeDashboard";
 			position: relative;
 			height: max-content;
 			margin: auto 0;
+			display: flex;
 		}
 
 		&__vid {
@@ -57,11 +59,13 @@ import FakeDashboard from "./FakeDashboard";
 			// max-height: 80vh;
 
 			// width: 100vw;
-			width: 100%;
+			// width: 100%;
+			width: 85%;
 			max-width: clamp(0px, 100vw, 1440px);
 			object-fit: contain;
 
 			pointer-events: none;
+			margin: 0 auto;
 		}
 
 		&__screen {
@@ -69,11 +73,6 @@ import FakeDashboard from "./FakeDashboard";
 			top: 5%;
 			// top: 50px;
 			left: 50%;
-
-			// width: 65%;
-			// max-width: 75vw;
-
-			// max-height: 75vh;
 
 			transform: translateX(-50%);
 			// transform: translate(-50%, -50%);
@@ -88,8 +87,8 @@ import FakeDashboard from "./FakeDashboard";
 
 	@media (max-width: 1024px) {
 		.LaptopSection {
-			&__screen {
-				// top: 2%;
+			&__vid {
+				width: 100%;
 			}
 		}
 	}
