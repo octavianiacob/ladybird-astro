@@ -14,7 +14,7 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Ladybird</title>
 		<script src="../scripts/timeline-animations.ts"></script>
-		<script src="../scripts/phone-animations.ts"></script>
+		<!-- <script src="../scripts/phone-animations.ts"></script> -->
 		<link
 			rel="preload"
 			href="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"
@@ -28,8 +28,6 @@
 </html>
 
 <style is:global lang="scss">
-	@import "../styles/variables";
-
 	@font-face {
 		font-family: "SF Pro Display";
 		src: url("../assets/fonts/SFPRODISPLAYREGULAR.otf");
@@ -71,8 +69,8 @@
 	}
 
 	*::selection {
-		color: $tertiary_col;
-		background-color: $main_dark;
+		color: #fff;
+		background-color: #ff0000;
 	}
 
 	* {

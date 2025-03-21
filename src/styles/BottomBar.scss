@@ -1,0 +1,417 @@
+@keyframes vibrateCall {
+	0% {
+		transform: scale(0.7);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+// @keyframes vibrateCall {
+// 	0% {
+// 		transform: rotate(0deg);
+// 	}
+// 	20% {
+// 		transform: rotate(15deg);
+// 	}
+// 	40% {
+// 		transform: rotate(-15deg);
+// 	}
+// 	60% {
+// 		transform: rotate(15deg);
+// 	}
+// 	80% {
+// 		transform: rotate(-15deg);
+// 	}
+// 	100% {
+// 		transform: rotate(0deg);
+// 	}
+// }
+
+.BottomBar {
+	width: 100%;
+	display: flex;
+
+	&__bar {
+		margin: 0 auto;
+		background-color: #fff;
+		padding: clamp(0px, 0.8333vw, 0.75rem);
+		// padding-right:clamp(0px, 2.2222vw, 2rem);
+		box-shadow: 0px 0px 42.6px 0px #00000012;
+		border-radius: clamp(0px, 2.2222vw, 2rem);
+		// width: 60vw;
+
+		&__flexWrapOverflow {
+			// height: clamp(0px, 3.0556vw, 2.75rem);
+			// padding-top: clamp(0px, 0.2778vw, 0.25rem)
+			// overflow-y: hidden;
+		}
+
+		&__flexWrap {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: clamp(0px, 1.1111vw, 1rem);
+
+			padding-right: clamp(0px, 1.3889vw, 1.25rem);
+			overflow: hidden;
+		}
+
+		&__modal {
+			overflow: hidden;
+			height: 0;
+			transition: all 0.5s ease-in-out;
+			// width: 326px;
+
+			&--open {
+				height: clamp(0px, 27.7778vw, 25rem);
+				overflow: auto;
+			}
+		}
+
+		&__searchBar {
+			display: flex;
+			align-items: center;
+			gap: clamp(0px, 0.5556vw, 0.5rem);
+			margin-right: clamp(0px, 0.8333vw, 0.75rem);
+
+			svg {
+				width: clamp(0px, 1.6667vw, 1.5rem);
+				height: clamp(0px, 1.6667vw, 1.5rem);
+			}
+
+			input {
+				border: none;
+				outline: none;
+				background-color: transparent;
+				border-bottom: 1px solid #00000012;
+				padding: clamp(0px, 0.5556vw, 0.5rem);
+				font-size: clamp(0px, 1.1111vw, 1rem);
+				width: 100%;
+			}
+		}
+
+		&__incomingCall {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: clamp(0px, 1.1111vw, 1rem);
+			margin: 0 clamp(0px, 1.6667vw, 1.5rem);
+			// margin: 0;
+			width: 0;
+			overflow: hidden;
+			transition: all 0.5s ease-in-out;
+
+			&--show {
+				width: 120px;
+				margin: 0 clamp(0px, 1.6667vw, 1.5rem);
+			}
+
+			.accept {
+				animation: vibrateCall 1s ease-in-out infinite;
+				// animation: vibrateCall 0.4s ease-in-out infinite;
+			}
+			.decline {
+				transform: rotate(135deg);
+			}
+		}
+
+		&__icon {
+			min-width: clamp(0px, 3.0556vw, 2.75rem);
+			width: clamp(0px, 3.0556vw, 2.75rem);
+			height: clamp(0px, 3.0556vw, 2.75rem);
+
+			display: grid;
+			place-items: center;
+			// background-color: #f4f6fa;
+			cursor: pointer;
+			border-radius: 50%;
+
+			position: relative;
+
+			svg {
+				width: clamp(0px, 1.7778vw, 1.6rem);
+				height: clamp(0px, 1.7778vw, 1.6rem);
+				color: #ff0000;
+			}
+
+			&__count {
+				position: absolute;
+				top: clamp(-0.25rem, -0.2778vw, 0px);
+				right: 0;
+				background-color: #ff0000;
+				color: white;
+				width: clamp(0px, 1.1111vw, 1rem);
+				height: clamp(0px, 1.1111vw, 1rem);
+				border-radius: 50%;
+				display: grid;
+				place-items: center;
+			}
+		}
+
+		&__person {
+			display: flex;
+			gap: clamp(0px, 1.1111vw, 1rem);
+			align-items: center;
+			margin-left: auto;
+
+			&__img {
+				position: relative;
+				img {
+					width: clamp(0px, 2.7778vw, 2.5rem);
+					height: clamp(0px, 2.7778vw, 2.5rem);
+					border-radius: 50%;
+				}
+
+				&__active {
+					width: clamp(0px, 0.8333vw, 0.75rem);
+					height: clamp(0px, 0.8333vw, 0.75rem);
+					border-radius: 50%;
+					background-color: #04db00;
+					position: absolute;
+					bottom: clamp(0px, 0.0444vw, 0.04rem);
+					right: clamp(0px, 0.2222vw, 0.2rem);
+				}
+			}
+
+			.name {
+				font-size: clamp(0px, 0.8889vw, 0.8rem);
+				font-weight: 500;
+
+				color: #000;
+				font-weight: 700;
+			}
+			.role {
+				font-size: clamp(0px, 0.8889vw, 0.8rem);
+				font-weight: 500;
+
+				color: #eeeeee;
+			}
+		}
+	}
+}
+
+.CallList {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	padding: clamp(0px, 0.5556vw, 0.5rem) 0;
+}
+
+.CallItem {
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: space-between;
+	gap: clamp(0px, 1.1111vw, 1rem);
+	padding: clamp(0px, 0.8333vw, 0.75rem) clamp(0px, 0.5556vw, 0.5rem);
+	cursor: pointer;
+
+	color: rgba(0, 0, 0, 0.5);
+	// padding-left: clamp(0px, 1.3333vw, 1.2rem);
+
+	&:hover {
+		background-color: #f4f6fa;
+		border-radius: clamp(0px, 0.5556vw, 0.5rem);
+	}
+
+	&__content {
+		.time {
+		}
+
+		.name {
+			font-weight: 600;
+			color: black;
+		}
+	}
+
+	&__right {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+
+		svg {
+			width: clamp(0px, 1.1111vw, 1rem);
+			height: clamp(0px, 1.1111vw, 1rem);
+			color: #04db00;
+			cursor: pointer;
+		}
+
+		&--Action {
+			color: #ff0000;
+		}
+	}
+
+	&__duration {
+		color: #04db00;
+
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 18px;
+	}
+}
+
+.CallTranscript {
+	padding: clamp(0px, 0.5556vw, 0.5rem) clamp(0px, 0.8333vw, 0.75rem);
+	max-width: clamp(0px, 34.375vw, 30.9375rem);
+
+	&__convo {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: clamp(0px, 1.1111vw, 1rem);
+
+		h3 {
+			margin-bottom: clamp(0px, 0.5556vw, 0.5rem);
+		}
+	}
+
+	&__item {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: clamp(0px, 1.1111vw, 1rem);
+
+		img {
+			width: clamp(0px, 1.6667vw, 1.5rem);
+			height: clamp(0px, 1.6667vw, 1.5rem);
+		}
+
+		&__main {
+			font-weight: 400;
+
+			.speaker {
+				font-weight: 600;
+				margin-bottom: clamp(0px, 0.2778vw, 0.25rem);
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: clamp(0px, 0.8333vw, 0.75rem);
+		border-top: 1px solid #00000012;
+
+		margin: clamp(0px, 1.3333vw, 1.2rem) 0;
+		padding-top: clamp(0px, 1.1111vw, 1rem);
+	}
+
+	&__action {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: clamp(0px, 1.1111vw, 1rem);
+		justify-content: space-between;
+
+		&__main {
+			font-weight: 400;
+
+			.speaker {
+				font-weight: 600;
+				margin-bottom: clamp(0px, 0.2778vw, 0.25rem);
+			}
+		}
+
+		&__light {
+			width: clamp(0px, 1.3333vw, 1.2rem);
+			height: clamp(0px, 1.3333vw, 1.2rem);
+			border-radius: 50%;
+
+			&--red {
+				background-color: #ff0000;
+			}
+			&--green {
+				background-color: #04db00;
+			}
+			&--amber {
+				background-color: #ff8c00;
+			}
+		}
+	}
+}
+
+.TranscriptPage {
+	&__player {
+		display: grid;
+		grid-template-columns: clamp(0px, 1.3333vw, 1.2rem) 1fr clamp(
+				0px,
+				4.4444vw,
+				4rem
+			);
+		align-items: center;
+		gap: clamp(0px, 1.1111vw, 1rem);
+
+		padding: clamp(0px, 0.8333vw, 0.75rem) clamp(0px, 1.1111vw, 1rem);
+		border-radius: clamp(0px, 0.5556vw, 0.5rem);
+		background-color: #f5f5f5;
+
+		svg {
+			color: #ff0000;
+			width: clamp(0px, 1.3333vw, 1.2rem);
+			height: clamp(0px, 1.3333vw, 1.2rem);
+			cursor: pointer;
+		}
+
+		&__progress {
+			width: 100%;
+			height: clamp(0px, 0.2778vw, 0.25rem);
+			background-color: rgba(0, 0, 0, 0.1);
+			border-radius: clamp(0px, 0.2778vw, 0.25rem);
+			position: relative;
+		}
+
+		&__thumb {
+			width: clamp(0px, 0.8333vw, 0.75rem);
+			height: clamp(0px, 0.8333vw, 0.75rem);
+			background-color: #ff0000;
+			border-radius: 50%;
+
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			cursor: pointer;
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: clamp(0px, 1.1111vw, 1rem);
+
+		box-shadow: 0px 0px 42.6px 0px #00000012;
+		padding: clamp(0px, 1.6667vw, 1.5rem) clamp(0px, 1.1111vw, 1rem);
+		border-radius: clamp(0px, 0.5556vw, 0.5rem);
+
+		&__top {
+			margin-bottom: clamp(0px, 0.5556vw, 0.5rem);
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+
+			h3 {
+				font-size: clamp(0px, 1.3333vw, 1.2rem);
+			}
+
+			button {
+				background-color: transparent;
+				border: 0;
+
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: clamp(0px, 0.5556vw, 0.5rem);
+				cursor: pointer;
+				color: #8080808c;
+
+				font-size: clamp(0px, 0.8333vw, 0.75rem);
+			}
+		}
+
+		&__player {
+		}
+	}
+}

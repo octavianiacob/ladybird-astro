@@ -1,0 +1,12 @@
+.ReBarChart {
+	width: 100%;
+	height: clamp(0px, 13.8889vw, 12.5rem);
+	// height: 200px;
+}
+
+.recharts-xAxis,
+.recharts-yAxis,
+.recharts-bar {
+	// transform: translateX(-30px);
+	// transform: translateX(clamp(-1.875rem, -2.0833vw, 0px));
+}

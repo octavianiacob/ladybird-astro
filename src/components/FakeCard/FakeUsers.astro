@@ -1,0 +1,119 @@
+---
+
+---
+
+<div class="FakeUsers">
+	<div class="FakeUsers__top">
+		<div class="FakeUsers__top__memoji">
+			<img src="/images/memoji.png" />
+		</div>
+		<div class="FakeUsers__top__details">
+			<div>
+				<p>Top User</p>
+				<p class="val">Sarah Johnson</p>
+			</div>
+			<div>
+				<p>No. of Calls</p>
+				<p class="val">20</p>
+			</div>
+		</div>
+	</div>
+	<div class="FakeUsers__bottom">
+		<p>Total New Users</p>
+		<p class="bigVal">50.9k</p>
+		<div class="FakeUsers__bottom__btn">
+			<button>
+				<span>View All</span>
+				<svg
+					stroke="currentColor"
+					fill="currentColor"
+					stroke-width="0"
+					viewBox="0 0 32 32"
+					height="1em"
+					width="1em"
+					xmlns="http://www.w3.org/2000/svg"
+					><path
+						d="M 21.1875 9.28125 L 19.78125 10.71875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 19.78125 21.28125 L 21.1875 22.71875 L 27.90625 16 Z"
+					></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+</div>
+
+<style lang="scss">
+	.FakeUsers {
+		&__top {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 1rem;
+
+			padding-bottom: 1.5rem;
+			margin-bottom: 1.5rem;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+			&__memoji {
+				width: 6rem;
+				height: 6rem;
+				padding: 1.2rem;
+				background-color: rgba(0, 0, 0, 0.3);
+
+				display: grid;
+				place-items: center;
+				border-radius: 50%;
+
+				img {
+					width: 100%;
+				}
+			}
+
+			&__details {
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				gap: 0.8rem;
+				color: rgba(0, 0, 0, 0.5);
+
+				.val {
+					color: black;
+					font-size: 1.2rem;
+					margin-top: 0.2rem;
+				}
+			}
+		}
+
+		&__bottom {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0.5rem;
+
+			.bigVal {
+				font-size: 2.5rem;
+				font-weight: 600;
+			}
+
+			&__btn {
+				display: flex;
+
+				button {
+					margin-left: auto;
+					padding: 0.5rem 1rem;
+					border: none;
+					border-radius: 1rem;
+					background-color: rgba(0, 0, 0, 0.1);
+					color: black;
+					cursor: pointer;
+					font-size: 0.75rem;
+
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					gap: 0.5rem;
+				}
+			}
+		}
+	}
+</style>

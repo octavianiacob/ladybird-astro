@@ -1,0 +1,66 @@
+.PhoneDotLoader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	position: relative;
+
+	&__dot {
+		width: 0.8rem;
+		height: 0.8rem;
+		border-radius: 50%;
+		background-color: #ff0000;
+		position: relative;
+
+		// margin-bottom: 0.5rem;
+		// animation: pulse 1.1s ease-in-out infinite;
+		// animation-delay: calc(var(--i) * 0.1s); // Staggering based on index
+	}
+
+	&__spinnerWrap {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		width: 3.4rem;
+		height: 3.4rem;
+		overflow: visible;
+	}
+
+	&__spinner,
+	&__checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		.checkmarkPath {
+			stroke-dashoffset: 100;
+		}
+	}
+
+	&__checkmark {
+		left: -0.28rem;
+	}
+
+	&__spinner {
+		width: 3.4rem;
+		height: 3.4rem;
+	}
+
+	&__checkmark {
+		width: 3.8rem;
+		height: 3.8rem;
+	}
+
+	.spinner_P7sC {
+		transform-origin: center;
+		// animation: spinner_svv2 0.75s infinite linear;
+	}
+
+	@keyframes spinner_svv2 {
+		100% {
+			transform: rotate(-360deg);
+		}
+	}
+}

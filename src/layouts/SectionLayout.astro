@@ -13,8 +13,6 @@ const { className } = Astro.props;
 </section>
 
 <style lang="scss">
-	@import "../styles/variables";
-
 	.SectionLayout {
 		height: 100%;
 		background-color: #ffffff;
@@ -23,7 +21,7 @@ const { className } = Astro.props;
 		&__inner {
 			width: 100%;
 			min-height: 100vh;
-			max-width: $maxWidth;
+			max-width: 1440px;
 			margin: 0 auto;
 			// padding: 0 1rem;
 			display: flex;

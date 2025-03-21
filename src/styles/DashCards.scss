@@ -1,0 +1,98 @@
+.DashCards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: clamp(0px, 1.11vw, 1rem);
+
+	margin-bottom: clamp(0px, 2.22vw, 2rem);
+}
+.DashCard {
+	color: white;
+	background-color: white;
+	color: black;
+	padding: clamp(0px, 1.11vw, 1rem) clamp(0px, 0.83vw, 0.75rem);
+
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: clamp(0px, 5.5556vw, 5rem);
+	// gap: 1rem;
+	border-radius: clamp(0px, 0.8889vw, 0.8rem);
+	// box-shadow:
+	// 	0 1px 3px #0000001a,
+	// 	0 1px 2px #0000000f;
+	box-shadow: 0px 0px 42.6px 0px #00000012;
+	border: 1px solid #efefef;
+
+	transition: all 0.5s;
+
+	// &:hover {
+	// 	background-color: red;
+	// }
+
+	&__icon {
+		width: clamp(0px, 2.2222vw, 2rem);
+		height: clamp(0px, 2.2222vw, 2rem);
+
+		display: grid;
+		place-items: center;
+		// background-color: rgba(255, 0, 0, 0.7);
+		color: #ff0000;
+		border-radius: 50%;
+		overflow: hidden;
+
+		svg {
+			width: 60%;
+			height: 60%;
+		}
+	}
+
+	&__title {
+		font-size: clamp(0px, 1.1111vw, 1rem);
+		// font-weight: 600;
+		color: #000000;
+		font-weight: 500;
+	}
+
+	&__bottom {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: clamp(0px, 0.2778vw, 0.25rem);
+		font-size: clamp(0px, 0.6667vw, 0.6rem);
+		color: rgba(0, 0, 0, 0.5);
+
+		&__value {
+			font-size: clamp(0px, 2vw, 1.8rem);
+			// font-size: 1.6rem;
+			font-weight: 500;
+			color: black;
+		}
+
+		&__percent {
+			display: flex;
+			align-items: center;
+			gap: clamp(0px, 0.5556vw, 0.5rem);
+			font-size: clamp(0px, 0.8889vw, 0.8rem);
+			color: #eeeeee;
+
+			svg {
+				width: clamp(0px, 1.1111vw, 1rem);
+				height: clamp(0px, 1.1111vw, 1rem);
+				color: black;
+			}
+		}
+
+		&__progress {
+			height: clamp(0px, 0.5556vw, 0.5rem);
+			border-radius: clamp(0px, 0.8889vw, 0.8rem);
+			overflow: hidden;
+			background-color: rgba(0, 0, 0, 0.2);
+
+			div {
+				height: 100%;
+				border-radius: clamp(0px, 0.8889vw, 0.8rem);
+				background-color: rgba(255, 0, 0, 0.8);
+			}
+		}
+	}
+}

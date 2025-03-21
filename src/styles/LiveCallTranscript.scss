@@ -1,0 +1,219 @@
+.LiveCallTranscript {
+	// width: 600px;
+	height: 100%;
+	&__CallTranscript {
+		padding: clamp(0px, 0.5556vw, 0.5rem) clamp(0px, 0.8333vw, 0.75rem);
+		// max-width: 495px;
+		height: 100%;
+
+		&__convo {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: clamp(0px, 1.1111vw, 1rem);
+			height: 100%;
+
+			h3 {
+				margin-bottom: clamp(0px, 0.5556vw, 0.5rem);
+			}
+
+			&__items {
+				position: relative;
+
+				// height: 80px;
+				height: clamp(0px, 5.5556vw, 5rem);
+				overflow-y: hidden;
+
+				&__inner {
+					// transition: all 1s linear;
+					// padding: 2rem 0;
+
+					// height: 0;
+					min-height: 100%;
+					overflow: hidden;
+
+					width: 100%;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+			}
+		}
+
+		&__item {
+			height: 0;
+			overflow: hidden;
+			display: grid;
+			place-items: center;
+
+			&__inner {
+				padding: 0 clamp(0px, 4.4444vw, 4rem);
+
+				position: relative;
+				width: 100%;
+
+				.timelineTime {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: max-content;
+					text-align: left;
+					font-size: clamp(0px, 1.1111vw, 1rem);
+					color: #eeeeee;
+					font-weight: 600;
+
+					&--red {
+						color: #ff0000;
+					}
+					&--amber {
+						color: #ff8c00;
+					}
+					&--green {
+						color: #04db00;
+					}
+				}
+
+				.timelineCircle {
+					width: clamp(0px, 1.1111vw, 1rem);
+					height: clamp(0px, 1.1111vw, 1rem);
+					border-radius: 50%;
+					background-color: transparent;
+					border: 2px solid #00000012;
+					background-color: white;
+					position: absolute;
+					top: clamp(0px, 1.5556vw, 1.4rem);
+					left: clamp(0px, 1.1111vw, 1rem);
+					z-index: 1;
+					// transform: translate(0, -50%);
+
+					&--red {
+						background-color: #ff0000;
+					}
+					&--green {
+						background-color: #04db00;
+					}
+					&--amber {
+						background-color: #ff8c00;
+					}
+				}
+
+				.timelineLine {
+					position: absolute;
+					top: 0;
+					left: clamp(0px, 3.8194vw, 55px);
+					// left: clamp(0px, 0.5556vw, 0.5rem);
+					width: clamp(0px, 0.2083vw, 0.1875rem);
+					border-radius: clamp(0px, 0.2083vw, 0.1875rem);
+					height: 100%;
+					background-color: #000000;
+					// z-index: 1;
+
+					&--red {
+						background-color: #ff0000;
+					}
+					&--amber {
+						background-color: #ff8c00;
+					}
+					&--green {
+						background-color: #04db00;
+					}
+				}
+
+				.loadWrapper {
+					position: absolute;
+					right: 0;
+					top: 50%;
+					transform: translateY(50%);
+				}
+			}
+
+			&__text {
+				// height: 100%;
+				font-weight: 400;
+				font-size: clamp(0px, 1.1111vw, 1rem);
+				// font-size: 1.5rem;
+				text-align: left;
+				height: 0;
+				overflow: hidden;
+				color: #eeeeee;
+				position: relative;
+
+				&--Patient {
+					font-weight: 600;
+					// text-align: right;
+				}
+				&--action {
+					font-weight: 700;
+				}
+
+				.word {
+					// width: 0;
+					// opacity: 0;
+				}
+			}
+
+			// display: flex;
+			// flex-direction: row;
+			// align-items: flex-start;
+			// gap: clamp(0px, 1.1111vw, 1rem);
+
+			// img {
+			// 	width: 1.5rem;
+			// 	height: 1.5rem;
+			// }
+
+			// &__main {
+			// 	font-weight: 400;
+
+			// 	.speaker {
+			// 		font-weight: 600;
+			// 		margin-bottom: 0.25rem;
+			// 	}
+			// }
+		}
+
+		&__actions {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: clamp(0px, 0.8333vw, 0.75rem);
+			border-top: 1px solid #00000012;
+
+			margin: clamp(0px, 1.3333vw, 1.2rem) 0;
+			padding-top: clamp(0px, 1.1111vw, 1rem);
+		}
+
+		&__action {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			gap: clamp(0px, 1.1111vw, 1rem);
+			justify-content: space-between;
+
+			&__main {
+				font-weight: 400;
+
+				.speaker {
+					font-weight: 600;
+					margin-bottom: clamp(0px, 0.2778vw, 0.25rem);
+				}
+			}
+
+			&__light {
+				width: clamp(0px, 1.3333vw, 1.2rem);
+				height: clamp(0px, 1.3333vw, 1.2rem);
+				border-radius: 50%;
+
+				&--red {
+					background-color: #ff0000;
+				}
+				&--green {
+					background-color: #04db00;
+				}
+				&--amber {
+					background-color: #ff8c00;
+				}
+			}
+		}
+	}
+}

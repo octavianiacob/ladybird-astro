@@ -1,0 +1,275 @@
+---
+import { fullNames, medicalActions } from "../../utils/constants";
+import { pickRandomName } from "../../utils/helpers";
+---
+
+<script>
+	import { fullNames, medicalActions } from "../../utils/constants";
+	import { pickRandomName, pickRandomAction } from "../../utils/helpers";
+
+	const colors = ["red", "yellow", "green"];
+	const names = ["Sarah Johnson", "John Doe", "Jane Johnson"];
+
+	let selectedColor = "red";
+
+	const TrafficLight = document.querySelector(".TrafficLight");
+	const TrafficLightItem = document.querySelectorAll(".TrafficLight__item");
+	const TrafficLightPopUp = document.querySelector(".TrafficLightPopUp");
+	const TrafficLightPopUp__item__light = document.querySelectorAll(
+		".TrafficLightPopUp__item__light"
+	);
+	const TrafficLightPopUp__item__content__name = document.querySelectorAll(
+		".TrafficLightPopUp__item__content__name"
+	);
+	const TrafficLightPopUp__item__content__action = document.querySelectorAll(
+		".TrafficLightPopUp__item__content__action"
+	);
+
+	if (TrafficLightPopUp) {
+		TrafficLightItem.forEach((item, ind) => {
+			item.addEventListener("click", (e) => {
+				if (selectedColor === colors[ind]) {
+					TrafficLightPopUp.classList.remove("show");
+				}
+				if (!TrafficLightPopUp.classList.contains("show")) {
+					TrafficLightPopUp.classList.add("show");
+				}
+
+				selectedColor = colors[ind];
+
+				TrafficLightPopUp__item__light.forEach((light) => {
+					light.classList.remove("TrafficLightPopUp__item__light--red");
+					light.classList.remove("TrafficLightPopUp__item__light--yellow");
+					light.classList.remove("TrafficLightPopUp__item__light--green");
+
+					light?.classList.add(
+						`TrafficLightPopUp__item__light--${colors[ind]}`
+					);
+				});
+
+				TrafficLightPopUp__item__content__name.forEach((name, ind) => {
+					name.textContent = `${pickRandomName(fullNames)}`;
+
+					TrafficLightPopUp__item__content__action[ind].textContent =
+						pickRandomAction(medicalActions);
+				});
+			});
+		});
+	}
+</script>
+
+<div class="TrafficLightWrap">
+	<div class="TrafficLightPopUp">
+		{
+			Array.from({ length: 3 }).map((_, i) => {
+				return (
+					<div class="TrafficLightPopUp__item">
+						<div class="TrafficLightPopUp__item__content">
+							<p>12:30</p>
+							<div>
+								<span class="TrafficLightPopUp__item__content__name">
+									Sarah Johnson
+								</span>
+								<span class="TrafficLightPopUp__item__content__action">
+									ordered a test
+								</span>
+							</div>
+							<div class="TrafficLightPopUp__item__content__icons">
+								{/* <span class="TrafficLightPopUp__item__content__ailment">
+									Flu
+								</span> */}
+								<div>
+									<svg
+										stroke="currentColor"
+										fill="currentColor"
+										stroke-width="0"
+										viewBox="0 0 16 16"
+										height="1em"
+										width="1em"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+									</svg>
+									<span>Play audio</span>
+								</div>
+
+								<span>View transcript</span>
+							</div>
+						</div>
+						<div class="TrafficLightPopUp__item__light" />
+					</div>
+				);
+			})
+		}
+	</div>
+	<div class="TrafficLight">
+		<div class="TrafficLight__item TrafficLight__red"><div></div></div>
+		<div class="TrafficLight__item TrafficLight__yellow"><div></div></div>
+		<div class="TrafficLight__item TrafficLight__green"><div></div></div>
+	</div>
+</div>
+
+<style lang="scss">
+	.TrafficLightWrap {
+		margin: 0 auto;
+
+		position: relative;
+	}
+
+	.TrafficLight {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5rem;
+		background-color: #000000;
+		padding: 0.5rem;
+		border-radius: 2rem;
+		z-index: 1;
+
+		&__item {
+			border-radius: 50%;
+			padding: 4px;
+			cursor: pointer;
+
+			& > div {
+				width: 1.2rem;
+				height: 1.2rem;
+				border-radius: 50%;
+			}
+		}
+
+		&__red {
+			background-color: rgba(255, 0, 0, 0.5);
+			& > div {
+				background-color: red;
+			}
+		}
+		&__yellow {
+			background-color: rgba(255, 255, 0, 0.5);
+
+			& > div {
+				background-color: yellow;
+			}
+		}
+		&__green {
+			background-color: rgba(0, 255, 0, 0.2);
+
+			& > div {
+				background-color: green;
+			}
+		}
+	}
+
+	.TrafficLightPopUp {
+		position: absolute;
+		// bottom: -100%;
+		// bottom: calc(100% - 0.5rem);
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+
+		background-color: #000000;
+		color: white;
+		border-radius: 0.5rem;
+
+		width: 25vw;
+		// height: 45px;
+
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 1rem;
+		opacity: 0;
+		// transform: translateY(100%);
+		transition: all 0.5s;
+		z-index: 1;
+		height: 0;
+		min-height: 0;
+		overflow: hidden;
+
+		img {
+			width: 100px;
+			height: 100px;
+		}
+
+		&.show {
+			opacity: 1;
+			bottom: 0;
+			// height: auto;
+			min-height: 340px;
+			// bottom: calc(100% - 0.5rem);
+		}
+
+		&__item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem;
+
+			&__content {
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				gap: 0.25rem;
+				color: rgba(255, 255, 255, 0.5);
+
+				&__ailment {
+					color: rgba(255, 255, 255, 0.5);
+				}
+
+				&__name {
+					font-size: 1rem;
+					color: white;
+				}
+				&__action {
+					font-size: 1rem;
+					font-weight: 500;
+					color: rgba(255, 255, 255, 0.5);
+				}
+
+				&__icons {
+					display: flex;
+					flex-direction: row;
+					align-items: flex-start;
+					gap: 0.5rem;
+					// margin-top: 0.5rem;
+					color: white;
+
+					& > span {
+						font-size: 0.8rem;
+						font-weight: 500;
+						color: rgba(255, 255, 255, 0.5);
+						cursor: pointer;
+						transition: all 0.5s;
+
+						&:hover {
+							color: white;
+						}
+					}
+
+					svg {
+						width: 0.8rem;
+						height: 0.8rem;
+
+						cursor: pointer;
+					}
+				}
+			}
+
+			&__light {
+				width: 1.2rem;
+				height: 1.2rem;
+				border-radius: 50%;
+
+				&--red {
+					background-color: red;
+				}
+				&--yellow {
+					background-color: yellow;
+				}
+				&--green {
+					background-color: green;
+				}
+			}
+		}
+	}
+</style>

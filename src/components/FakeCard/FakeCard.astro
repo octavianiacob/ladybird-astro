@@ -1,0 +1,97 @@
+---
+import FakeUsers from "./FakeUsers.astro";
+
+const tabList = ["New Users", "Calls", "Stats"];
+---
+
+<script>
+	let selectedTab = 0;
+	// tab logic
+	const tabs = document.querySelectorAll(".FakeCard__tabs__tab");
+	tabs.forEach((tab, ind) => {
+		tab.addEventListener("click", () => {
+			tabs.forEach((tab) =>
+				tab.classList.remove("FakeCard__tabs__tab--selected")
+			);
+			tab.classList.add("FakeCard__tabs__tab--selected");
+
+			selectedTab = ind;
+		});
+	});
+</script>
+
+<div class="FakeCard">
+	<div class="FakeCard__tabs">
+		{
+			tabList.map((item, ind) => (
+				<p
+					class={`FakeCard__tabs__tab ${ind === 0 ? "FakeCard__tabs__tab--selected" : ""}`}
+				>
+					{item}
+				</p>
+			))
+		}
+	</div>
+
+	<div class="FakeCard__crux">
+		<FakeUsers />
+	</div>
+
+	<p class="bottomText">
+		Books your doctors' appointments for you, all on on platform
+	</p>
+</div>
+
+<style lang="scss">
+	.FakeCard {
+		padding: 1rem;
+		border-radius: 0.8rem;
+		box-shadow:
+			0 1px 3px #0000001a,
+			0 1px 2px #0000000f;
+
+		&__tabs {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			background-color: #e9eaee;
+			padding: 0.25rem;
+			border-radius: 2rem;
+			margin-bottom: 1.2rem;
+			box-shadow:
+				0 1px 3px #0000001a,
+				0 1px 2px #0000000f;
+
+			&__tab {
+				cursor: pointer;
+				color: #333;
+				display: grid;
+				place-items: center;
+				border-radius: 2rem;
+				padding: 0.6rem 0;
+
+				font-weight: 600;
+				color: #838587;
+
+				&--selected {
+					background-color: white;
+					color: black;
+				}
+			}
+		}
+
+		&__crux {
+			padding: 1rem;
+			border-radius: 0.8rem;
+			box-shadow:
+				0 1px 3px #0000001a,
+				0 1px 2px #0000000f;
+		}
+
+		.bottomText {
+			margin-top: 1rem;
+			font-size: 0.8rem;
+			color: rgba(0, 0, 0, 0.5);
+			text-align: center;
+		}
+	}
+</style>

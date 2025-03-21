@@ -1,0 +1,37 @@
+---
+import ReBarChart from "../components/dash/ReBarChart";
+import Layout from "../layouts/Layout.astro";
+import FakeDashboard from "../sections/FakeDashboard";
+---
+
+<script>
+	// set the height of dash to 6/10 of the width of dash
+	// this is to maintain the aspect ratio of the screen
+	document.addEventListener("DOMContentLoaded", () => {
+		const screen = document.querySelector(".dash") as HTMLElement;
+		const video = document.querySelector(
+			".LaptopSection__vid"
+		) as HTMLVideoElement;
+
+		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
+		let newWidth = Math.min(window.innerWidth, 1440) * 0.7;
+		screen.style.width = `${newWidth}px`;
+		screen.style.height = `${(newWidth * 10) / 16}px`;
+	});
+
+	// console.log(screen.offsetWidth);
+	// https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr
+	// /videos/laptop--cropped.mp4
+</script>
+
+<Layout>
+	<div class="dash">
+		<FakeDashboard client:only />
+	</div>
+</Layout>
+
+<style lang="scss">
+	.dash {
+		// border: 1px solid red;
+	}
+</style>

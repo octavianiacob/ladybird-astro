@@ -1,5 +1,5 @@
 ---
-import FakeDashboard from "./FakeDashboard.astro";
+import FakeDashboard from "./FakeDashboard";
 ---
 
 <script>
@@ -31,8 +31,7 @@ import FakeDashboard from "./FakeDashboard.astro";
 			muted
 			playsinline></video>
 		<div class="LaptopSection__screen">
-			<!-- <canvas></canvas> -->
-			<FakeDashboard />
+			<FakeDashboard client:only />
 		</div>
 	</div>
 </section>
@@ -80,7 +79,8 @@ import FakeDashboard from "./FakeDashboard.astro";
 			// transform: translate(-50%, -50%);
 			aspect-ratio: 16 / 10;
 
-			opacity: 0;
+			opacity: 1;
+			// opacity: 0;
 			z-index: 1;
 			position: absolute;
 		}

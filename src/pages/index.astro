@@ -3,21 +3,36 @@ import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import BottomSection from "../sections/BottomSection.astro";
 import DeviceSection from "../sections/DeviceSection.astro";
+import FakeDashboard from "../sections/FakeDashboard";
 import IntroSection from "../sections/IntroSection.astro";
 import LaptopSection from "../sections/LaptopSection.astro";
 import PlainTextSection from "../sections/PlainTextSection.astro";
-import { textList } from "../utils/constants";
+// import { textList } from "../utils/constants";
+
+const textList = [
+	"Call by call",
+	"inCall",
+	"Answers and collects your details",
+	"Books your appointment for you",
+	"The practice reviews and approves everything",
+	"All by call",
+	"inCall",
+	"Saves your time and skips the wait",
+	"inCall",
+	"Where calls meet care",
+];
 ---
 
 <Layout>
 	<div class="MainWrap">
 		<!-- <div class="fff"></div>
 		<div class="mmm"></div> -->
-		<div style="height: 1px;"></div>
+		<!-- <div style="height: 1px;"></div> -->
 		<IntroSection />
 		<PlainTextSection textList={textList} />
 		<DeviceSection />
 		<BottomSection />
+		<!-- <FakeDashboard client:only /> -->
 	</div>
 </Layout>
 

@@ -205,6 +205,10 @@ export function smoothScrollTo(
 
 export const switchTab = (ind: number) => {
 	const tabItems = document.querySelectorAll(".TabToggle__button");
+	if (tabItems.length === 0) {
+		console.warn("No tab items found.");
+		return;
+	}
 	tabItems.forEach((tabItem, ind) => {
 		if (tabItem.classList.contains("TabToggle__button--active")) {
 			tabItem.classList.remove("TabToggle__button--active");
@@ -220,4 +224,26 @@ export const findWhiteSpaceNodes = (parent: Element) => {
 			console.log("Whitespace node found:", node);
 		}
 	});
+};
+
+export const formatDateToDisplay = (date: Date) => {
+	return new Intl.DateTimeFormat("en-US", {
+		year: "numeric",
+		month: "short",
+		day: "2-digit",
+	}).format(date);
+};
+
+export const pickRandomName = (fullNames: string[]) => {
+	const randomIndex = Math.floor(Math.random() * fullNames.length);
+	return fullNames[randomIndex];
+};
+
+export const pickRandomAction = (actions: string[]) => {
+	const randomIndex = Math.floor(Math.random() * actions.length);
+	return actions[randomIndex];
+};
+
+export const padNumber = (num: number, digits: number) => {
+	return num.toString().padStart(digits, "0");
 };

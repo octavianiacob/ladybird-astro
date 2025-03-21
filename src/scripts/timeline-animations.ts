@@ -144,17 +144,13 @@ export const scrollToDevice = () => {
 
 export function disableScroll() {
 	if (typeof window === "undefined") return; // Prevent SSR errors
-
 	// Save current scroll position
 	const scrollY = window.scrollY;
-
 	// Detect if on iOS Safari
 	const isIOS =
 		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
 	// Use visualViewport.height for better accuracy on iOS
 	const viewportHeight = window.visualViewport?.height || window.innerHeight;
-
 	// Apply styles to lock scrolling without triggering layout shifts
 	document.body.style.overflow = "hidden";
 	document.body.style.position = "fixed";
@@ -162,8 +158,6 @@ export function disableScroll() {
 	document.body.style.top = `-${
 		isIOS ? viewportHeight + 100 : viewportHeight
 	}px`;
-	// document.body.style.height = `${viewportHeight}px`; // Prevents jumpy behavior on iOS
-
 	// Prevent iOS keyboard from breaking the layout
 	document.documentElement.style.overflow = "hidden";
 }
@@ -247,15 +241,16 @@ if (plainTextInnerElements.length > 0) {
 	});
 }
 
-const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
+const skipBtn = document.querySelector(".skipBtn");
 
-skipBtn.addEventListener("click", () => {
-	shouldScrollThroughPlainText = false;
-	enableScroll();
-	scrollToDevice();
+if (skipBtn)
+	skipBtn.addEventListener("click", () => {
+		shouldScrollThroughPlainText = false;
+		enableScroll();
+		scrollToDevice();
 
-	plainTl.kill();
-});
+		plainTl.kill();
+	});
 
 // -------------------------- Device Section Animation ---------------------------
 
@@ -393,14 +388,7 @@ onMount(() => {
 					duration: 0.3,
 					ease: "power4.inOut",
 					stagger: 0.15,
-					onComplete: () => {
-						const audio = document.querySelector(
-							".FakeDashboard__audio"
-						) as HTMLAudioElement;
-						if (audio) {
-							audio.play();
-						}
-					},
+					onComplete: () => {},
 				}
 			);
 		});
