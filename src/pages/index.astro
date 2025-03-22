@@ -11,14 +11,16 @@ import PlainTextSection from "../sections/PlainTextSection.astro";
 
 <Layout>
 	<div class="MainWrap">
-		<!-- <div class="fff"></div>
+		<div class="MainWrap__inner">
+			<!-- <div class="fff"></div>
 		<div class="mmm"></div> -->
-		<!-- <div style="height: 1px;"></div> -->
-		<IntroSection />
-		<PlainTextSection />
-		<DeviceSection />
-		<BottomSection />
-		<!-- <FakeDashboard client:only /> -->
+			<!-- <div style="height: 1px;"></div> -->
+			<IntroSection />
+			<PlainTextSection />
+			<DeviceSection />
+			<BottomSection />
+			<!-- <FakeDashboard client:only /> -->
+		</div>
 	</div>
 </Layout>
 
@@ -33,5 +35,7 @@ import PlainTextSection from "../sections/PlainTextSection.astro";
 	}
 	.MainWrap {
 		position: relative;
+		height: 100vh;
+		overflow: hidden;
 	}
 </style>

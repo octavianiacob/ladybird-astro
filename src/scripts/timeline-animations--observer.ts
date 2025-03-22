@@ -1,0 +1,348 @@
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Observer } from "gsap/Observer";
+import SplitType from "split-type";
+import { Power2, Power4 } from "gsap";
+import Lenis from "@studio-freight/lenis";
+import { fadeInBox, fadeOutBox } from "./reusable-animations";
+import { autoplayObserver } from "./autoplay-observer";
+// import { animatePhoneText } from "./phone-animations";
+import { onMount } from "solid-js";
+import {
+	detectAutoScrollComplete,
+	runIfFromScratch,
+} from "./detect-auto-scroll-complete";
+import { smoothScrollTo, switchTab } from "../utils/helpers";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollToPlugin);
+ScrollTrigger.config({
+	ignoreMobileResize: true,
+});
+ScrollTrigger.normalizeScroll(true);
+
+const video = document.querySelector(".LaptopSection__vid") as HTMLVideoElement;
+const screen = document.querySelector(".LaptopSection__screen") as HTMLElement;
+
+let isAnimating = false;
+let currTab = 0;
+let isLaptopPlaying = false;
+let currSection = 1;
+
+const resetIsAnimating = () => {
+	setTimeout(() => {
+		isAnimating = false;
+	}, 1000);
+};
+
+let plainTl = gsap.timeline({
+	// paused: true,
+});
+
+const resetVideo = () => {
+	if (video) {
+		video.pause();
+		video.currentTime = 0;
+		screen.style.opacity = "0";
+
+		isLaptopPlaying = false;
+	}
+};
+
+const resetDeviceSection = () => {
+	currTab = 0;
+
+	gsap.to(".DeviceSection__main", {
+		yPercent: 0,
+		ease: "power4.inOut",
+		delay: 0,
+		duration: 1,
+
+		onComplete: () => {
+			switchTab(0);
+			resetVideo();
+		},
+	});
+};
+const resetPlainSection = () => {
+	plainTl.kill();
+	gsap.to(".PlainTextSection", {
+		opacity: 0,
+	});
+};
+
+const laptopEnterFunc = () => {
+	// set the active tab
+
+	switchTab(1);
+
+	// Play the video and hide the screen
+	if (video && !isLaptopPlaying) {
+		isLaptopPlaying = true;
+		// lenis.stop(); // Pause the smooth scroll
+		if (screen) screen.style.opacity = "0"; // Hide screen during video playback
+		video.currentTime = 0; // Ensure it starts from the beginning
+		video.play();
+
+		video.onended = () => {
+			// lenis.start();
+			isLaptopPlaying = false;
+		};
+	}
+};
+
+const playPlain = () => {
+	const plainTextInnerElements = document.querySelectorAll(
+		".PlainTextSection__inner"
+	) as NodeListOf<HTMLElement>;
+
+	plainTl = gsap.timeline({
+		// paused: true,
+
+		onComplete: () => {
+			gsap.to(".MainWrap__inner", {
+				yPercent: -(2 / 4) * 100,
+				ease: "power4.inOut",
+				duration: 1,
+				onStart: () => {
+					isAnimating = true;
+				},
+				onComplete: () => {
+					resetIsAnimating();
+					switchTab(0);
+					resetPlainSection();
+
+					currSection = 3;
+				},
+			});
+		},
+	});
+
+	if (plainTextInnerElements.length > 0) {
+		plainTextInnerElements.forEach((_, index) => {
+			if (index < plainTextInnerElements.length - 1)
+				plainTl
+					.to(
+						{},
+						{
+							// duration: 4.5,
+							duration: 1.5,
+						}
+					) // Pause before moving to the next section
+					.to(
+						".PlainTextSection",
+						{
+							opacity: 1,
+							duration: 0.5,
+						},
+						"<"
+					)
+					.to(".PlainTextSection", {
+						yPercent: -(100 / plainTextInnerElements.length) * (index + 1),
+						duration: 1,
+						ease: "power2.inOut",
+					});
+			else if (index === plainTextInnerElements.length - 1) {
+				plainTl.to(".PlainTextSection", { opacity: 0, duration: 1.5 }); // Pause before moving to the next section
+			}
+		});
+	}
+};
+
+const scrollUpFunc = () => {
+	switch (currSection) {
+		case 1:
+			return () => {};
+			break;
+		case 2:
+			return () => {};
+			break;
+		case 3:
+			return () => {
+				if (currTab === 0) {
+					gsap.to(".MainWrap__inner", {
+						yPercent: -(1 / 4) * 100,
+						ease: "power4.inOut",
+						duration: 1,
+
+						onStart: () => {
+							isAnimating = true;
+						},
+						onComplete: () => {
+							currTab = 0;
+							resetDeviceSection();
+							playPlain();
+
+							currSection = 2;
+							resetIsAnimating();
+						},
+					});
+				} else {
+					gsap.to(".DeviceSection__main", {
+						yPercent: 0,
+						ease: "power4.inOut",
+						delay: 0,
+						duration: 1,
+						onStart: () => {
+							isAnimating = true;
+						},
+						onComplete: () => {
+							currTab = 0;
+							// laptopEnterFunc();
+							switchTab(0);
+							resetDeviceSection();
+							// resetVideo();
+
+							resetIsAnimating();
+						},
+					});
+				}
+			};
+			break;
+		case 4:
+			return () => {
+				gsap.to(".MainWrap__inner", {
+					yPercent: -(2 / 4) * 100,
+					ease: "power4.inOut",
+					duration: 1,
+
+					onStart: () => {
+						isAnimating = true;
+					},
+					onComplete: () => {
+						currSection = 3;
+						resetIsAnimating();
+					},
+				});
+			};
+			break;
+
+		default:
+			return () => {};
+			break;
+	}
+};
+
+const scrollDownFunc = () => {
+	switch (currSection) {
+		case 1:
+			return () => {
+				gsap.to(".MainWrap__inner", {
+					yPercent: -(1 / 4) * 100,
+					ease: "power4.inOut",
+					duration: 1,
+
+					onStart: () => {
+						isAnimating = true;
+					},
+					onComplete: () => {
+						resetIsAnimating();
+						playPlain();
+
+						currSection = 2;
+					},
+				});
+			};
+			break;
+		case 2:
+			return () => {};
+			break;
+		case 3:
+			return () => {
+				if (currTab === 0) {
+					gsap.to(".DeviceSection__main", {
+						yPercent: -50,
+						ease: "power4.inOut",
+						duration: 1,
+						onStart: () => {
+							isAnimating = true;
+						},
+						onComplete: () => {
+							switchTab(1);
+							currTab = 1;
+
+							console.log("Laptop section entered");
+							laptopEnterFunc();
+
+							resetIsAnimating();
+						},
+					});
+				} else {
+					gsap.to(".MainWrap__inner", {
+						yPercent: -(3 / 4) * 100,
+						ease: "power4.inOut",
+						duration: 1,
+						onStart: () => {
+							isAnimating = true;
+						},
+						onComplete: () => {
+							currTab = 0;
+							resetDeviceSection();
+							currSection = 4;
+
+							resetIsAnimating();
+						},
+					});
+				}
+			};
+
+		case 4:
+			return () => {};
+
+		default:
+			return () => {};
+			break;
+	}
+};
+
+Observer.create({
+	target: ".MainWrap__inner",
+	type: "wheel,touch",
+
+	onUp: () => {
+		if (!isAnimating) {
+			scrollUpFunc()();
+		}
+	},
+
+	onDown: () => {
+		if (!isAnimating) {
+			scrollDownFunc()();
+		}
+	},
+});
+
+console.log("isAnimating", isAnimating);
+
+// -------------------------------------------
+// Handle skip button click
+const skipBtn = document.querySelector(".skipBtn");
+
+if (skipBtn)
+	skipBtn.addEventListener("click", () => {
+		gsap.to(".MainWrap__inner", {
+			yPercent: -(2 / 4) * 100,
+			ease: "power4.inOut",
+			duration: 1,
+			onStart: () => {
+				isAnimating = true;
+			},
+			onComplete: () => {
+				resetIsAnimating();
+				switchTab(0);
+				resetPlainSection();
+
+				currSection = 3;
+			},
+		});
+	});
+
+// -------------------------------------------
+// Handle video end event
+if (video && screen) {
+	video.addEventListener("ended", () => {
+		screen.style.opacity = "1"; // Show the screen when video ends
+
+		const dashTl = gsap.timeline();
+	});
+}

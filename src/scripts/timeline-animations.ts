@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Observer } from "gsap/Observer";
 import SplitType from "split-type";
 import { Power2, Power4 } from "gsap";
 import Lenis from "@studio-freight/lenis";
@@ -14,8 +15,7 @@ import {
 } from "./detect-auto-scroll-complete";
 import { smoothScrollTo, switchTab } from "../utils/helpers";
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollToPlugin);
 ScrollTrigger.config({
 	ignoreMobileResize: true,
 });
@@ -37,6 +37,14 @@ requestAnimationFrame(raf);
 
 let shouldScrollThroughPlainText = true;
 let isAutomatedScrolling = false;
+let isAnimating = false;
+
+Observer.create({
+	target: ".IntroSection",
+	type: "wheel,touch",
+
+	onDown: () => {},
+});
 
 const introTl = gsap.timeline({
 	scrollTrigger: {
@@ -77,11 +85,11 @@ const introTl2 = gsap.timeline({
 				scrollDirection = self.direction;
 			}
 
-			console.log(
-				"scrollDirection",
-				scrollDirection,
-				shouldScrollThroughPlainText
-			);
+			// console.log(
+			// 	"scrollDirection",
+			// 	scrollDirection,
+			// 	shouldScrollThroughPlainText
+			// );
 		},
 	},
 });
@@ -143,23 +151,23 @@ export const scrollToDevice = () => {
 };
 
 export function disableScroll() {
-	if (typeof window === "undefined") return; // Prevent SSR errors
-	// Save current scroll position
-	const scrollY = window.scrollY;
-	// Detect if on iOS Safari
-	const isIOS =
-		/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-	// Use visualViewport.height for better accuracy on iOS
-	const viewportHeight = window.visualViewport?.height || window.innerHeight;
-	// Apply styles to lock scrolling without triggering layout shifts
-	document.body.style.overflow = "hidden";
-	document.body.style.position = "fixed";
-	document.body.style.width = "100%";
-	document.body.style.top = `-${
-		isIOS ? viewportHeight + 100 : viewportHeight
-	}px`;
-	// Prevent iOS keyboard from breaking the layout
-	document.documentElement.style.overflow = "hidden";
+	// if (typeof window === "undefined") return; // Prevent SSR errors
+	// // Save current scroll position
+	// const scrollY = window.scrollY;
+	// // Detect if on iOS Safari
+	// const isIOS =
+	// 	/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+	// // Use visualViewport.height for better accuracy on iOS
+	// const viewportHeight = window.visualViewport?.height || window.innerHeight;
+	// // Apply styles to lock scrolling without triggering layout shifts
+	// document.body.style.overflow = "hidden";
+	// document.body.style.position = "fixed";
+	// document.body.style.width = "100%";
+	// document.body.style.top = `-${
+	// 	isIOS ? viewportHeight + 100 : viewportHeight
+	// }px`;
+	// // Prevent iOS keyboard from breaking the layout
+	// document.documentElement.style.overflow = "hidden";
 }
 
 export function enableScroll() {
@@ -254,19 +262,6 @@ if (skipBtn)
 
 // -------------------------- Device Section Animation ---------------------------
 
-const deviceTl = gsap.timeline({
-	scrollTrigger: {
-		trigger: ".DeviceSection",
-		start: "top top",
-		end: "bottom bottom",
-		// markers: true,
-
-		onEnter: () => {
-			// shouldScrollThroughPlainText = false;
-		},
-	},
-});
-
 let isLaptopPlaying = false;
 
 const laptopEnterFunc = () => {
@@ -295,78 +290,230 @@ const laptopEnterFunc = () => {
 	}
 };
 
+Observer.create({
+	target: ".DeviceSection",
+	type: "wheel,touch",
+	tolerance: 20,
+
+	onUp: () => {
+		if (!isAnimating) {
+			gsap.to(".DeviceSection__main", {
+				yPercent: 0,
+				ease: "power4.inOut",
+				delay: 0,
+				duration: 1,
+
+				onStart: () => {
+					isAnimating = true;
+				},
+				onComplete: () => {
+					isAnimating = false;
+					laptopEnterFunc();
+					switchTab(0);
+				},
+			});
+		}
+	},
+
+	onDown: () => {
+		if (!isAnimating) {
+			gsap.to(".DeviceSection__main", {
+				yPercent: -50,
+				ease: "power4.inOut",
+				duration: 1,
+
+				onStart: () => {
+					isAnimating = true;
+				},
+				onComplete: () => {
+					switchTab(1);
+					isAnimating = false;
+				},
+			});
+		}
+	},
+});
+
 onMount(() => {
+	// // Pin the TabToggle
+	// gsap.to(".DeviceSection__top", {
+	// 	scrollTrigger: {
+	// 		trigger: ".DeviceSection",
+	// 		start: "top top",
+	// 		end: "+=200%",
+	// 		pin: true,
+
+	// 		onEnter: () => {
+	// 			// Reset the active tab
+
+	// 			switchTab(0);
+	// 		},
+	// 	},
+	// });
+
+	// // Animate the main content upwards
+	// gsap.to(".DeviceSection__main", {
+	// 	scrollTrigger: {
+	// 		trigger: ".PhoneSection",
+	// 		start: "top top",
+	// 		end: "+=150%",
+	// 		scrub: true, // Sync animation with scroll
+
+	// 		onEnter: () => {
+	// 			// Reset the active tab
+
+	// 			console.log("onEnter phone", shouldScrollThroughPlainText);
+	// 		},
+	// 	},
+	// 	yPercent: -50,
+	// 	ease: "power4.inOut",
+	// });
+
+	// // Fade in and play LaptopSection video
+	// gsap.to(".LaptopSection", {
+	// 	scrollTrigger: {
+	// 		trigger: ".LaptopSection",
+	// 		start: "center center", // Adjust the timing as needed
+	// 		end: "+=50%",
+	// 		scrub: true,
+	// 		snap: {
+	// 			snapTo: 1,
+	// 			duration: 0.25,
+	// 			ease: "power1.inOut",
+	// 		},
+
+	// 		// markers: true,
+	// 		onEnter: () => laptopEnterFunc(),
+	// 		onEnterBack: () => laptopEnterFunc(),
+	// 		onLeaveBack: () => {
+	// 			// set the active tab
+	// 			switchTab(0);
+
+	// 			const video = document.querySelector(
+	// 				".LaptopSection__vid"
+	// 			) as HTMLVideoElement;
+	// 			const screen = document.querySelector(
+	// 				".LaptopSection__screen"
+	// 			) as HTMLElement;
+	// 			if (video) {
+	// 				if (screen) screen.style.opacity = "0"; // Keep screen hidden
+	// 				video.pause();
+	// 				video.currentTime = 0; // Reset when scrolled out of view
+	// 				isLaptopPlaying = false;
+	// 			}
+	// 		},
+	// 	},
+	// 	opacity: 1,
+	// 	duration: 1,
+	// });
+
+	// -------------------------------------------
 	// Pin the TabToggle
-	gsap.to(".DeviceSection__top", {
+	// gsap.to(".DeviceSection__top", {
+	// 	scrollTrigger: {
+	// 		trigger: ".DeviceSection",
+	// 		start: "top top",
+	// 		end: "bottom bottom", // Pin for the entire section
+	// 		pin: true,
+	// 		markers: true,
+	// 	},
+	// });
+
+	gsap.timeline({
 		scrollTrigger: {
 			trigger: ".DeviceSection",
 			start: "top top",
-			end: "+=200%",
+			end: "bottom bottom", // Pin for the entire section
+			markers: true,
 			pin: true,
-
-			onEnter: () => {
-				// Reset the active tab
-
-				switchTab(0);
-			},
-		},
-	});
-
-	// Animate the main content upwards
-	gsap.to(".DeviceSection__main", {
-		scrollTrigger: {
-			trigger: ".PhoneSection",
-			start: "top top",
-			end: "+=150%",
-			scrub: true, // Sync animation with scroll
-
-			onEnter: () => {
-				// Reset the active tab
-
-				console.log("onEnter phone", shouldScrollThroughPlainText);
-			},
-		},
-		yPercent: -50,
-		ease: "power4.inOut",
-	});
-
-	// Fade in and play LaptopSection video
-	gsap.to(".LaptopSection", {
-		scrollTrigger: {
-			trigger: ".LaptopSection",
-			start: "center center", // Adjust the timing as needed
-			end: "+=50%",
 			scrub: true,
-			snap: {
-				snapTo: 1,
-				duration: 0.25,
-				ease: "power1.inOut",
-			},
-
-			// markers: true,
-			onEnter: () => laptopEnterFunc(),
-			onEnterBack: () => laptopEnterFunc(),
-			onLeaveBack: () => {
-				// set the active tab
-				switchTab(0);
-
-				const video = document.querySelector(
-					".LaptopSection__vid"
-				) as HTMLVideoElement;
-				const screen = document.querySelector(
-					".LaptopSection__screen"
-				) as HTMLElement;
-				if (video) {
-					if (screen) screen.style.opacity = "0"; // Keep screen hidden
-					video.pause();
-					video.currentTime = 0; // Reset when scrolled out of view
-					isLaptopPlaying = false;
-				}
-			},
 		},
-		opacity: 1,
-		duration: 1,
 	});
+	// .to(".DeviceSection__main", {
+	// 	yPercent: -50,
+	// 	ease: "power4.inOut",
+
+	// 	onComplete: () => {
+	// 		// Set up a temporary scroll block to prevent accidental scrolling past
+	// 	},
+	// });
+
+	// Create a scroll sequence for PhoneSection -> LaptopSection transition
+	// const deviceScrollTrigger = ScrollTrigger.create({
+	// 	trigger: ".DeviceSection",
+	// 	start: "top top",
+	// 	end: "+=100%", // Adjust this value as needed for your scroll distance
+	// 	// pin: ".PhoneSection", // Pin the wrapper containing both sections
+	// 	scrub: true,
+	// 	markers: true, // Enable for debugging
+	// 	onEnter: () => {
+	// 		switchTab(0); // Switch to Patients tab
+	// 	},
+	// });
+
+	// Animate the transition between sections
+	// gsap
+	// 	.timeline({
+	// 		scrollTrigger: deviceScrollTrigger,
+	// 	})
+	// 	.to(".DeviceSection__main", {
+	// 		// yPercent: -20, // Move PhoneSection up and out of view
+	// 		duration: 0.5,
+	// 		ease: "power2.inOut",
+	// 	});
+	// .to(
+	// 	".LaptopSection",
+	// 	{
+	// 		yPercent: -100, // Move LaptopSection into view
+	// 		duration: 0.5,
+	// 		ease: "power2.inOut",
+	// 	},
+	// 	0
+	// )
+	// .add(() => {
+	// 	// When timeline completes, set up a "pause" in scrolling
+	// 	ScrollTrigger.create({
+	// 		trigger: ".LaptopSection",
+	// 		start: "center center",
+	// 		end: "bottom+=300% bottom", // Extended end to create a scroll "buffer"
+	// 		onEnter: function () {
+	// 			// Switch to Practices tab
+	// 			switchTab(1);
+
+	// 			// Set up a temporary scroll block to prevent accidental scrolling past
+	// 			const tempScrollBlock = ScrollTrigger.create({
+	// 				trigger: ".LaptopSection",
+	// 				start: "top top",
+	// 				end: "bottom bottom",
+	// 				onLeave: function (self) {
+	// 					// If user deliberately continues scrolling (with enough force)
+	// 					// Allow them to proceed, but first clean up
+	// 					self.kill();
+	// 					window.scrollTo({
+	// 						top: window.scrollY + 1, // Force a small scroll to trigger next section
+	// 						behavior: "auto",
+	// 					});
+	// 				},
+	// 			});
+
+	// 			// Allow user to break free after a deliberate scroll attempt
+	// 			let scrollAttempts = 0;
+	// 			const scrollListener = () => {
+	// 				scrollAttempts++;
+	// 				if (scrollAttempts > 3) {
+	// 					// User really wants to scroll - let them proceed
+	// 					window.removeEventListener("wheel", scrollListener);
+	// 					window.removeEventListener("touchmove", scrollListener);
+	// 					tempScrollBlock.kill();
+	// 				}
+	// 			};
+
+	// 			window.addEventListener("wheel", scrollListener);
+	// 			window.addEventListener("touchmove", scrollListener);
+	// 		},
+	// 	});
+	// });
+	// -------------------------------------------
 
 	// Handle video end event
 	const video = document.querySelector(
@@ -396,25 +543,25 @@ onMount(() => {
 });
 // -------------------------------------------------------------------------------
 
-const bottomTl = gsap.timeline({
-	scrollTrigger: {
-		trigger: ".BottomSectionWrapper", // Wrapper for all boxes
-		// pin: true,
-		start: "top 10%",
-		end: `+=20%`, // Scroll to the end of the page
-		scrub: true, // Smooth linking with scroll
-		// markers: true, // Enable for debugging
-	},
-});
+// const bottomTl = gsap.timeline({
+// 	scrollTrigger: {
+// 		trigger: ".BottomSectionWrapper", // Wrapper for all boxes
+// 		// pin: true,
+// 		start: "top 10%",
+// 		end: `+=20%`, // Scroll to the end of the page
+// 		scrub: true, // Smooth linking with scroll
+// 		// markers: true, // Enable for debugging
+// 	},
+// });
 
-bottomTl.fromTo(
-	".BottomSection > h1, .BottomSection__form, .BottomSection__brands",
-	{ yPercent: 50, opacity: 0 },
-	{
-		yPercent: 0,
-		opacity: 1,
-		duration: 1.5,
-		stagger: 0.3,
-		ease: Power4.easeOut,
-	}
-);
+// bottomTl.fromTo(
+// 	".BottomSection > h1, .BottomSection__form, .BottomSection__brands",
+// 	{ yPercent: 50, opacity: 0 },
+// 	{
+// 		yPercent: 0,
+// 		opacity: 1,
+// 		duration: 1.5,
+// 		stagger: 0.3,
+// 		ease: Power4.easeOut,
+// 	}
+// );
