@@ -14,6 +14,7 @@ import {
 	runIfFromScratch,
 } from "./detect-auto-scroll-complete";
 import { smoothScrollTo, switchTab } from "../utils/helpers";
+import { playConversation } from "./phone-animations";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollToPlugin);
 ScrollTrigger.config({
@@ -113,6 +114,7 @@ const playPlain = () => {
 					resetPlainSection();
 
 					currSection = 3;
+					playConversation();
 				},
 			});
 		},
@@ -212,6 +214,7 @@ const scrollUpFunc = () => {
 					onComplete: () => {
 						currSection = 3;
 						resetIsAnimating();
+						playConversation();
 					},
 				});
 			};
@@ -333,6 +336,7 @@ if (skipBtn)
 				resetPlainSection();
 
 				currSection = 3;
+				playConversation();
 			},
 		});
 	});

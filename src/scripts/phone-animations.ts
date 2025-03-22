@@ -7,6 +7,7 @@ import {
 } from "./autoplay-observer";
 import { patientConvo_pt1 } from "../utils/constants";
 import {
+	displayTimeFrom928,
 	findWhiteSpaceNodes,
 	splitConvoTextIntoChars,
 	splitConvoTextIntoWords,
@@ -49,7 +50,7 @@ regularDotMovement();
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
-const onLeave = () => {
+export const onLeave = () => {
 	resetPhoneAnims(animations);
 	timelines.forEach((timeline) => timeline.kill());
 	timelines = [];
@@ -57,13 +58,19 @@ const onLeave = () => {
 	// resetDotsCompletely();
 };
 
-const playConversation = async () => {
+export const playConversation = async () => {
+	console.log("Playing conversation animation");
 	onLeave();
 	// Split all conversation text into words/characters
 	const textElements = document.querySelectorAll(".PhoneSection__convo__text");
 	splitConvoTextIntoWords(textElements);
 
 	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
+
+	const timeEl = document.querySelector(".PhoneSection__wrap__time");
+	if (timeEl) {
+		displayTimeFrom928(timeEl);
+	}
 
 	const createTimeline = (convoPart: Element, convoIndex: number) => {
 		const timeline = gsap.timeline({

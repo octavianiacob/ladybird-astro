@@ -247,3 +247,43 @@ export const pickRandomAction = (actions: string[]) => {
 export const padNumber = (num: number, digits: number) => {
 	return num.toString().padStart(digits, "0");
 };
+
+export const displayTimeFrom928 = (element: Element) => {
+	// the moment this is called, it is 9:28
+	// from this moment, we will display the updated time every minute
+
+	// Set the initial time to 9:28
+	let hours = 9;
+	let minutes = 28;
+
+	// Helper function to format the time as HH:MM
+	const formatTime = (h: number, m: number): string => {
+		return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
+	};
+
+	// Update the element with the initial time
+	element.textContent = formatTime(hours, minutes);
+
+	// Update the time every minute (60,000 milliseconds)
+	const intervalId = setInterval(() => {
+		// Increment minutes
+		minutes++;
+
+		// Handle hour change
+		if (minutes >= 60) {
+			minutes = 0;
+			hours++;
+
+			// Handle day change (reset to 0 after 23)
+			if (hours >= 24) {
+				hours = 0;
+			}
+		}
+
+		// Update the element with the new time
+		element.textContent = formatTime(hours, minutes);
+	}, 60000);
+
+	// Return the interval ID in case you need to stop the timer later
+	return intervalId;
+};

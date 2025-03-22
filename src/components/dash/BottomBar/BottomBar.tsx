@@ -218,7 +218,7 @@ const BottomBar = () => {
 							{
 								<div
 									className={`BottomBar__bar__incomingCall BottomBar__bar__incomingCall--${
-										isIncomingCall ? "show" : "show"
+										isIncomingCall ? "show" : ""
 									}`}
 								>
 									<div
