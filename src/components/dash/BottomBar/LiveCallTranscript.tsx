@@ -129,6 +129,7 @@ const LiveCallTranscript = ({
 									".BottomBar__bar__flexWrap",
 									{
 										opacity: 0.3,
+										height: 0,
 									},
 									"<"
 								);

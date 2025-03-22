@@ -120,6 +120,7 @@ const BottomBar = () => {
 				".BottomBar__bar__flexWrap",
 				{
 					opacity: 1,
+					height: "auto",
 				},
 				"<"
 			)
