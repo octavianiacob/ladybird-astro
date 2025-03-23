@@ -33,7 +33,7 @@ let currSection = 1;
 const resetIsAnimating = () => {
 	setTimeout(() => {
 		isAnimating = false;
-	}, 1000);
+	}, 400);
 };
 
 let plainTl = gsap.timeline({
