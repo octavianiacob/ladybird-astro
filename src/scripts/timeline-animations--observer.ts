@@ -162,6 +162,7 @@ const scrollUpFunc = () => {
 		case 3:
 			return () => {
 				if (currTab === 0) {
+					resetPlainSection();
 					gsap.to(".MainWrap__inner", {
 						yPercent: -(1 / 4) * 100,
 						ease: "power4.inOut",

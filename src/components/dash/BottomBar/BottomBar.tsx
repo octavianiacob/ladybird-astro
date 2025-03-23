@@ -114,13 +114,13 @@ const BottomBar = () => {
 		});
 
 		tl.to(".PhonePlayerBar__buttons", {
-			height: 0,
+			width: 0,
 		})
 			.to(
-				".BottomBar__bar__flexWrap",
+				".PhonePlayerBar",
 				{
-					opacity: 1,
-					height: "auto",
+					width: "auto",
+					// height: "auto",
 				},
 				"<"
 			)
@@ -160,24 +160,7 @@ const BottomBar = () => {
 				>
 					{chooseModal()}
 				</div>
-				<div className="PhonePlayerBar__buttons">
-					<button
-						className="auto"
-						onClick={() => {
-							resumeConvo("#04db00", timeline);
-						}}
-					>
-						Auto
-					</button>
-					<button
-						className="assist"
-						onClick={() => {
-							resumeConvo("#ff0000", timeline);
-						}}
-					>
-						Assist
-					</button>
-				</div>
+
 				<div className="BottomBar__bar__flexWrapOverflow">
 					<div className="BottomBar__bar__flexWrapOverflow__inner">
 						<div className="BottomBar__bar__flexWrap">
@@ -214,6 +197,24 @@ const BottomBar = () => {
 								isPlaying={isPlaying}
 								setIsPlaying={setIsPlaying}
 							/>
+							<div className="PhonePlayerBar__buttons">
+								<button
+									className="auto"
+									onClick={() => {
+										resumeConvo("#04db00", timeline);
+									}}
+								>
+									Auto
+								</button>
+								<button
+									className="assist"
+									onClick={() => {
+										resumeConvo("#ff0000", timeline);
+									}}
+								>
+									Assist
+								</button>
+							</div>
 
 							{
 								<div

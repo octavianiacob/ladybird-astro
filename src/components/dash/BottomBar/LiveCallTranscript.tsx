@@ -124,12 +124,12 @@ const LiveCallTranscript = ({
 								const tl = gsap.timeline({});
 
 								tl.to(".PhonePlayerBar__buttons", {
-									height: "auto",
+									width: "auto",
 								}).to(
-									".BottomBar__bar__flexWrap",
+									".PhonePlayerBar",
 									{
-										opacity: 0.3,
-										height: 0,
+										// opacity: 0.3,
+										width: 0,
 									},
 									"<"
 								);
