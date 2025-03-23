@@ -8,21 +8,35 @@ import FakeDashboard from "./FakeDashboard";
 	document.addEventListener("DOMContentLoaded", () => {
 		const screen = document.querySelector(
 			".LaptopSection__screen"
-		) as HTMLElement;
+		) as HTMLElement | null;
 		const video = document.querySelector(
 			".LaptopSection__vid"
-		) as HTMLVideoElement;
+		) as HTMLVideoElement | null;
 
-		// screen.style.maxHeight = `clamp(0, ${(screen.offsetWidth * 10) / 16}px, 60vh)`;
-		let newWidth = Math.min(window.innerWidth, 1224) * 0.7;
-		// let newWidth = Math.min(window.innerWidth, 1440) * 0.7;
-		screen.style.width = `${newWidth}px`;
-		screen.style.height = `${(newWidth * 10) / 16}px`;
+		if (!screen || !video) return;
+
+		const resizeScreen = () => {
+			if (window.innerWidth > 1024 && window.innerWidth < 1240) {
+				let newWidth = Math.min(window.innerWidth, 1224) * 0.6;
+				screen.style.width = `${newWidth}px`;
+				screen.style.height = `${(newWidth * 10) / 16}px`;
+			} else if (window.innerWidth > 1240 && window.innerWidth < 1415) {
+				let newWidth = Math.min(window.innerWidth, 1224) * 0.62;
+				screen.style.width = `${newWidth}px`;
+				screen.style.height = `${(newWidth * 10) / 16}px`;
+			} else {
+				let newWidth = Math.min(window.innerWidth, 1224) * 0.7;
+				screen.style.width = `${newWidth}px`;
+				screen.style.height = `${(newWidth * 10) / 16}px`;
+			}
+		};
+
+		// Initial resize
+		resizeScreen();
+
+		// Resize on window change
+		window.addEventListener("resize", resizeScreen);
 	});
-
-	// console.log(screen.offsetWidth);
-	// https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/a6stehta5uclkbrihwsr
-	// /videos/laptop--cropped.mp4
 </script>
 <section class="LaptopSection__inner">
 	<div class="LaptopSection__innerWrap">

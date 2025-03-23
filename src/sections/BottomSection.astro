@@ -24,18 +24,90 @@ export const brandList = [
 ];
 ---
 
+<script>
+	// logic to subscribe to newsletter
+	const formEl = document.querySelector(".BottomSection__form") as HTMLElement;
+	const inputEl = document.querySelector(
+		".BottomSection__form__input"
+	) as HTMLInputElement;
+	const successMessageEl = document.querySelector(
+		".successMessage"
+	) as HTMLElement;
+	const buttonEl = document.querySelector(
+		".BottomSection__form__submit"
+	) as HTMLElement;
+	const spinnerEl = buttonEl?.querySelector(".spinnerSvg") as HTMLElement;
+	const buttonTextEl = buttonEl?.querySelector("span") as HTMLElement;
+
+	if (!formEl || !inputEl) {
+		throw new Error("Form or input not found");
+	}
+	formEl.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const email = inputEl.value;
+
+		try {
+			spinnerEl.style.display = "inline-block";
+			buttonTextEl.style.display = "none";
+
+			const res = await fetch("/api/subscribe", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			});
+			const data = await res.json();
+			console.log(data);
+
+			if (data.success) {
+				successMessageEl.style.display = "block";
+				formEl.style.display = "none";
+			}
+		} catch (error) {
+		} finally {
+			inputEl.value = "";
+			spinnerEl.style.display = "none";
+			buttonTextEl.style.display = "inline-block";
+		}
+	});
+</script>
+
 <SectionLayout className="BottomSectionWrapper">
 	<div class="BottomSection">
 		<h1>
 			Curious?<br />
 			Sign up for all things AI
 		</h1>
-		<div class="BottomSection__form">
-			<input type="email" name="" id="" placeholder="Email*" />
+		<form class="BottomSection__form">
+			<input
+				class="BottomSection__form__input"
+				type="email"
+				name="email"
+				id=""
+				placeholder="Email*"
+			/>
+			<button type="submit" class="BottomSection__form__submit">
+				<span>Subscribe</span>
+				<svg
+					stroke="currentColor"
+					fill="currentColor"
+					stroke-width="0"
+					viewBox="0 0 1024 1024"
+					height="1em"
+					width="1em"
+					xmlns="http://www.w3.org/2000/svg"
+					class="spinnerSvg"
+					><path
+						d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 0 0-94.3-139.9 437.71 437.71 0 0 0-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+					></path></svg
+				>
+			</button>
 			<p>
 				By joining us, you agree to Ladybird's Terms of Use and Privacy Policy
 			</p>
-		</div>
+		</form>
+		<p class="successMessage">Thank you for subscribing!</p>
 		<div class="BottomSection__brands">
 			{brandList.map((brand) => <img src={brand.logo} alt={brand.name} />)}
 		</div>
@@ -43,6 +115,15 @@ export const brandList = [
 </SectionLayout>
 
 <style lang="scss">
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
 	.BottomSection {
 		width: 100%;
 		// height: auto;
@@ -93,6 +174,32 @@ export const brandList = [
 				color: #666;
 				text-align: center;
 			}
+
+			button {
+				width: 100%;
+				padding: 1rem;
+				border: none;
+				border-radius: 0.5rem;
+				background-color: #000;
+				color: #fff;
+				font-size: 1.5rem;
+				cursor: pointer;
+				transition: background-color 0.3s;
+
+				&:hover {
+					background-color: #ff0000;
+				}
+
+				span {
+					display: inline-block;
+				}
+
+				svg {
+					animation: spin 1s ease-in-out infinite;
+					// visibility: hidden;
+					display: none;
+				}
+			}
 		}
 
 		&__brands {
@@ -112,6 +219,13 @@ export const brandList = [
 				object-fit: contain;
 			}
 		}
+
+		.successMessage {
+			color: #04db00;
+			font-size: 1.5rem;
+			font-weight: 700;
+			display: none;
+		}
 	}
 
 	@media (max-width: 768px) {
@@ -130,6 +244,10 @@ export const brandList = [
 
 				p {
 					font-size: 0.6rem;
+				}
+
+				button {
+					font-size: 1rem;
 				}
 			}
 
