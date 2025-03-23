@@ -50,13 +50,16 @@ export const brandList = [
 			spinnerEl.style.display = "inline-block";
 			buttonTextEl.style.display = "none";
 
-			const res = await fetch("/api/subscribe", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email }),
-			});
+			const res = await fetch(
+				"https://ladybird-subscription.onrender.com/subscribe",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ email }),
+				}
+			);
 			const data = await res.json();
 			console.log(data);
 
