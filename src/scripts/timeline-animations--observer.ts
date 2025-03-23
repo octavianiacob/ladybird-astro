@@ -317,7 +317,7 @@ const scrollDownFunc = () => {
 // });
 Observer.create({
 	target: ".MainWrap__inner",
-	type: "wheel,touch",
+	type: "wheel,touch,scroll,pointer",
 	wheelSpeed: -1,
 
 	onUp: () => {
