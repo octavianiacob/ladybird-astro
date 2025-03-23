@@ -300,7 +300,7 @@ const scrollDownFunc = () => {
 
 Observer.create({
 	target: ".MainWrap__inner",
-	type: "wheel,touch",
+	type: "wheel",
 
 	onUp: () => {
 		if (!isAnimating) {
@@ -311,6 +311,22 @@ Observer.create({
 	onDown: () => {
 		if (!isAnimating) {
 			scrollDownFunc()();
+		}
+	},
+});
+Observer.create({
+	target: ".MainWrap__inner",
+	type: "touch",
+
+	onUp: () => {
+		if (!isAnimating) {
+			scrollDownFunc()();
+		}
+	},
+
+	onDown: () => {
+		if (!isAnimating) {
+			scrollUpFunc()();
 		}
 	},
 });
