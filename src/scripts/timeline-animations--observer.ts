@@ -298,25 +298,26 @@ const scrollDownFunc = () => {
 	}
 };
 
+// Observer.create({
+// 	target: ".MainWrap__inner",
+// 	type: "wheel",
+
+// 	onUp: () => {
+// 		if (!isAnimating) {
+// 			scrollUpFunc()();
+// 		}
+// 	},
+
+// 	onDown: () => {
+// 		if (!isAnimating) {
+// 			scrollDownFunc()();
+// 		}
+// 	},
+// });
 Observer.create({
 	target: ".MainWrap__inner",
-	type: "wheel",
-
-	onUp: () => {
-		if (!isAnimating) {
-			scrollUpFunc()();
-		}
-	},
-
-	onDown: () => {
-		if (!isAnimating) {
-			scrollDownFunc()();
-		}
-	},
-});
-Observer.create({
-	target: ".MainWrap__inner",
-	type: "touch",
+	type: "wheel,touch",
+	wheelSpeed: -1,
 
 	onUp: () => {
 		if (!isAnimating) {
