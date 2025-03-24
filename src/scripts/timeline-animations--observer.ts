@@ -157,7 +157,22 @@ const scrollUpFunc = () => {
 			return () => {};
 			break;
 		case 2:
-			return () => {};
+			return () => {
+				gsap.to(".MainWrap__inner", {
+					yPercent: 0,
+					ease: "power4.inOut",
+					duration: 1,
+					onStart: () => {
+						isAnimating = true;
+					},
+					onComplete: () => {
+						resetPlainSection();
+						currSection = 1;
+
+						resetIsAnimating();
+					},
+				});
+			};
 			break;
 		case 3:
 			return () => {
