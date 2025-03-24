@@ -29,6 +29,7 @@ let isAnimating = false;
 let currTab = 0;
 let isLaptopPlaying = false;
 let currSection = 1;
+let direction: boolean | null = null;
 
 const resetIsAnimating = () => {
 	setTimeout(() => {
@@ -314,28 +315,9 @@ const scrollDownFunc = () => {
 	}
 };
 
-// Observer.create({
-// 	target: ".MainWrap__inner",
-// 	type: "wheel",
-
-// 	onUp: () => {
-// 		if (!isAnimating) {
-// 			scrollUpFunc()();
-// 		}
-// 	},
-
-// 	onDown: () => {
-// 		if (!isAnimating) {
-// 			scrollDownFunc()();
-// 		}
-// 	},
-// });
 Observer.create({
 	target: ".MainWrap__inner",
-	type: "wheel,touch,scroll",
-	wheelSpeed: -1,
-	tolerance: 10,
-	preventDefault: true,
+	type: "touch",
 
 	onUp: () => {
 		if (!isAnimating) {
@@ -346,6 +328,32 @@ Observer.create({
 	onDown: () => {
 		if (!isAnimating) {
 			scrollUpFunc()();
+		}
+	},
+});
+Observer.create({
+	target: ".MainWrap__inner",
+	type: "wheel,scroll",
+	wheelSpeed: -1,
+	tolerance: 10,
+	preventDefault: true,
+
+	onUp: () => {
+		if (!isAnimating) {
+			if (direction === true) scrollDownFunc()();
+			else scrollUpFunc()();
+		}
+	},
+
+	onDown: () => {
+		if (!isAnimating) {
+			if (direction === true) scrollUpFunc()();
+			else scrollDownFunc()();
+		}
+	},
+	onWheel: (self) => {
+		if (direction === null) {
+			direction = self.deltaY < 0;
 		}
 	},
 });
