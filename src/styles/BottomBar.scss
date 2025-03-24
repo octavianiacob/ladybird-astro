@@ -103,7 +103,7 @@
 			transition: all 0.5s ease-in-out;
 
 			&--show {
-				width: 120px;
+				width: clamp(0px, 8.3333vw, 7.5rem);
 				margin: 0 clamp(0px, 1.6667vw, 1.5rem);
 			}
 
