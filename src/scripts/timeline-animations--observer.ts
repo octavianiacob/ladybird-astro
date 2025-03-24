@@ -332,8 +332,26 @@ const scrollDownFunc = () => {
 // });
 Observer.create({
 	target: ".MainWrap__inner",
-	type: "wheel,touch,scroll,pointer",
-	wheelSpeed: -1,
+	type: "wheel",
+	// wheelSpeed: -1,
+
+	onUp: () => {
+		if (!isAnimating) {
+			scrollUpFunc()();
+		}
+	},
+
+	onDown: () => {
+		if (!isAnimating) {
+			// scrollUpFunc()();
+			scrollDownFunc()();
+		}
+	},
+});
+Observer.create({
+	target: ".MainWrap__inner",
+	type: "touch,scroll",
+	// wheelSpeed: -1,
 
 	onUp: () => {
 		if (!isAnimating) {
