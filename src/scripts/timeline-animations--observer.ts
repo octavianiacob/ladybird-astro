@@ -410,3 +410,16 @@ if (video && screen) {
 		const dashTl = gsap.timeline();
 	});
 }
+
+document.addEventListener("visibilitychange", function () {
+	if (document.hidden) {
+		console.log("gone away");
+		screen.style.opacity = "0";
+	} else {
+		console.log("back again");
+		if (currSection === 3 && currTab === 1) {
+			// screen.style.opacity = "1";
+			laptopEnterFunc();
+		}
+	}
+});
