@@ -74,7 +74,7 @@ export const patientConvo_pt5 = [
 
 export const convoLoadingText = [
 	["Verifying…", "Verified"],
-	["Analaysing…", ""],
+	["Analysing……", ""],
 	["Booking…", "Booked"],
 	["Sending…", "Sent"],
 ];
@@ -325,7 +325,7 @@ export const actionCallTranscript2 = [
 		type: "action",
 		color: "amber",
 		speaker: "action",
-		text: "Analaysing…",
+		text: "Analysing……",
 		time: "10:07",
 	},
 	// ----------------------------
