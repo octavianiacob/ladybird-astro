@@ -337,24 +337,25 @@ const setupScrollTrigger = () => {
 // Skip button event listener
 if (skipBtn) {
 	skipBtn.addEventListener("click", () => {
-		resetPlainSection();
-		gsap.to(mainWrap, {
-			yPercent: -(2 / 4) * 100,
-			ease: "power4.inOut",
-			duration: 1,
-			onStart: () => {
-				isAnimating = true;
-			},
-			onComplete: () => {
-				resetPlainSection();
+		resetPlainSection(() => {
+			gsap.to(mainWrap, {
+				yPercent: -(2 / 4) * 100,
+				ease: "power4.inOut",
+				duration: 1,
+				onStart: () => {
+					isAnimating = true;
+				},
+				onComplete: () => {
+					// resetPlainSection();
 
-				resetIsAnimating();
-				switchTab(0);
+					resetIsAnimating();
+					switchTab(0);
 
-				currSection = 3;
+					currSection = 3;
 
-				playConversation();
-			},
+					playConversation();
+				},
+			});
 		});
 	});
 }
