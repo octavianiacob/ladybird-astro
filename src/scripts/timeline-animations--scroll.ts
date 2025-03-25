@@ -7,6 +7,10 @@ import { playConversation } from "./phone-animations";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+ScrollTrigger.config({
+	ignoreMobileResize: true,
+});
+ScrollTrigger.normalizeScroll(true);
 
 // Configuration variables
 let currSection = 1;
@@ -54,11 +58,15 @@ const resetDeviceSection = () => {
 	});
 };
 
-const resetPlainSection = () => {
+const resetPlainSection = (afterFunc = () => {}) => {
 	gsap.to(".PlainTextSection", {
 		opacity: 0,
+		yPercent: 0,
+		duration: 0.1,
 		onComplete: () => {
 			plainTl.kill();
+
+			afterFunc();
 		},
 	});
 };
@@ -147,15 +155,6 @@ const setupScrollTrigger = () => {
 
 			// log current scroll position
 			console.log("self.scroll()", self.scroll());
-			// if (self.scroll() > 200) {
-			// 	//set scroll to 20
-			// 	self.scroll(100);
-			// }
-
-			// else if (self.scroll() < 50) {
-			// 	//set scroll to 0
-			// 	self.scroll(60);
-			// }
 
 			if (isAnimating) {
 				if (currSection !== 4) self.scroll(200);
@@ -192,19 +191,20 @@ const setupScrollTrigger = () => {
 				case 2:
 					if (direction === -1) {
 						// Scroll up to section 1
-						gsap.to(mainWrap, {
-							yPercent: 0,
-							ease: "power4.inOut",
-							duration: 1,
-							onStart: () => {
-								isAnimating = true;
-							},
-							onComplete: () => {
-								resetPlainSection();
-								currSection = 1;
-								resetIsAnimating();
-								self.scroll(200);
-							},
+						resetPlainSection(() => {
+							gsap.to(mainWrap, {
+								yPercent: 0,
+								ease: "power4.inOut",
+								duration: 1,
+								onStart: () => {
+									isAnimating = true;
+								},
+								onComplete: () => {
+									currSection = 1;
+									resetIsAnimating();
+									self.scroll(200);
+								},
+							});
 						});
 					} else if (direction === 1) {
 						// Cannot scroll down from section 2
@@ -229,8 +229,6 @@ const setupScrollTrigger = () => {
 					if (direction === -1) {
 						// Scroll up from section 3
 						if (currTab === 0) {
-							resetPlainSection();
-
 							gsap.to(mainWrap, {
 								yPercent: -(1 / 4) * 100,
 								ease: "power4.inOut",
@@ -239,13 +237,16 @@ const setupScrollTrigger = () => {
 									isAnimating = true;
 								},
 								onComplete: () => {
-									currTab = 0;
-									resetDeviceSection();
-									playPlain();
-									currSection = 2;
-									resetIsAnimating();
+									resetPlainSection(() => {
+										currTab = 0;
+										resetDeviceSection();
+										playPlain();
 
-									self.scroll(200);
+										currSection = 2;
+										resetIsAnimating();
+
+										self.scroll(200);
+									});
 								},
 							});
 						} else {
@@ -336,6 +337,7 @@ const setupScrollTrigger = () => {
 // Skip button event listener
 if (skipBtn) {
 	skipBtn.addEventListener("click", () => {
+		resetPlainSection();
 		gsap.to(mainWrap, {
 			yPercent: -(2 / 4) * 100,
 			ease: "power4.inOut",
@@ -344,10 +346,13 @@ if (skipBtn) {
 				isAnimating = true;
 			},
 			onComplete: () => {
+				resetPlainSection();
+
 				resetIsAnimating();
 				switchTab(0);
-				resetPlainSection();
+
 				currSection = 3;
+
 				playConversation();
 			},
 		});
