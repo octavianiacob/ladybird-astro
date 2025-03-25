@@ -32,9 +32,7 @@ const resetIsAnimating = () => {
 	}, 400);
 };
 
-let plainTl = gsap.timeline({
-	// paused: true,
-});
+let plainTimelines: gsap.core.Timeline[] = [];
 
 const resetVideo = () => {
 	if (video) {
@@ -64,8 +62,20 @@ const resetPlainSection = (afterFunc = () => {}) => {
 		yPercent: 0,
 		duration: 0.1,
 		onComplete: () => {
-			plainTl.kill();
+			plainTimelines.forEach((tl) => {
+				tl.kill();
+			});
+			console.log("plainTimelines", plainTimelines);
 
+			setTimeout(() => {
+				plainTimelines.forEach((tl) => {
+					tl.kill();
+				});
+
+				plainTimelines = [];
+			}, 1000);
+
+			console.log("plainTl killed");
 			afterFunc();
 		},
 	});
@@ -86,7 +96,7 @@ const laptopEnterFunc = () => {
 	}
 };
 
-const playPlain = () => {
+const playPlainCore = () => {
 	gsap.to(".PlainTextSection", {
 		opacity: 0,
 	});
@@ -95,7 +105,9 @@ const playPlain = () => {
 		".PlainTextSection__inner"
 	) as NodeListOf<HTMLElement>;
 
-	plainTl = gsap.timeline({
+	console.log("plainTl initialized");
+	const plainTl = gsap.timeline({
+		// paused: true,
 		onComplete: () => {
 			gsap.to(mainWrap, {
 				yPercent: -(2 / 4) * 100,
@@ -114,10 +126,11 @@ const playPlain = () => {
 			});
 		},
 	});
+	plainTimelines.push(plainTl);
 
 	if (plainTextInnerElements.length > 0) {
 		plainTextInnerElements.forEach((_, index) => {
-			if (index < plainTextInnerElements.length - 1) {
+			if (index < plainTextInnerElements.length - 1 && plainTl) {
 				plainTl
 					.to({}, { duration: 1.5 })
 					.to(
@@ -133,11 +146,15 @@ const playPlain = () => {
 						duration: 1,
 						ease: "power2.inOut",
 					});
-			} else if (index === plainTextInnerElements.length - 1) {
+			} else if (index === plainTextInnerElements.length - 1 && plainTl) {
 				plainTl.to(".PlainTextSection", { opacity: 0, duration: 1.5 });
 			}
 		});
 	}
+};
+
+const playPlain = () => {
+	playPlainCore();
 };
 
 // ScrollTrigger Setup
@@ -149,15 +166,15 @@ const setupScrollTrigger = () => {
 		markers: true,
 		onUpdate: (self) => {
 			console.log(self.direction);
-			console.log("currTab", currTab);
-			console.log("currSection", currSection);
-			console.log("isAnimating", isAnimating);
+			// console.log("currTab", currTab);
+			// console.log("currSection", currSection);
+			// console.log("isAnimating", isAnimating);
 
 			// log current scroll position
 			console.log("self.scroll()", self.scroll());
 
 			if (isAnimating) {
-				if (currSection !== 4) self.scroll(200);
+				if (currSection !== 4 && currSection !== 1) self.scroll(200);
 				return;
 			}
 
@@ -202,7 +219,9 @@ const setupScrollTrigger = () => {
 								onComplete: () => {
 									currSection = 1;
 									resetIsAnimating();
-									self.scroll(200);
+
+									self.scroll(0);
+									console.log("self.scroll(0)", self.scroll());
 								},
 							});
 						});
@@ -320,13 +339,15 @@ const setupScrollTrigger = () => {
 								currSection = 3;
 								resetIsAnimating();
 								playConversation();
-
-								self.scroll(200);
 							},
 						});
 					} else {
 						// Cannot scroll down from section
 						// self.scroll(200);
+
+						//scroll to bottom
+						self.scroll(3000);
+						console.log("self.scroll(3000)", self.scroll());
 					}
 					break;
 			}
