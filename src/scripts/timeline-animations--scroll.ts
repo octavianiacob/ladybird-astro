@@ -55,9 +55,11 @@ const resetDeviceSection = () => {
 };
 
 const resetPlainSection = () => {
-	plainTl.kill();
 	gsap.to(".PlainTextSection", {
 		opacity: 0,
+		onComplete: () => {
+			plainTl.kill();
+		},
 	});
 };
 
@@ -77,6 +79,10 @@ const laptopEnterFunc = () => {
 };
 
 const playPlain = () => {
+	gsap.to(".PlainTextSection", {
+		opacity: 0,
+	});
+
 	const plainTextInnerElements = document.querySelectorAll(
 		".PlainTextSection__inner"
 	) as NodeListOf<HTMLElement>;
@@ -151,7 +157,10 @@ const setupScrollTrigger = () => {
 			// 	self.scroll(60);
 			// }
 
-			if (isAnimating) return;
+			if (isAnimating) {
+				if (currSection !== 4) self.scroll(200);
+				return;
+			}
 
 			const direction = self.direction;
 
@@ -170,9 +179,13 @@ const setupScrollTrigger = () => {
 								resetIsAnimating();
 								playPlain();
 								currSection = 2;
+
 								self.scroll(200);
 							},
 						});
+					} else {
+						// Cannot scroll up from section
+						// self.scroll(200);
 					}
 					break;
 
@@ -195,6 +208,20 @@ const setupScrollTrigger = () => {
 						});
 					} else if (direction === 1) {
 						// Cannot scroll down from section 2
+						gsap.to(mainWrap, {
+							yPercent: -(1 / 4) * 100,
+							ease: "power4.inOut",
+							duration: 1,
+							onStart: () => {
+								isAnimating = true;
+							},
+							onComplete: () => {
+								resetIsAnimating();
+								currSection = 2;
+
+								self.scroll(200);
+							},
+						});
 					}
 					break;
 
@@ -218,7 +245,7 @@ const setupScrollTrigger = () => {
 									currSection = 2;
 									resetIsAnimating();
 
-									self.scroll(200);r
+									self.scroll(200);
 								},
 							});
 						} else {
@@ -296,19 +323,12 @@ const setupScrollTrigger = () => {
 								self.scroll(200);
 							},
 						});
+					} else {
+						// Cannot scroll down from section
+						// self.scroll(200);
 					}
 					break;
 			}
-
-			// // stop scroll if delta is greater than 20
-			// const scrollDelta = Math.abs(self.getVelocity());
-
-			// if (scrollDelta > 20) {
-			// 	// Prevent further scrolling
-			// 	self.scroll(self.start);
-			// 	return;
-			// }
-			// console.log("Math.abs(self.getVelocity())", Math.abs(self.getVelocity()));
 		},
 	});
 };
