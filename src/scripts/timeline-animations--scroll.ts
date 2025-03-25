@@ -138,7 +138,7 @@ const setupScrollTrigger = () => {
 		trigger: mainWrap,
 		start: "top top",
 		end: "bottom bottom",
-		markers: true,
+		// markers: true,
 		onUpdate: (self) => {
 			console.log(self.direction);
 			console.log("currTab", currTab);
