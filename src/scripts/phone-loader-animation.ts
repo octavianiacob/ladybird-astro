@@ -216,7 +216,7 @@ export const threeDotsToCheckmark = (
 			{
 				opacity: 1,
 				duration: 0.001,
-				height: "5rem",
+				height: "6rem",
 			},
 			"<"
 		)
@@ -299,7 +299,7 @@ export const threeDotsToCheckmark = (
 							.to(
 								convoParts[2],
 								{
-									height: "5rem",
+									height: "6rem",
 									duration: 0.001,
 								},
 								"<"
@@ -413,7 +413,7 @@ export const threeDotsToCheckmark = (
 			".PhoneSection__fakeConvoPart",
 			{
 				duration: 0.3,
-				height: "5rem",
+				height: "6rem",
 			},
 			"<"
 		)
