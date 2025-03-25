@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 let currSection = 1;
 let currTab = 0;
 let isAnimating = false;
+let isScrolling = false;
 let isLaptopPlaying = false;
 
 // DOM element references
@@ -26,6 +27,10 @@ const resetIsAnimating = () => {
 		isAnimating = false;
 	}, 400);
 };
+
+let plainTl = gsap.timeline({
+	// paused: true,
+});
 
 const resetVideo = () => {
 	if (video) {
@@ -50,6 +55,7 @@ const resetDeviceSection = () => {
 };
 
 const resetPlainSection = () => {
+	plainTl.kill();
 	gsap.to(".PlainTextSection", {
 		opacity: 0,
 	});
@@ -75,7 +81,7 @@ const playPlain = () => {
 		".PlainTextSection__inner"
 	) as NodeListOf<HTMLElement>;
 
-	const plainTl = gsap.timeline({
+	plainTl = gsap.timeline({
 		onComplete: () => {
 			gsap.to(mainWrap, {
 				yPercent: -(2 / 4) * 100,
@@ -128,6 +134,23 @@ const setupScrollTrigger = () => {
 		end: "bottom bottom",
 		markers: true,
 		onUpdate: (self) => {
+			console.log(self.direction);
+			console.log("currTab", currTab);
+			console.log("currSection", currSection);
+			console.log("isAnimating", isAnimating);
+
+			// log current scroll position
+			console.log("self.scroll()", self.scroll());
+			// if (self.scroll() > 200) {
+			// 	//set scroll to 20
+			// 	self.scroll(100);
+			// }
+
+			// else if (self.scroll() < 50) {
+			// 	//set scroll to 0
+			// 	self.scroll(60);
+			// }
+
 			if (isAnimating) return;
 
 			const direction = self.direction;
@@ -147,6 +170,7 @@ const setupScrollTrigger = () => {
 								resetIsAnimating();
 								playPlain();
 								currSection = 2;
+								self.scroll(200);
 							},
 						});
 					}
@@ -166,6 +190,7 @@ const setupScrollTrigger = () => {
 								resetPlainSection();
 								currSection = 1;
 								resetIsAnimating();
+								self.scroll(200);
 							},
 						});
 					} else if (direction === 1) {
@@ -178,6 +203,7 @@ const setupScrollTrigger = () => {
 						// Scroll up from section 3
 						if (currTab === 0) {
 							resetPlainSection();
+
 							gsap.to(mainWrap, {
 								yPercent: -(1 / 4) * 100,
 								ease: "power4.inOut",
@@ -191,6 +217,8 @@ const setupScrollTrigger = () => {
 									playPlain();
 									currSection = 2;
 									resetIsAnimating();
+
+									self.scroll(200);r
 								},
 							});
 						} else {
@@ -207,6 +235,8 @@ const setupScrollTrigger = () => {
 									switchTab(0);
 									resetDeviceSection();
 									resetIsAnimating();
+
+									self.scroll(200);
 								},
 							});
 						}
@@ -225,6 +255,7 @@ const setupScrollTrigger = () => {
 									currTab = 1;
 									laptopEnterFunc();
 									resetIsAnimating();
+									self.scroll(200);
 								},
 							});
 						} else {
@@ -240,6 +271,7 @@ const setupScrollTrigger = () => {
 									resetDeviceSection();
 									currSection = 4;
 									resetIsAnimating();
+									self.scroll(200);
 								},
 							});
 						}
@@ -260,11 +292,23 @@ const setupScrollTrigger = () => {
 								currSection = 3;
 								resetIsAnimating();
 								playConversation();
+
+								self.scroll(200);
 							},
 						});
 					}
 					break;
 			}
+
+			// // stop scroll if delta is greater than 20
+			// const scrollDelta = Math.abs(self.getVelocity());
+
+			// if (scrollDelta > 20) {
+			// 	// Prevent further scrolling
+			// 	self.scroll(self.start);
+			// 	return;
+			// }
+			// console.log("Math.abs(self.getVelocity())", Math.abs(self.getVelocity()));
 		},
 	});
 };
