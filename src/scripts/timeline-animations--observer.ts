@@ -423,3 +423,8 @@ document.addEventListener("visibilitychange", function () {
 		}
 	}
 });
+
+document.addEventListener("blur", function () {
+	console.log("gone away blurryyy");
+	screen.style.opacity = "0";
+});
