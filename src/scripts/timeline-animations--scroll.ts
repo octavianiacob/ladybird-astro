@@ -224,6 +224,7 @@ const setupScrollTrigger = () => {
 								currSection = 2;
 
 								console.log("case 1");
+								self.scroll(100);
 							},
 						});
 					} else {
