@@ -413,8 +413,10 @@ document.addEventListener("blur", () => {
 	screen.style.opacity = "0";
 });
 
-// Initialize ScrollTrigger
-setupScrollTrigger();
+// Initialize ScrollTrigger on full load
+window.addEventListener("load", () => {
+	setupScrollTrigger();
+});
 
 window.onbeforeunload = function () {
 	window.scrollTo(0, 0);
