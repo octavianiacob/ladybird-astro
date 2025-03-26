@@ -174,7 +174,7 @@ const setupScrollTrigger = () => {
 			console.log("self.scroll()", self.scroll());
 
 			if (isAnimating) {
-				if (currSection !== 4 && currSection !== 1) self.scroll(200);
+				// if (currSection !== 4 && currSection !== 1) self.scroll(200);
 				return;
 			}
 
