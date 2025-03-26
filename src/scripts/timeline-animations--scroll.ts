@@ -168,6 +168,7 @@ const setupScrollTrigger = () => {
 		start: "top top",
 		end: "bottom bottom",
 		markers: true,
+		// preventOverscroll: true, // Prevent overscrolling
 		onUpdate: (self) => {
 			console.log(self.direction);
 			// console.log("currTab", currTab);
@@ -178,7 +179,29 @@ const setupScrollTrigger = () => {
 			console.log("self.scroll()", self.scroll());
 
 			if (isAnimating) {
-				// if (currSection !== 4 && currSection !== 1) self.scroll(200);
+				if (self.direction === 1) {
+					// console.log("scrolling down");
+					if (currSection === 1 && self.scroll() > 200) {
+						self.scroll(100);
+					} else if (currSection === 2 && self.scroll() > 400) {
+						self.scroll(300);
+					} else if (currSection === 3 && self.scroll() > 600) {
+						self.scroll(500);
+					} else if (currSection === 4 && self.scroll() > 800) {
+						self.scroll(700);
+					}
+				} else if (self.direction === -1) {
+					// console.log("scrolling up");
+					if (currSection === 1 && self.scroll() < 0) {
+						self.scroll(0);
+					} else if (currSection === 2 && self.scroll() < 200) {
+						self.scroll(200);
+					} else if (currSection === 3 && self.scroll() < 400) {
+						self.scroll(400);
+					} else if (currSection === 4 && self.scroll() < 600) {
+						self.scroll(600);
+					}
+				}
 				return;
 			}
 
@@ -201,13 +224,10 @@ const setupScrollTrigger = () => {
 								currSection = 2;
 
 								console.log("case 1");
-
-								// self.scroll(200);
 							},
 						});
 					} else {
 						// Cannot scroll up from section
-						// self.scroll(200);
 						console.log("case 1");
 					}
 					break;
@@ -227,9 +247,6 @@ const setupScrollTrigger = () => {
 								onComplete: () => {
 									currSection = 1;
 									resetIsAnimating();
-
-									self.scroll(0);
-									console.log("self.scroll(0)", self.scroll());
 								},
 							});
 						});
@@ -245,8 +262,6 @@ const setupScrollTrigger = () => {
 							onComplete: () => {
 								resetIsAnimating();
 								currSection = 2;
-
-								// self.scroll(200);
 							},
 						});
 					}
@@ -271,8 +286,6 @@ const setupScrollTrigger = () => {
 
 										currSection = 2;
 										resetIsAnimating();
-
-										// self.scroll(200);
 									});
 								},
 							});
@@ -290,8 +303,6 @@ const setupScrollTrigger = () => {
 									switchTab(0);
 									resetDeviceSection();
 									resetIsAnimating();
-
-									// self.scroll(200);
 								},
 							});
 						}
@@ -310,7 +321,6 @@ const setupScrollTrigger = () => {
 									currTab = 1;
 									laptopEnterFunc();
 									resetIsAnimating();
-									// self.scroll(200);
 								},
 							});
 						} else {
@@ -326,7 +336,6 @@ const setupScrollTrigger = () => {
 									resetDeviceSection();
 									currSection = 4;
 									resetIsAnimating();
-									// self.scroll(200);
 								},
 							});
 						}
@@ -347,17 +356,11 @@ const setupScrollTrigger = () => {
 								currSection = 3;
 								resetIsAnimating();
 								playConversation();
-
-								// self.scroll(200);
 							},
 						});
 					} else {
 						// Cannot scroll down from section
-						// self.scroll(200);
-
 						//scroll to bottom
-						self.scroll(3000);
-						console.log("self.scroll(3000)", self.scroll());
 					}
 					break;
 			}
