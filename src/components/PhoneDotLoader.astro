@@ -25,7 +25,6 @@ const dotCount = 3;
 					r="40"
 					stroke="#ff0000"
 					fill="none"
-					stroke-width="1.2rem"
 					stroke-dasharray="282.6"
 					stroke-dashoffset="282.6"
 					stroke-linecap="round"
@@ -41,7 +40,6 @@ const dotCount = 3;
 				class="PhoneDotLoader__checkmark"
 				><path
 					d="M5 12l5 5l10 -10"
-					stroke-width="4"
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					stroke-dasharray="100"
@@ -83,6 +81,13 @@ const dotCount = 3;
 			overflow: visible;
 		}
 
+		&__spinner {
+			stroke-width: 1.2rem;
+		}
+		&__checkmark {
+			stroke-width: 4px;
+		}
+
 		&__spinner,
 		&__checkmark {
 			position: absolute;
@@ -111,6 +116,29 @@ const dotCount = 3;
 		.spinner_P7sC {
 			transform-origin: center;
 			// animation: spinner_svv2 0.75s infinite linear;
+		}
+
+		@media screen and (max-width: 768px) {
+			.PhoneDotLoader {
+				&__dot {
+					width: clamp(10px, 1.6vh, 0.8rem);
+					height: clamp(10px, 1.6vh, 0.8rem);
+				}
+
+				&__spinnerWrap {
+					width: clamp(46px, 5.4vh, 3.4rem);
+					height: clamp(46px, 5.4vh, 3.4rem);
+				}
+
+				&__spinner {
+					stroke-width: clamp(1rem, 2.4vh, 1.2rem);
+					width: clamp(46px, 5.4vh, 3.4rem);
+				}
+				&__checkmark {
+					stroke-width: clamp(2px, 0.5vh, 4px);
+					width: clamp(46px, 5.4vh, 3.8rem);
+				}
+			}
 		}
 
 		@keyframes spinner_svv2 {

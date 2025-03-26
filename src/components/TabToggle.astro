@@ -51,7 +51,8 @@ const { tabItems, activeInd } = Astro.props;
 		.TabToggle {
 			&__button {
 				// padding: 0.5rem 1rem;
-				font-size: 1.2rem;
+				font-size: clamp(14px, 2.4vh, 1.2rem);
+				padding: 0.5rem clamp(12px, 3vh, 1.5rem);
 			}
 		}
 	}
