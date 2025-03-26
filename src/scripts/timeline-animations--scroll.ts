@@ -246,7 +246,7 @@ const setupScrollTrigger = () => {
 								resetIsAnimating();
 								currSection = 2;
 
-								self.scroll(200);
+								// self.scroll(200);
 							},
 						});
 					}
@@ -272,7 +272,7 @@ const setupScrollTrigger = () => {
 										currSection = 2;
 										resetIsAnimating();
 
-										self.scroll(200);
+										// self.scroll(200);
 									});
 								},
 							});
@@ -291,7 +291,7 @@ const setupScrollTrigger = () => {
 									resetDeviceSection();
 									resetIsAnimating();
 
-									self.scroll(200);
+									// self.scroll(200);
 								},
 							});
 						}
@@ -310,7 +310,7 @@ const setupScrollTrigger = () => {
 									currTab = 1;
 									laptopEnterFunc();
 									resetIsAnimating();
-									self.scroll(200);
+									// self.scroll(200);
 								},
 							});
 						} else {
@@ -326,7 +326,7 @@ const setupScrollTrigger = () => {
 									resetDeviceSection();
 									currSection = 4;
 									resetIsAnimating();
-									self.scroll(200);
+									// self.scroll(200);
 								},
 							});
 						}
@@ -348,7 +348,7 @@ const setupScrollTrigger = () => {
 								resetIsAnimating();
 								playConversation();
 
-								self.scroll(200);
+								// self.scroll(200);
 							},
 						});
 					} else {
