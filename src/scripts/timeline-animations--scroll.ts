@@ -415,7 +415,10 @@ document.addEventListener("blur", () => {
 
 // Initialize ScrollTrigger on full load
 window.addEventListener("load", () => {
-	setupScrollTrigger();
+	console.log("loaded");
+	setTimeout(() => {
+		setupScrollTrigger();
+	}, 1500);
 });
 
 window.onbeforeunload = function () {
