@@ -4,35 +4,42 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 ---
 
 <script>
-	// import { DotLottie } from "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js";
+	// Using gif.js library
+	// import GIF from "gif.js";
 
-	// const dotLottie = new DotLottie({
-	// 	autoplay: true,
-	// 	loop: false,
-	// 	canvas: document.querySelector("#lottie-animation"),
-	// 	src: "/logo.json", // or .json file
-	// 	// src: "https://lottie.host/0cbdb3ef-2fa5-4d1d-9e4e-f66c879e010d/D0bRr9d93F.lottie", // or .json file
+	// const gif = new GIF({
+	// 	workers: 2,
+	// 	quality: 10,
+	// 	width: 320,
+	// 	height: 240,
 	// });
 
-	// const animation = lottie.loadAnimation({
-	// 	container: document.getElementById("lottie-animation"),
-	// 	renderer: "svg",
-	// 	autoplay: true,
-	// 	loop: false,
-	// 	repeat: false,
+	// const IntroSection__gif = document.querySelector(
+	// 	".IntroSection__gif"
+	// ) as HTMLCanvasElement;
 
-	// 	path: "https://lottie.host/a22ca471-9368-4d28-bb43-3ce837784d70/rsJzC0XNCh.lottie",
-	// });
+	// if (IntroSection__gif)
+	// 	gif.addFrame(IntroSection__gif, { copy: true, delay: 100 });
+	// gif.render();
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const gif = document.querySelector(
+			".IntroSection__gif"
+		) as HTMLImageElement;
+		if (gif) gif.src = "/images/output-once.gif?" + new Date().getTime();
+	});
 </script>
 
 <SectionLayout className="IntroSectionWrapper">
 	<div class="IntroSection">
-		<video
+		<!-- <video
 			class="IntroSection__vid"
 			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/rw028haokxfkute9yr3k"
 			muted
 			playsinline
-			autoplay></video>
+			autoplay></video> -->
+
+		<img src="/images/output-once.gif" alt="" class="IntroSection__gif" />
 
 		<!-- <div id="lottie-animation"></div> -->
 		<!-- <canvas id="lottie-animation" style="width: 800px; height:800px;"></canvas> -->
@@ -63,11 +70,20 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		place-items: center;
 		position: relative;
 
-		&__vid {
+		&__vid,
+		&__gif {
 			width: 100%;
 			height: 100vh;
 			height: 100svh;
 			object-fit: contain;
+		}
+
+		&__vid {
+			// display: block;
+		}
+		&__gif {
+			animation-iteration-count: 1;
+			// display: none;
 		}
 
 		svg {
@@ -84,7 +100,12 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 
 	@media (max-width: 768px) {
 		.IntroSection {
+			&__gif {
+				// display: block;
+			}
 			&__vid {
+				// display: none;
+
 				object-fit: cover;
 				width: 60%;
 				height: 65%;
