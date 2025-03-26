@@ -19,6 +19,8 @@ let isAnimating = false;
 let isScrolling = false;
 let isLaptopPlaying = false;
 
+let hasScrolled = false;
+
 // DOM element references
 const mainWrap = document.querySelector(".MainWrap__inner") as HTMLElement;
 const video = document.querySelector(".LaptopSection__vid") as HTMLVideoElement;
@@ -157,6 +159,8 @@ const playPlain = () => {
 	playPlainCore();
 };
 
+console.log("hasScrolled", hasScrolled);
+
 // ScrollTrigger Setup
 const setupScrollTrigger = () => {
 	ScrollTrigger.create({
@@ -196,16 +200,20 @@ const setupScrollTrigger = () => {
 								playPlain();
 								currSection = 2;
 
-								self.scroll(200);
+								console.log("case 1");
+
+								// self.scroll(200);
 							},
 						});
 					} else {
 						// Cannot scroll up from section
 						// self.scroll(200);
+						console.log("case 1");
 					}
 					break;
 
 				case 2:
+					console.log("case 2");
 					if (direction === -1) {
 						// Scroll up to section 1
 						resetPlainSection(() => {
@@ -339,6 +347,8 @@ const setupScrollTrigger = () => {
 								currSection = 3;
 								resetIsAnimating();
 								playConversation();
+
+								self.scroll(200);
 							},
 						});
 					} else {
@@ -405,3 +415,7 @@ document.addEventListener("blur", () => {
 
 // Initialize ScrollTrigger
 setupScrollTrigger();
+
+window.onbeforeunload = function () {
+	window.scrollTo(0, 0);
+};
