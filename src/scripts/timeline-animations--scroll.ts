@@ -422,7 +422,27 @@ window.addEventListener("load", () => {
 	console.log("loaded");
 	setTimeout(() => {
 		setupScrollTrigger();
-	}, 1500);
+
+		gsap.to(mainWrap, {
+			yPercent: -(1 / 4) * 100,
+			ease: "power4.inOut",
+			duration: 1,
+			onStart: () => {
+				isAnimating = true;
+			},
+			onComplete: () => {
+				resetIsAnimating();
+				playPlain();
+				currSection = 2;
+
+				console.log("case 1");
+				// self.scroll(100);
+				window.scrollTo(0, 100);
+			},
+		});
+	}, 2000);
+
+	setTimeout(() => {}, 1000);
 });
 
 window.onbeforeunload = function () {
