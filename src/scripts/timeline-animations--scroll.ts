@@ -430,9 +430,8 @@ if (video && screen) {
 // Initialize ScrollTrigger on full load
 window.addEventListener("load", () => {
 	console.log("loaded");
+	setupScrollTrigger();
 	setTimeout(() => {
-		setupScrollTrigger();
-
 		gsap.to(mainWrap, {
 			yPercent: -(1 / 4) * 100,
 			ease: "power4.inOut",
