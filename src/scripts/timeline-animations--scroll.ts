@@ -402,20 +402,20 @@ if (video && screen) {
 	});
 }
 
-// Visibility and blur event listeners
-document.addEventListener("visibilitychange", () => {
-	if (document.hidden) {
-		screen.style.opacity = "0";
-	} else {
-		if (currSection === 3 && currTab === 1) {
-			laptopEnterFunc();
-		}
-	}
-});
+// // Visibility and blur event listeners
+// document.addEventListener("visibilitychange", () => {
+// 	if (document.hidden) {
+// 		screen.style.opacity = "0";
+// 	} else {
+// 		if (currSection === 3 && currTab === 1) {
+// 			laptopEnterFunc();
+// 		}
+// 	}
+// });
 
-document.addEventListener("blur", () => {
-	screen.style.opacity = "0";
-});
+// document.addEventListener("blur", () => {
+// 	screen.style.opacity = "0";
+// });
 
 // Initialize ScrollTrigger on full load
 window.addEventListener("load", () => {
@@ -440,7 +440,7 @@ window.addEventListener("load", () => {
 				window.scrollTo(0, 100);
 			},
 		});
-	}, 2000);
+	}, 6000);
 
 	setTimeout(() => {}, 1000);
 });
