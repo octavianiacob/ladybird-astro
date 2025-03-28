@@ -160,6 +160,7 @@ const playPlain = () => {
 };
 
 console.log("hasScrolled", hasScrolled);
+console.log("window.scrollY", window.scrollY);
 
 // ScrollTrigger Setup
 const setupScrollTrigger = () => {
@@ -372,6 +373,15 @@ const setupScrollTrigger = () => {
 // Skip button event listener
 if (skipBtn) {
 	skipBtn.addEventListener("click", () => {
+		gsap.to(
+			{},
+			{
+				scrollTo: {
+					y: 500,
+					autoKill: false,
+				},
+			}
+		);
 		resetPlainSection(() => {
 			gsap.to(mainWrap, {
 				yPercent: -(2 / 4) * 100,
@@ -437,7 +447,15 @@ window.addEventListener("load", () => {
 
 				console.log("case 1");
 				// self.scroll(100);
-				window.scrollTo(0, 100);
+				gsap.to(
+					{},
+					{
+						scrollTo: {
+							y: 150,
+							autoKill: false,
+						},
+					}
+				);
 			},
 		});
 	}, 6000);
