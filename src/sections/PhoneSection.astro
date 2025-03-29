@@ -157,6 +157,9 @@ export const convoLoadingText = [
 			height: 0;
 			overflow: hidden;
 		}
+		&__convoPart:first-of-type {
+			height: 6rem;
+		}
 
 		&__loading,
 		&__convo {
@@ -203,8 +206,8 @@ export const convoLoadingText = [
 			&__loading,
 			&__convo {
 				&__text {
-					font-size: 0.8rem;
-					// font-size: clamp(8px, 1.6vh, 0.8rem);
+					// font-size: 0.8rem;
+					font-size: clamp(8px, 1.6vh, 0.8rem);
 				}
 			}
 		}
