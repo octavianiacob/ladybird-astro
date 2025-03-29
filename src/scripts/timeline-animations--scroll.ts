@@ -51,8 +51,12 @@ const resetDeviceSection = () => {
 		yPercent: 0,
 		ease: "power4.inOut",
 		duration: 1,
-		onComplete: () => {
+
+		onStart: () => {
 			switchTab(0);
+		},
+		onComplete: () => {
+			// switchTab(0);
 			resetVideo();
 		},
 	});
@@ -299,10 +303,13 @@ const setupScrollTrigger = () => {
 								duration: 1,
 								onStart: () => {
 									isAnimating = true;
+
+									setTimeout(() => {
+										switchTab(0);
+									}, 300);
 								},
 								onComplete: () => {
 									currTab = 0;
-									switchTab(0);
 									resetDeviceSection();
 									resetIsAnimating();
 								},
@@ -317,9 +324,12 @@ const setupScrollTrigger = () => {
 								duration: 1,
 								onStart: () => {
 									isAnimating = true;
+
+									setTimeout(() => {
+										switchTab(1);
+									}, 300);
 								},
 								onComplete: () => {
-									switchTab(1);
 									currTab = 1;
 									laptopEnterFunc();
 									resetIsAnimating();
@@ -412,20 +422,20 @@ if (video && screen) {
 	});
 }
 
-// // Visibility and blur event listeners
-// document.addEventListener("visibilitychange", () => {
-// 	if (document.hidden) {
-// 		screen.style.opacity = "0";
-// 	} else {
-// 		if (currSection === 3 && currTab === 1) {
-// 			laptopEnterFunc();
-// 		}
-// 	}
-// });
+// Visibility and blur event listeners
+document.addEventListener("visibilitychange", () => {
+	if (document.hidden) {
+		screen.style.opacity = "0";
+	} else {
+		if (currSection === 3 && currTab === 1) {
+			laptopEnterFunc();
+		}
+	}
+});
 
-// document.addEventListener("blur", () => {
-// 	screen.style.opacity = "0";
-// });
+document.addEventListener("blur", () => {
+	screen.style.opacity = "0";
+});
 
 // Initialize ScrollTrigger on full load
 window.addEventListener("load", () => {
