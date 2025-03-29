@@ -26,6 +26,12 @@ const mainWrap = document.querySelector(".MainWrap__inner") as HTMLElement;
 const video = document.querySelector(".LaptopSection__vid") as HTMLVideoElement;
 const screen = document.querySelector(".LaptopSection__screen") as HTMLElement;
 const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
+const PhoneSection__convoParts = document.querySelectorAll(
+	".PhoneSection__convoPart"
+) as NodeListOf<HTMLElement>;
+
+PhoneSection__convoParts[0].style.height = "6rem";
+PhoneSection__convoParts[0].style.opacity = "0";
 
 // Utility functions
 const resetIsAnimating = () => {

@@ -698,26 +698,25 @@ export const threeDotsToSpinner = (
 	return spinnerTl;
 };
 
-export const resetLoaderAnimation = () => {
-	const loadingParts = document.querySelectorAll(".PhoneSection__loadingPart");
-	loadingParts.forEach((loadingPart) => {
-		loadingPart.style.opacity = "0";
-		loadingPart.style.height = "0";
-	});
-};
-
 export const resetPhoneAnims = (dotAnimations: gsap.core.Tween[]) => {
 	// pauseDotAnimations(dotAnimations);
 
-	const loadingParts = document.querySelectorAll(".PhoneSection__loadingPart");
-	const convoParts = document.querySelectorAll(".PhoneSection__convoPart");
+	const loadingParts = document.querySelectorAll(
+		".PhoneSection__loadingPart"
+	) as NodeListOf<HTMLElement>;
+	const convoParts = document.querySelectorAll(
+		".PhoneSection__convoPart"
+	) as NodeListOf<HTMLElement>;
+
 	loadingParts.forEach((loadingPart) => {
 		loadingPart.style.opacity = "0";
 		loadingPart.style.height = "0";
 	});
-	convoParts.forEach((convoPart) => {
+	convoParts.forEach((convoPart, ind) => {
 		convoPart.style.opacity = "0";
-		convoPart.style.height = "0";
+		if (ind === 0) {
+			convoPart.style.height = "6rem";
+		} else convoPart.style.height = "0";
 	});
 
 	const spinnerTl = gsap.timeline({});

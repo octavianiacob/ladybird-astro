@@ -25,6 +25,18 @@ import {
 let animations: gsap.core.Tween[] = [];
 
 const regularDotMovement = () => {
+	gsap.timeline({}).to(".PhoneDotLoader__dot", {
+		opacity: 0,
+		duration: 0.01,
+	});
+	// .to(".PhoneDotLoader__dot", {
+	// 	opacity: 1,
+	// 	delay: 1,
+	// 	duration: 0.01,
+	// 	onComplete: () => {
+	// 		console.log("dots visible");
+	// 	},
+	// });
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 	[...dots].reverse().forEach((dot, i) => {
 		const animation = gsap.to(dot, {
@@ -93,13 +105,15 @@ export const playConversation = async () => {
 					.to(convoPart, {
 						opacity: 1,
 						duration: 0.01,
-						height: "6rem",
+						// height: "6rem",
+						...(convoIndex === 0 ? {} : { height: "6rem" }),
 					})
 					.to(
 						".PhoneSection__fakeConvoPart",
 						{
 							duration: 0.01,
-							height: 0,
+							// height: 0,
+							...(convoIndex === 0 ? {} : { height: 0 }),
 						},
 						"<"
 					);
