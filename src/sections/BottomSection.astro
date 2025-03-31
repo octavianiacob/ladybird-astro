@@ -107,7 +107,9 @@ export const brandList = [
 				>
 			</button>
 			<p>
-				By joining us, you agree to Ladybird's Terms of Use and Privacy Policy
+				By joining us, you agree to Ladybird's <a href="/terms-and-conditions"
+					>Terms of Use</a
+				> and <a href="/privacy-policy">Privacy Policy</a>
 			</p>
 		</form>
 		<p class="successMessage">Thank you for subscribing!</p>
@@ -176,6 +178,15 @@ export const brandList = [
 				font-size: 0.8rem;
 				color: #666;
 				text-align: center;
+			}
+
+			a {
+				color: #ff0000;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 
 			button {

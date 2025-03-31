@@ -1,0 +1,156 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+	<div class="TermsAndConditions">
+		<h1>Terms and Conditions</h1>
+		<ol>
+			<li>
+				<h2>Introduction:</h2>
+				<p>
+					Welcome to inCall by Ladybird ("inCall," "we," "our," or "us"). By
+					accessing or using our services, you agree to be bound by these Terms
+					and Conditions. If you do not agree, please refrain from using inCall.
+				</p>
+			</li>
+			<li>
+				<h2>Services:</h2>
+
+				<p>
+					inCall is a call-handling platform designed to improve patient support
+					and streamline GP communications. We reserve the right to modify or
+					discontinue our services at any time without prior notice.
+				</p>
+			</li>
+
+			<li>
+				<h2>User Responsibilities:</h2>
+
+				<ul>
+					<li>Users must provide accurate and up-to-date information.</li>
+					<li>Unauthorised use of inCall is strictly prohibited.</li>
+
+					<li>
+						Users must comply with all applicable laws when using our services.
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>Data Protection:</h2>
+				<p>
+					We process personal data in accordance with our Privacy Policy. By
+					using inCall, you consent to our data processing practices.
+				</p>
+			</li>
+
+			<li>
+				<h2>Intellectual Property:</h2>
+				<p>
+					All content, branding, and intellectual property related to inCall
+					belong to Ladybird. Users may not reproduce, distribute, or modify any
+					part of our platform without written consent.
+				</p>
+			</li>
+
+			<li>
+				<h2>Limitation of Liability:</h2>
+
+				<ul>
+					<li>inCall is provided "as is" without warranties of any kind.</li>
+					<li>
+						We are not liable for any indirect or consequential damages
+						resulting from service use.
+					</li>
+
+					<li>
+						Our total liability shall not exceed the amount paid for using
+						inCall services.
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>Termination:</h2>
+				<p>
+					We reserve the right to suspend or terminate access to inCall if a
+					user violates these terms.
+				</p>
+			</li>
+
+			<li>
+				<h2>Governing Law:</h2>
+				<p>
+					These Terms and Conditions are governed by UK law. Disputes will be
+					resolved in UK courts.
+				</p>
+			</li>
+		</ol>
+	</div>
+</Layout>
+
+<style lang="scss">
+	.TermsAndConditions {
+		padding: 3rem;
+
+		h1 {
+			font-size: 4rem;
+			// font-weight: 400;
+			line-height: 1.2;
+			// text-align: center;
+			margin-bottom: 3rem;
+			margin-top: 2rem;
+		}
+
+		h2 {
+			margin-bottom: 0.5rem;
+			color: #000;
+		}
+
+		p,
+		li {
+			color: #666;
+		}
+
+		ol {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 2rem;
+			list-style-type: none;
+		}
+
+		ul > li {
+			margin-left: 1rem;
+		}
+
+		a {
+			color: #ff0000;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.TermsAndConditions {
+			padding: 1rem;
+
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h2 {
+				font-size: 1.5rem;
+			}
+
+			p,
+			li {
+				font-size: 1rem;
+			}
+		}
+	}
+</style>

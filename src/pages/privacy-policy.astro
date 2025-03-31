@@ -1,0 +1,163 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+	<div class="TermsAndConditions">
+		<h1>Privacy Policy</h1>
+		<ol>
+			<li>
+				<h2>Introduction:</h2>
+				<p>
+					This Privacy Policy outlines how inCall by Ladybird ("we," "our,"
+					"us") collects, uses, and protects user data.
+				</p>
+			</li>
+			<li>
+				<h2>Services:</h2>
+
+				<p>
+					inCall is a call-handling platform designed to improve patient support
+					and streamline GP communications. We reserve the right to modify or
+					discontinue our services at any time without prior notice.
+				</p>
+			</li>
+
+			<li>
+				<h2>Information We Collect:</h2>
+
+				<ul>
+					<li>
+						Personal information: Name, contact details, and other relevant user
+						data.
+					</li>
+					<li>
+						Usage data: Interaction logs, call details, and system analytics.
+					</li>
+					<li>Cookies and tracking technologies to enhance user experience.</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>How We Use Information:</h2>
+
+				<ul>
+					<li>To provide and improve our services.</li>
+					<li>To ensure secure and efficient call handling.</li>
+					<li>To comply with legal and regulatory requirements.</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>Data Sharing:</h2>
+				<p>We do not sell user data. However, we may share information with:</p>
+				<ul>
+					<li>Service providers assisting in service delivery.</li>
+					<li>Legal authorities when required by law.</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>Data Security:</h2>
+
+				<p>
+					We implement appropriate technical and organisational measures to
+					safeguard user data from unauthorised access or breaches.
+				</p>
+			</li>
+
+			<li>
+				<h2>User Rights:</h2>
+				<p>Users have the right to:</p>
+				<ul>
+					<li>Access, update, or delete personal data.</li>
+					<li>Object to data processing in certain circumstances.</li>
+					<li>Withdraw consent where applicable.</li>
+				</ul>
+			</li>
+
+			<li>
+				<h2>Retention Policy:</h2>
+				<p>
+					We retain user data only for as long as necessary for service
+					provision and legal compliance.
+				</p>
+			</li>
+
+			<li>
+				<h2>Contact Information:</h2>
+				<p>
+					For queries regarding this Privacy Policy, contact us at <a
+						href="mailto:r@ladybirdltd.com">r@ladybirdltd.com</a
+					>. This Privacy Policy may be updated periodically. Continued use of
+					inCall constitutes acceptance of any updates.
+				</p>
+			</li>
+		</ol>
+	</div>
+</Layout>
+
+<style lang="scss">
+	.TermsAndConditions {
+		padding: 3rem;
+
+		h1 {
+			font-size: 4rem;
+			// font-weight: 400;
+			line-height: 1.2;
+			// text-align: center;
+			margin-bottom: 3rem;
+			margin-top: 2rem;
+		}
+
+		h2 {
+			margin-bottom: 0.5rem;
+			color: #000;
+		}
+
+		p,
+		li {
+			color: #666;
+		}
+
+		ol {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 2rem;
+			list-style-type: none;
+		}
+
+		ul > li {
+			margin-left: 1rem;
+		}
+
+		a {
+			color: #ff0000;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.TermsAndConditions {
+			padding: 1rem;
+
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h2 {
+				font-size: 1.5rem;
+			}
+
+			p,
+			li {
+				font-size: 1rem;
+			}
+		}
+	}
+</style>
