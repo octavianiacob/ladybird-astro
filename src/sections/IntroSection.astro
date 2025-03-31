@@ -26,8 +26,7 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 		const gif = document.querySelector(
 			".IntroSection__gif"
 		) as HTMLImageElement;
-		if (gif)
-			gif.src = "/images/output-final-slower.gif?" + new Date().getTime();
+		if (gif) gif.src = "/images/output-once.gif?" + new Date().getTime();
 	});
 </script>
 
@@ -40,11 +39,7 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 			playsinline
 			autoplay></video>
 
-		<img
-			src="/images/output-final-slower.gif"
-			alt=""
-			class="IntroSection__gif"
-		/>
+		<img src="/images/output-once.gif" alt="" class="IntroSection__gif" />
 
 		<!-- <div id="lottie-animation"></div> -->
 		<!-- <canvas id="lottie-animation" style="width: 800px; height:800px;"></canvas> -->
