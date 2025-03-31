@@ -25,10 +25,6 @@ import {
 let animations: gsap.core.Tween[] = [];
 
 const regularDotMovement = () => {
-	gsap.timeline({}).to(".PhoneDotLoader__dot", {
-		opacity: 0,
-		duration: 0.01,
-	});
 	// .to(".PhoneDotLoader__dot", {
 	// 	opacity: 1,
 	// 	delay: 1,
@@ -57,6 +53,10 @@ export const resetDotsCompletely = () => {
 	regularDotMovement();
 };
 
+gsap.timeline({}).to(".PhoneDotLoader__dot", {
+	opacity: 0,
+	duration: 0.01,
+});
 regularDotMovement();
 
 // -------------------------- Conversation Animation ---------------------------
