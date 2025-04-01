@@ -190,6 +190,16 @@ export const playConversation = async () => {
 						"<"
 					);
 			}
+
+			if (
+				convoIndex === convoParts.length - 1 &&
+				index === convoPart.children.length - 1
+			) {
+				timeline.to(".PhoneSection__fakeConvoPart", {
+					duration: 0.3,
+					height: 0,
+				});
+			}
 		});
 
 		return timeline;
