@@ -8,6 +8,7 @@ const FloatingForm = () => {
 	const [success, setSuccess] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [done, setDone] = useState(false);
+	const [isActive, setIsActive] = useState(false);
 
 	const submitFunc = async () => {
 		setLoading(true);
@@ -62,7 +63,13 @@ const FloatingForm = () => {
 				e.preventDefault();
 			}}
 		>
-			<label className="FloatingForm__label">Email or Phone number</label>
+			<label
+				className={`FloatingForm__label FloatingForm__label--${
+					isActive ? "active" : ""
+				}`}
+			>
+				Email or Phone number
+			</label>
 			<input
 				className=""
 				type="email"
@@ -70,7 +77,14 @@ const FloatingForm = () => {
 				id=""
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
+				onFocus={() => setIsActive(true)}
+				onBlur={() => {
+					if (email === "") {
+						setIsActive(false);
+					}
+				}}
 			/>
+			<div className="FloatingForm__span"></div>
 			<button
 				className="FloatingForm__button"
 				type="button"
