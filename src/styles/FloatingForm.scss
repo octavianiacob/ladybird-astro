@@ -16,6 +16,10 @@
 	outline: none;
 	position: relative;
 
+	&--active {
+		border: 1px solid #ff0000;
+	}
+
 	&__label {
 		position: absolute;
 		top: 50%;

@@ -58,7 +58,7 @@ const FloatingForm = () => {
 
 	return (
 		<form
-			className="FloatingForm"
+			className={`FloatingForm FloatingForm--${isActive ? "active" : ""}`}
 			onSubmit={(e) => {
 				e.preventDefault();
 			}}
