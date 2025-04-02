@@ -1,12 +1,12 @@
 ---
-const { tabItems, activeInd } = Astro.props;
+const { tabItems } = Astro.props;
 ---
 
 <div class="TabToggle">
 	{
 		tabItems.map((tabItem: string, ind: number) => (
 			<button
-				class={`TabToggle__button TabToggle__button--${ind === activeInd ? "active" : ""}`}
+				class={`TabToggle__button TabToggle__button--${ind === 0 ? "active" : ""}`}
 			>
 				{tabItem}
 			</button>
