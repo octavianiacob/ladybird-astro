@@ -24,22 +24,32 @@ export const pauseDotAnimationsSeamlessly = (
 		const timeRemaining = (1 - animation.progress()) * animation.duration();
 
 		// Wait for the dot to reach yPercent: 0, then pause it
-		setTimeout(() => {
-			gsap.to(dot, {
-				yPercent: 0,
-				duration: 0.8, // Smooth transition
-				ease: "power2.out",
-				onComplete: () => {
-					animation.pause();
+		// setTimeout(() => {
+		// 	gsap.to(dot, {
+		// 		yPercent: 0,
+		// 		duration: 0.8, // Smooth transition
+		// 		ease: "power2.out",
+		// 		onComplete: () => {
+		// 			animation.pause();
 
-					gsap.to(dot, {
-						yPercent: 0,
-						duration: 0.8, // Smooth transition
-						ease: "power2.out",
-					});
-				}, // Pause once it reaches 0
-			});
-		}, timeRemaining * 1000 + i * 220); // Small delay for smooth reverse pause
+		// 			gsap.to(dot, {
+		// 				yPercent: 0,
+		// 				duration: 0.8, // Smooth transition
+		// 				ease: "power2.out",
+		// 			});
+		// 		}, // Pause once it reaches 0
+		// 	});
+		// }, timeRemaining * 1000 + i * 220); // Small delay for smooth reverse pause
+	});
+
+	dotAnimations.forEach((animation, i) => {
+		animation.pause();
+	});
+	gsap.to(dots, {
+		yPercent: 0,
+		duration: 0.8, // Smooth transition
+		stagger: 0.2,
+		ease: "power2.out",
 	});
 };
 
@@ -465,6 +475,12 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
+		.to(".PhoneDotLoader__dot:nth-child(1)", {
+			// make first dot bigger
+			scale: 1,
+			duration: 0.0001,
+			ease: "power4.out",
+		})
 		.to(".PhoneDotLoader__dot:nth-child(3)", {
 			// reset last dot xPercent
 			xPercent: 0,
@@ -472,7 +488,7 @@ export const threeDotsToCheckmark = (
 			// ease: "power2.inOut",
 		})
 		.to(
-			".PhoneDotLoader__dot",
+			".PhoneDotLoader__dot:nth-child(1)",
 			{
 				// show the dots again
 				// yPercent: 0,
@@ -481,8 +497,8 @@ export const threeDotsToCheckmark = (
 				duration: 0.2,
 				ease: "power4.out",
 			},
+			// "<-=0.6"
 			"<-=0.6"
-			// "<-=0.7"
 			// "<-=1.1"
 		)
 		.to(
@@ -495,10 +511,8 @@ export const threeDotsToCheckmark = (
 				duration: 0.2,
 				stagger: 0.06,
 				ease: "power4.out",
-			}
-			// ">-0.06"
-			// "<+=0.06"
-			// "<-=0.28"
+			},
+			">-0.06"
 		)
 		.to(
 			{},
