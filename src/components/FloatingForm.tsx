@@ -80,7 +80,13 @@ const FloatingForm = () => {
 				onFocus={() => {
 					setIsActive(true);
 					// if ("vibrate" in navigator)
-					navigator.vibrate(300);
+
+					try {
+						navigator.vibrate(300);
+					} catch (error) {
+						console.log("error", error);
+						document.body.innerHTML = error as string;
+					}
 				}}
 				onBlur={() => {
 					if (email === "") {
