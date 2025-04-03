@@ -270,6 +270,13 @@ export const actionCallTranscript = [
 	},
 ];
 
+export const loadingText = [
+	["Verifying…", "Verified"],
+	["Analysing…", "Analysed"],
+	["Booking…", "Booked"],
+	["Sending…", "Sent"],
+];
+
 export const actionCallTranscript2 = [
 	{
 		speaker: "AI",

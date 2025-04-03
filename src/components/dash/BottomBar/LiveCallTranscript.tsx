@@ -22,6 +22,8 @@ interface CallTranscriptProps {
 	trafficColor: string;
 	timeline: gsap.core.Timeline;
 	setTimeline: React.Dispatch<React.SetStateAction<gsap.core.Timeline>>;
+	currIndex: number;
+	setCurrIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const LiveCallTranscript = ({
@@ -31,6 +33,8 @@ const LiveCallTranscript = ({
 	trafficColor,
 	timeline,
 	setTimeline,
+	currIndex,
+	setCurrIndex,
 }: CallTranscriptProps) => {
 	const [currTime, setCurrTime] = useState(0);
 	const [ourInterval, setOurInterval] = useState(0);
@@ -114,11 +118,10 @@ const LiveCallTranscript = ({
 						duration: 0.1,
 
 						onComplete: () => {
-							console.log("index", index);
-							localStorage.setItem("convoInd", index.toString());
-
 							console.log("onComplete");
+
 							if (isAction) {
+								setCurrIndex((val) => val + 1);
 								timeline.pause();
 								// timeline.resume();
 								const tl = gsap.timeline({});
@@ -130,6 +133,16 @@ const LiveCallTranscript = ({
 									{
 										// opacity: 0.3,
 										width: 0,
+
+										onComplete: () => {
+											gsap.to(splitElements, {
+												color: "#ff8c00",
+
+												onComplete: () => {
+													localStorage.setItem("convoInd", index.toString());
+												},
+											});
+										},
 									},
 									"<"
 								);
@@ -153,6 +166,7 @@ const LiveCallTranscript = ({
 
 				.fromTo(
 					// show the first 5 words
+					// splitElements,
 					isAction ? {} : splitElements,
 					{
 						// opacity: 0,

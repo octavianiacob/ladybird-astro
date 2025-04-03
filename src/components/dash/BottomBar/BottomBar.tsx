@@ -9,6 +9,7 @@ import {
 	actionTrafficLights,
 	actionTrafficLights2,
 	callerList,
+	loadingText,
 	queryCallTranscript,
 	queryTrafficLights,
 } from "../../../utils/constants";
@@ -36,6 +37,9 @@ const BottomBar = () => {
 			defaults: { ease: Power4.easeOut },
 		})
 	);
+	const [currIndex, setCurrIndex] = useState(-1);
+
+	console.log("currIndex", currIndex);
 
 	const chooseModal = () => {
 		switch (activeModal) {
@@ -72,6 +76,8 @@ const BottomBar = () => {
 						trafficColor={trafficColor}
 						timeline={timeline}
 						setTimeline={setTimeline}
+						setCurrIndex={setCurrIndex}
+						currIndex={currIndex}
 					/>
 				);
 				break;
@@ -100,10 +106,15 @@ const BottomBar = () => {
 		setTrafficColor(color);
 		const convoInd = Number(localStorage.getItem("convoInd")) ?? 0;
 
+		const splitElementContainer = document.querySelectorAll(
+			".LiveCallTranscript__CallTranscript__item__text"
+		)[convoInd];
 		const splitElements = document
 			.querySelectorAll(".LiveCallTranscript__CallTranscript__item__text")
 			[convoInd].querySelectorAll(".word");
 		const lineElement = document.querySelectorAll(".timelineLine")[convoInd];
+
+		splitElementContainer.innerHTML = `<div class="word" style="display: inline-block;">${loadingText[currIndex][1]}</div>`;
 
 		console.log("splitElements", convoInd, splitElements);
 
@@ -124,13 +135,9 @@ const BottomBar = () => {
 				},
 				"<"
 			)
-			.fromTo(
+			.to(
 				// show the first 5 words
-				splitElements,
-				{
-					// opacity: 0,
-					color: "#8080808C",
-				},
+				splitElementContainer.querySelectorAll(".word"),
 				{
 					// opacity: 1,
 					width: "auto",
