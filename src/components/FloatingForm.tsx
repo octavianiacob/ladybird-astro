@@ -85,7 +85,7 @@ const FloatingForm = () => {
 						navigator.vibrate(300);
 					} catch (error) {
 						console.log("error", error);
-						document.body.innerHTML = error as string;
+						// document.body.innerHTML = error as string;
 					}
 				}}
 				onBlur={() => {
