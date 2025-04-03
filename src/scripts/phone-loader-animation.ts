@@ -131,14 +131,14 @@ export const threeDotsToCheckmark = (
 		.to(".PhoneDotLoader__dot:nth-child(2)", {
 			// hide the middle dot
 			scale: 0,
-			opacity: 0,
+			// opacity: 0,
 			duration: 0.3,
 			// ease: "power2.inOut",
 		})
 		.to(
 			".PhoneDotLoader__dot:nth-child(3)",
 			{
-				// scale down the right dot
+				// scale up the right dot
 				scale: 1,
 				// scale: 0.75,
 				duration: 0.15,
@@ -185,7 +185,7 @@ export const threeDotsToCheckmark = (
 			{
 				// hide the first dot
 				scale: 0,
-				opacity: 0,
+				// opacity: 0,
 				duration: 0.45,
 				// ease: "power2.inOut",
 			},
@@ -196,7 +196,7 @@ export const threeDotsToCheckmark = (
 			{
 				// hide the last dot
 				scale: 0,
-				opacity: 0,
+				// opacity: 0,
 				duration: 0.45,
 				// ease: "power2.inOut",
 
@@ -342,7 +342,7 @@ export const threeDotsToCheckmark = (
 			{
 				// hide the first and last dot
 				scale: 0,
-				opacity: 0,
+				// opacity: 0,
 				duration: 0.3,
 				stagger: 0.1,
 				// ease: "power2.inOut",
@@ -475,6 +475,12 @@ export const threeDotsToCheckmark = (
 			},
 			"<"
 		)
+		.to(".PhoneDotLoader__dot", {
+			// make first dot bigger
+			opacity: 1,
+			duration: 0.0001,
+			ease: "power4.out",
+		})
 		.to(".PhoneDotLoader__dot:nth-child(1)", {
 			// make first dot bigger
 			scale: 1,
