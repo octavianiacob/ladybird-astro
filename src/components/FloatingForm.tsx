@@ -77,7 +77,11 @@ const FloatingForm = () => {
 				id=""
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
-				onFocus={() => setIsActive(true)}
+				onFocus={() => {
+					setIsActive(true);
+					// if ("vibrate" in navigator)
+					navigator.vibrate(300);
+				}}
 				onBlur={() => {
 					if (email === "") {
 						setIsActive(false);
