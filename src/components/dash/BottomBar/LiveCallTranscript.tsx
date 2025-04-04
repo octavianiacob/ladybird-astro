@@ -12,6 +12,7 @@ interface CallTranscriptProps {
 		text: string;
 		time: string;
 		color?: string;
+		type?: string;
 	}[];
 	actions: {
 		action: string;
@@ -24,6 +25,7 @@ interface CallTranscriptProps {
 	setTimeline: React.Dispatch<React.SetStateAction<gsap.core.Timeline>>;
 	currIndex: number;
 	setCurrIndex: React.Dispatch<React.SetStateAction<number>>;
+	setIsIncomingCall: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const LiveCallTranscript = ({
@@ -35,6 +37,7 @@ const LiveCallTranscript = ({
 	setTimeline,
 	currIndex,
 	setCurrIndex,
+	setIsIncomingCall,
 }: CallTranscriptProps) => {
 	const [currTime, setCurrTime] = useState(0);
 	const [ourInterval, setOurInterval] = useState(0);
@@ -92,6 +95,8 @@ const LiveCallTranscript = ({
 			);
 			let isAI = splitElContainer?.className.includes("--AI");
 			let isAction = splitElContainer?.className.includes("--action");
+			let isAfterAction =
+				splitElContainer?.className.includes("--after-action");
 
 			const splitElements = document
 				.querySelectorAll(".LiveCallTranscript__CallTranscript__item__text")
@@ -122,9 +127,7 @@ const LiveCallTranscript = ({
 
 							if (isAction) {
 								setCurrIndex((val) => val + 1);
-								timeline.pause();
-								// timeline.resume();
-								const tl = gsap.timeline({});
+ 								const tl = gsap.timeline({});
 
 								tl.to(".PhonePlayerBar__buttons", {
 									width: "auto",
@@ -146,6 +149,9 @@ const LiveCallTranscript = ({
 									},
 									"<"
 								);
+							}
+							if (isAfterAction) {
+								timeline.pause();
 							}
 						},
 					},
@@ -257,7 +263,11 @@ const LiveCallTranscript = ({
 											<></>
 										)} */}
 										<p
-											className={`LiveCallTranscript__CallTranscript__item__text LiveCallTranscript__CallTranscript__item__text--${log.speaker}`}
+											className={`LiveCallTranscript__CallTranscript__item__text LiveCallTranscript__CallTranscript__item__text--${
+												log.speaker
+											} LiveCallTranscript__CallTranscript__item__text--${
+												log?.type === "after-action" ? "after-action" : ""
+											}`}
 											tscr-col={log.color}
 										>
 											{/* {log.speaker === "action" ? "" : `${log.speaker}: `} */}

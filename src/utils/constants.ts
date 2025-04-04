@@ -320,6 +320,7 @@ export const actionCallTranscript2 = [
 		speaker: "AI",
 		text: "Thanks, Sarah. How can I help?",
 		time: "10:07",
+		type: "after-action",
 	},
 	{
 		speaker: "Patient",
@@ -341,6 +342,7 @@ export const actionCallTranscript2 = [
 		speaker: "AI",
 		text: "I'm sorry to hear that, Sarah. Let's see if we can get you an appointment with Dr. Adams as soon as possible. How does Wednesday at 11:00 AM sound?",
 		time: "10:09",
+		type: "after-action",
 	},
 	{
 		speaker: "Patient",
@@ -367,6 +369,7 @@ export const actionCallTranscript2 = [
 		speaker: "AI",
 		text: "Alright, Sarah. You'll receive a confirmation text and a feedback form shortly.",
 		time: "10:12",
+		type: "after-action",
 	},
 	{
 		speaker: "Patient",
@@ -388,6 +391,7 @@ export const actionCallTranscript2 = [
 		speaker: "AI",
 		text: "Thanks, Sarah. Is there anything else I can help you with?",
 		time: "10:14",
+		type: "after-action",
 	},
 	{
 		speaker: "Patient",

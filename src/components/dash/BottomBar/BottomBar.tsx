@@ -35,6 +35,10 @@ const BottomBar = () => {
 	const [timeline, setTimeline] = useState<gsap.core.Timeline>(
 		gsap.timeline({
 			defaults: { ease: Power4.easeOut },
+
+			// onComplete: () => {
+			// 	setIsIncomingCall(false);
+			// },
 		})
 	);
 	const [currIndex, setCurrIndex] = useState(-1);
@@ -78,6 +82,7 @@ const BottomBar = () => {
 						setTimeline={setTimeline}
 						setCurrIndex={setCurrIndex}
 						currIndex={currIndex}
+						setIsIncomingCall={setIsIncomingCall}
 					/>
 				);
 				break;
