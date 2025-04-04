@@ -83,6 +83,24 @@ const BottomBar = () => {
 						setCurrIndex={setCurrIndex}
 						currIndex={currIndex}
 						setIsIncomingCall={setIsIncomingCall}
+						closeModal={() => {
+							setActiveModal("call_list");
+							setOpenModal(false);
+
+							const tl = gsap.timeline({});
+
+							tl.to(".PhonePlayerBar", {
+								width: 0,
+								duration: 0.05,
+								ease: "power4.inOut",
+							}).to(".BottomBar__bar__incomingCall", {
+								width: 0,
+								margin: "0 clamp(0px, 1.6667vw, 1.5rem)",
+								duration: 0.25,
+								delay: 0.25,
+								ease: "power4.inOut",
+							});
+						}}
 					/>
 				);
 				break;
@@ -240,12 +258,7 @@ const BottomBar = () => {
 											setOpenModal(true);
 											setActiveModal("live_call");
 
-											const tl = gsap.timeline({
-												// onComplete: () => {
-												// 	setIsIncomingCall(false);
-												// 	clearTimeout(timeout);
-												// },
-											});
+											const tl = gsap.timeline({});
 
 											tl.to(".BottomBar__bar__incomingCall", {
 												width: 0,

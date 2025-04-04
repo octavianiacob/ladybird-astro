@@ -311,7 +311,7 @@ export const actionCallTranscript2 = [
 		type: "action",
 		color: "green",
 		speaker: "action",
-		text: "Verified",
+		text: "Verifying…",
 		time: "10:07",
 	},
 	// ----------------------------
@@ -333,7 +333,7 @@ export const actionCallTranscript2 = [
 		type: "action",
 		color: "amber",
 		speaker: "action",
-		text: "Analysing……",
+		text: "Analysing…",
 		time: "10:07",
 	},
 	// ----------------------------
@@ -360,7 +360,7 @@ export const actionCallTranscript2 = [
 		type: "action",
 		color: "red",
 		speaker: "action",
-		text: "Booked by Nurse Titi",
+		text: "Booking…",
 		time: "10:11",
 	},
 	// ----------------------------
@@ -382,7 +382,7 @@ export const actionCallTranscript2 = [
 		type: "action",
 		color: "green",
 		speaker: "action",
-		text: "Sent",
+		text: "Sending…",
 		time: "10:13",
 	},
 	// ----------------------------

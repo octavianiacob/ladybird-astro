@@ -26,6 +26,7 @@ interface CallTranscriptProps {
 	currIndex: number;
 	setCurrIndex: React.Dispatch<React.SetStateAction<number>>;
 	setIsIncomingCall: React.Dispatch<React.SetStateAction<boolean>>;
+	closeModal: () => void;
 }
 
 const LiveCallTranscript = ({
@@ -38,6 +39,7 @@ const LiveCallTranscript = ({
 	currIndex,
 	setCurrIndex,
 	setIsIncomingCall,
+	closeModal,
 }: CallTranscriptProps) => {
 	const [currTime, setCurrTime] = useState(0);
 	const [ourInterval, setOurInterval] = useState(0);
@@ -127,7 +129,7 @@ const LiveCallTranscript = ({
 
 							if (isAction) {
 								setCurrIndex((val) => val + 1);
- 								const tl = gsap.timeline({});
+								const tl = gsap.timeline({});
 
 								tl.to(".PhonePlayerBar__buttons", {
 									width: "auto",
@@ -197,6 +199,13 @@ const LiveCallTranscript = ({
 						duration: 0.5,
 						// duration: 0.001,
 						delay: 0.5,
+
+						onComplete: () => {
+							if (index === transcript.length - 1) {
+								setIsIncomingCall(false);
+								closeModal();
+							}
+						},
 					}
 					// "<+=1.8"
 				);
