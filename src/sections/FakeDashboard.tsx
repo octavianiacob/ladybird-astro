@@ -1,3 +1,4 @@
+import { useState } from "react";
 import BottomBar from "../components/dash/BottomBar/BottomBar";
 import DashCards from "../components/dash/DashCards";
 import ReBarChart from "../components/dash/ReBarChart";
@@ -8,6 +9,8 @@ import TranscriptPage from "../components/dash/TranscriptPage";
 import "../styles/FakeDashboard.scss";
 
 const FakeDashboard = () => {
+	const [callCount, setCallCount] = useState(71);
+
 	return (
 		<div className="FakeDashboard">
 			<div className="FakeDashboard__home">
@@ -17,7 +20,7 @@ const FakeDashboard = () => {
 						<p>Take a look at the latest stats</p>
 					</div>
 
-					<DashCards />
+					<DashCards callCount={callCount} />
 
 					<div className="FakeDashboard__bottomCards">
 						{/* <div>
@@ -179,7 +182,7 @@ const FakeDashboard = () => {
 				</div>
 
 				<div className="FakeDashboard__bottom">
-					<BottomBar />
+					<BottomBar setCallCount={setCallCount} />
 				</div>
 			</div>
 		</div>

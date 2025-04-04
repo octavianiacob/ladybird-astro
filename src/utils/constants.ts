@@ -283,13 +283,7 @@ export const actionCallTranscript2 = [
 		text: "Hello, you’ve reached the GP Centre. Could you confirm your full name, please?",
 		time: "09:28",
 	},
-	// {
-	// 	type: "action",
-	// 	color: "green",
-	// 	speaker: "action",
-	// 	text: "Sent",
-	// 	time: "10:13",
-	// },
+
 	{
 		speaker: "Patient",
 		text: "Sarah Johnson",

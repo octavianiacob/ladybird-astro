@@ -6,6 +6,7 @@ import { splitConvoTextIntoWords } from "../../../utils/helpers";
 import PhoneDotLoaderReact from "../../PhoneDotLoaderReact";
 import { pauseDotAnimationsSeamlessly } from "../../../scripts/phone-loader-animation";
 
+
 interface CallTranscriptProps {
 	transcript: {
 		speaker: string;
@@ -44,7 +45,6 @@ const LiveCallTranscript = ({
 	const [currTime, setCurrTime] = useState(0);
 	const [ourInterval, setOurInterval] = useState(0);
 	const [currSpeaking, setCurrSpeaking] = useState("green");
-	// const [show]
 
 	const endTime = 20;
 
@@ -237,68 +237,70 @@ const LiveCallTranscript = ({
 	console.log("trafficColor", trafficColor);
 
 	return (
-		<div className="LiveCallTranscript">
-			<div className="LiveCallTranscript__CallTranscript">
-				<div className="LiveCallTranscript__CallTranscript__convo">
-					<h3>Transcript</h3>
-					<div className="LiveCallTranscript__CallTranscript__convo__items">
-						<div className="LiveCallTranscript__CallTranscript__convo__items__inner">
-							{transcript.map((log, index) => (
-								<div
-									className="LiveCallTranscript__CallTranscript__item"
-									key={index}
-								>
-									<div className="LiveCallTranscript__CallTranscript__item__inner">
-										<p
-											className={`timelineTime timelineTime--${
-												log.speaker === "action" ? log.color : ""
-											}`}
-											onClick={() => {
-												timeline.pause();
-											}}
-										>
-											{log.time}
-										</p>
-										<div
-											className={`timelineLine timelineLine--${
-												log.speaker === "action" ? "action" : ""
-											}`}
-										></div>
-										{/* {log.speaker === "action" ? (
+		<>
+			<div className="LiveCallTranscript">
+				<div className="LiveCallTranscript__CallTranscript">
+					<div className="LiveCallTranscript__CallTranscript__convo">
+						<h3>Transcript</h3>
+						<div className="LiveCallTranscript__CallTranscript__convo__items">
+							<div className="LiveCallTranscript__CallTranscript__convo__items__inner">
+								{transcript.map((log, index) => (
+									<div
+										className="LiveCallTranscript__CallTranscript__item"
+										key={index}
+									>
+										<div className="LiveCallTranscript__CallTranscript__item__inner">
+											<p
+												className={`timelineTime timelineTime--${
+													log.speaker === "action" ? log.color : ""
+												}`}
+												onClick={() => {
+													timeline.pause();
+												}}
+											>
+												{log.time}
+											</p>
+											<div
+												className={`timelineLine timelineLine--${
+													log.speaker === "action" ? "action" : ""
+												}`}
+											></div>
+											{/* {log.speaker === "action" ? (
 											<div
 												className={`timelineCircle timelineCircle--${log.color} `}
 											></div>
 										) : (
 											<></>
 										)} */}
-										<p
-											className={`LiveCallTranscript__CallTranscript__item__text LiveCallTranscript__CallTranscript__item__text--${
-												log.speaker
-											} LiveCallTranscript__CallTranscript__item__text--${
-												log?.type === "after-action" ? "after-action" : ""
-											}`}
-											tscr-col={log.color}
-										>
-											{/* {log.speaker === "action" ? "" : `${log.speaker}: `} */}
-											{log.text}
-										</p>
+											<p
+												className={`LiveCallTranscript__CallTranscript__item__text LiveCallTranscript__CallTranscript__item__text--${
+													log.speaker
+												} LiveCallTranscript__CallTranscript__item__text--${
+													log?.type === "after-action" ? "after-action" : ""
+												}`}
+												tscr-col={log.color}
+											>
+												{/* {log.speaker === "action" ? "" : `${log.speaker}: `} */}
+												{log.text}
+											</p>
 
-										{log.speaker === "action" ? (
-											<div className="loadWrapper">
-												{/* <PhoneDotLoaderReact id={index} /> */}
-											</div>
-										) : (
-											<></>
-										)}
+											{log.speaker === "action" ? (
+												<div className="loadWrapper">
+													{/* <PhoneDotLoaderReact id={index} /> */}
+												</div>
+											) : (
+												<></>
+											)}
+										</div>
 									</div>
-								</div>
-							))}
-							{/* <div className="timelineLine"></div> */}
+								))}
+								{/* <div className="timelineLine"></div> */}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
