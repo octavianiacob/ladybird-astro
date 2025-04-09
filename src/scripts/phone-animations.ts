@@ -189,10 +189,15 @@ export const playConversation = async () => {
 				convoIndex === convoParts.length - 1 &&
 				index === convoPart.children.length - 1
 			) {
-				timeline.to(".PhoneSection__fakeConvoPart", {
-					duration: 0.3,
-					height: 0,
-				});
+				timeline
+					.to(".PhoneSection__fakeConvoPart", {
+						duration: 0.3,
+						height: 0,
+					})
+					.to(".PhoneDotLoader__dot", {
+						opacity: 0,
+						duration: 0.01,
+					});
 			}
 		});
 
