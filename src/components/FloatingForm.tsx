@@ -107,7 +107,9 @@ const FloatingForm = () => {
 				) : loading ? (
 					<LuLoaderCircle className="spinner" />
 				) : (
-					<FaChevronRight />
+					<FaChevronRight
+						className={`chevron chevron--${isActive ? "active" : ""}`}
+					/>
 				)}
 			</button>
 		</form>

@@ -74,5 +74,16 @@
 		.spinner {
 			animation: spin 1s ease-in-out infinite;
 		}
+
+		.chevron {
+			color: rgb(189, 189, 189);
+			transform: rotate(90deg);
+			transition: all 0.2s ease-in-out;
+
+			&--active {
+				color: #ff0000;
+				transform: rotate(0deg);
+			}
+		}
 	}
 }
