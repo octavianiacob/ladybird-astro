@@ -10,6 +10,7 @@ import "../styles/FakeDashboard.scss";
 
 const FakeDashboard = () => {
 	const [callCount, setCallCount] = useState(71);
+	const [showPopup, setShowPopup] = useState(true);
 
 	return (
 		<div className="FakeDashboard">
@@ -182,7 +183,18 @@ const FakeDashboard = () => {
 				</div>
 
 				<div className="FakeDashboard__bottom">
-					<BottomBar setCallCount={setCallCount} />
+					<BottomBar setCallCount={setCallCount} setShowPopup={setShowPopup} />
+					<div
+						className={`FakeDashboard__popup FakeDashboard__popup--${
+							showPopup ? "show" : ""
+						}`}
+					>
+						<p>
+							Click the{" "}
+							<span style={{ color: "#04db00" }}>green phone icon</span> to
+							accept a phone call and view its live transcript
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>

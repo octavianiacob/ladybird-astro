@@ -29,9 +29,10 @@ import pingSound from "../../../assets/ping-82822.mp3";
 
 interface BottomBarProps {
 	setCallCount: React.Dispatch<React.SetStateAction<number>>;
+	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BottomBar = ({ setCallCount }: BottomBarProps) => {
+const BottomBar = ({ setCallCount, setShowPopup }: BottomBarProps) => {
 	const [openModal, setOpenModal] = useState(false);
 	const [activeModal, setActiveModal] = useState("call_list");
 	const [callList, setCallList] = useState([...callerList]);
@@ -265,6 +266,8 @@ const BottomBar = ({ setCallCount }: BottomBarProps) => {
 										<div
 											className="BottomBar__bar__icon accept"
 											onClick={() => {
+												setShowPopup(false);
+
 												setOpenModal(true);
 												setActiveModal("live_call");
 

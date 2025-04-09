@@ -108,7 +108,10 @@
 			}
 
 			.accept {
-				animation: vibrateCall 1s ease-in-out infinite;
+				position: relative;
+				svg {
+					animation: vibrateCall 1s ease-in-out infinite;
+				}
 				// animation: vibrateCall 0.4s ease-in-out infinite;
 			}
 			.decline {
