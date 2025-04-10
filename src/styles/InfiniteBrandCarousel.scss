@@ -1,0 +1,138 @@
+// /* Add this either to your global CSS or include it in the InfiniteBrandCarousel component with styled-components */
+
+// .carousel-container {
+// 	width: 100%;
+// 	overflow: hidden;
+// 	position: relative;
+// }
+
+// .carousel-track {
+// 	display: flex;
+// 	gap: 2rem;
+// 	white-space: nowrap;
+// 	will-change: transform;
+// 	transition: transform 0.2s ease-out;
+
+// 	width: max-content;
+
+// 	&-group {
+// 		display: flex;
+// 		gap: 2rem;
+// 		white-space: nowrap;
+// 		will-change: transform;
+// 		transition: transform 0.2s ease-out;
+
+// 		width: max-content;
+// 	}
+// }
+
+// .carousel-item {
+// 	flex: 0 0 auto;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// }
+
+// .carousel-item img {
+// 	height: 100px;
+// 	object-fit: contain;
+// }
+
+// .container {
+// 	width: 100%;
+// 	overflow: hidden;
+// 	display: flex;
+// 	// gap: 2rem;
+// }
+
+// .logosSlide {
+// 	display: flex;
+// 	gap: 2rem;
+// 	animation: slide infinite 5s linear;
+// }
+
+// @keyframes slide {
+// 	0% {
+// 		transform: translateX(0);
+// 	}
+// 	100% {
+// 		transform: translateX(-100%);
+// 	}
+// }
+
+// @media (max-width: 768px) {
+// 	.carousel-item img {
+// 		height: clamp(0px, 5.9vh, 43px);
+// 	}
+// }
+
+@keyframes slide {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+.logos {
+	overflow: hidden;
+	padding: 60px 0;
+	background: white;
+	white-space: nowrap;
+	position: relative;
+
+	// display: flex;
+}
+
+.logos:before,
+.logos:after {
+	position: absolute;
+	top: 0;
+	width: 250px;
+	height: 100%;
+	content: "";
+	z-index: 2;
+}
+
+.logos:before {
+	left: 0;
+	background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+}
+
+.logos:after {
+	right: 0;
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+}
+
+.logos:hover .logos-slide {
+	// animation-play-state: paused;
+}
+
+.logos-slide {
+	display: inline-block;
+	animation: 12s slide infinite linear;
+}
+
+.logos-slide img {
+	height: 100px;
+	object-fit: contain;
+	margin: 0 40px;
+}
+
+@media (max-width: 768px) {
+	.logos-slide img {
+		height: clamp(0px, 5.9vh, 43px);
+		margin: 0 20px;
+	}
+
+	.logos:before {
+		left: 0;
+		background: transparent;
+	}
+
+	.logos:after {
+		right: 0;
+		background: transparent;
+	}
+}

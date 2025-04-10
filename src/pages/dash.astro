@@ -1,6 +1,7 @@
 ---
 import ReBarChart from "../components/dash/ReBarChart";
 import Layout from "../layouts/Layout.astro";
+import BottomSection from "../sections/BottomSection.astro";
 import FakeDashboard from "../sections/FakeDashboard";
 ---
 
@@ -35,9 +36,10 @@ import FakeDashboard from "../sections/FakeDashboard";
 </script>
 
 <Layout>
-	<div class="dash">
+	<!-- <div class="dash">
 		<FakeDashboard client:only />
-	</div>
+	</div> -->
+	<BottomSection client:load />
 </Layout>
 
 <style lang="scss">

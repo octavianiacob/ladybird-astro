@@ -1,32 +1,51 @@
 ---
 import SectionLayout from "../layouts/SectionLayout.astro";
 import FloatingForm from "../components/FloatingForm.tsx";
+import InfiniteBrandCarousel from "../components/InfiniteBrandCarousel.tsx";
+import LogoSlider from "../components/LogoSlider";
+
 export const brandList = [
 	{
 		name: "Microsoft",
 		logo: "/images/microsoft.jpg",
 	},
 	{
+		name: "NHS Data Security and Protection",
+		logo: "/images/nhss.png",
+	},
+	{
 		name: "Cisco",
 		logo: "/images/cisco.png",
 	},
 	{
-		name: "Manchester Metroplitan University",
-		logo: "/images/machester-metro.svg",
+		name: "Cyber Essentials",
+		logo: "/images/cyber essentials.png",
 	},
 	{
 		name: "Health Innovation Manchester",
 		logo: "/images/health-innovation.png",
 	},
 	{
-		name: "University of Manchester",
-		logo: "/images/university-of-manchester.png",
+		name: "NHS Confederation",
+		logo: "/images/NHS-CONF.png",
 	},
+	{
+		name: "ICO",
+		logo: "/images/ICO.png",
+	},
+	{
+		name: "Manchester Metroplitan University",
+		logo: "/images/machester-metro.svg",
+	},
+
+	// {
+	// 	name: "University of Manchester",
+	// 	logo: "/images/university-of-manchester.png",
+	// },
 ];
 ---
 
 <script></script>
-
 <SectionLayout className="BottomSectionWrapper">
 	<div class="BottomSection">
 		<h1>
@@ -35,7 +54,6 @@ export const brandList = [
 		</h1>
 		<div class="BottomSection__form">
 			<FloatingForm client:load />
-
 			<p>
 				By joining us, you agree to Ladybird's <a
 					href="/files/inCall TnC.pdf"
@@ -47,7 +65,8 @@ export const brandList = [
 		</div>
 		<p class="successMessage">Thank you for subscribing!</p>
 		<div class="BottomSection__brands">
-			{brandList.map((brand) => <img src={brand.logo} alt={brand.name} />)}
+			<!-- <InfiniteBrandCarousel brands={brandList} client:load /> -->
+			<LogoSlider brands={brandList} client:load />
 		</div>
 	</div>
 </SectionLayout>
@@ -55,13 +74,11 @@ export const brandList = [
 <style lang="scss">
 	.BottomSection {
 		width: 100%;
-		// height: auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 3rem;
-
 		padding: 3rem;
 
 		h1 {
@@ -70,10 +87,6 @@ export const brandList = [
 			line-height: 1.2;
 			text-align: center;
 			margin-top: 3rem;
-
-			// for revealing animation
-			// opacity: 0;
-			// transform: translateY(40%);
 		}
 
 		&__form {
@@ -83,11 +96,7 @@ export const brandList = [
 			width: 100%;
 			max-width: 500px;
 			margin-bottom: 1.5rem;
-
 			color: #bdbdbd;
-
-			// for revealing animation
-			// opacity: 0;
 
 			p {
 				font-size: 0.8rem;
@@ -96,10 +105,8 @@ export const brandList = [
 			}
 
 			a {
-				// color: #ff0000;
 				text-decoration: none;
 				color: #666;
-
 				&:hover {
 					text-decoration: underline;
 				}
@@ -115,39 +122,23 @@ export const brandList = [
 				font-size: 1.5rem;
 				cursor: pointer;
 				transition: background-color 0.3s;
-
 				&:hover {
 					background-color: #ff0000;
 				}
-
 				span {
 					display: inline-block;
 				}
-
 				svg {
 					animation: spin 1s ease-in-out infinite;
-					// visibility: hidden;
 					display: none;
 				}
 			}
 		}
 
 		&__brands {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 2rem;
-			flex-wrap: wrap;
+			width: 100%;
+			overflow: hidden;
 			margin-top: 2rem;
-
-			// for revealing animation
-			// opacity: 0;
-
-			img {
-				// width: 100px;
-				height: 100px;
-				object-fit: contain;
-			}
 		}
 
 		.successMessage {
@@ -162,35 +153,26 @@ export const brandList = [
 		.BottomSection {
 			padding: 1rem;
 			justify-content: center;
-
 			h1 {
 				font-size: 1.8rem;
 				margin-top: 4rem;
 			}
-
 			&__form {
 				margin-bottom: 0;
 				input {
 					font-size: 0.75rem;
 					padding: 0.8rem;
 				}
-
 				p {
 					font-size: 0.6rem;
 				}
-
 				button {
 					font-size: 0.8rem;
 					padding: 0.8rem;
 				}
 			}
-
 			&__brands {
 				margin-top: 0;
-				img {
-					// height: clamp(0px, 4.5vh, 36px);
-					height: clamp(0px, 5.9vh, 43px);
-				}
 			}
 		}
 	}
