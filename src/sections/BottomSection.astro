@@ -1,7 +1,6 @@
 ---
 import SectionLayout from "../layouts/SectionLayout.astro";
 import FloatingForm from "../components/FloatingForm.tsx";
-import InfiniteBrandCarousel from "../components/InfiniteBrandCarousel.tsx";
 import LogoSlider from "../components/LogoSlider";
 
 export const brandList = [
@@ -65,8 +64,7 @@ export const brandList = [
 		</div>
 		<p class="successMessage">Thank you for subscribing!</p>
 		<div class="BottomSection__brands">
-			<!-- <InfiniteBrandCarousel brands={brandList} client:load /> -->
-			<LogoSlider brands={brandList} client:load />
+			<LogoSlider brands={brandList} client:only />
 		</div>
 	</div>
 </SectionLayout>
