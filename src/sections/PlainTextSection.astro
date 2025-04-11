@@ -4,16 +4,23 @@ import ArrowButton from "../components/ArrowButton.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 
 const textList = [
-	"Call by call",
-	"inCall",
-	"Answers and collects your details,",
-	"Books your appointment for you.",
-	"The practice reviews and approves everything.",
-	"All by call.",
-	"inCall",
-	"Saves your time and skips the wait.",
-	"inCall,",
-	"Where calls meet care",
+	`<p>Meet <span class="bigRed">inCall</span></p>`,
+	`<p>An AI-powered assistant that<br/><span class="regularRed">answers patient</span> calls instantly.</p>`,
+	`<p>How it works<span class="italicRed">?</span></p>`,
+	`<p>Think of it like a <span class="regularBold">car.</span></p>`,
+	`<p>The <span class="regularBold">engine</span> uses AI to answer and<br/>book calls.</p>`,
+	`<p>The <span class="regularBold">dashboard</span> tracks and<br/>monitors calls in real-time.</p>`,
+	`<p>The <span class="regularBold">driver</span> manages two types of<br/>calls.</p>`,
+	`<p>Auto calls that are fully automated, no staff<br/>action needed.</p>`,
+	`<p>Assist calls that are live and monitored to<br/>action via the traffic lights.</p>`,
+	`<p>The <span class="regularBold">traffic lights.</span></p>`,
+	`<p><span class="regularBold">Amber (Awaiting)</span><br/>Action suggested by AI for staff to review.</p>`,
+	`<p><span class="regularBold">Green (Auto)</span><br/>Action approved and AI proceeds.</p>`,
+	`<p><span class="regularBold">Red (Assist)</span><br/>Staff take over.</p>`,
+	`<p>Its the <span class="bigRed">future.</span></p>`,
+	`<p><span class="regularBold">Less</span> waiting.</p>`,
+	`<p><span class="regularBold">Less</span> admin.</p>`,
+	`<p><span class="regularRed">More</span> care.</p>`,
 ];
 ---
 
@@ -24,7 +31,7 @@ const textList = [
 				textList.map((textItem: string) => (
 					<div class="PlainTextSection__inner">
 						<div class="PlainTextSection__inner__SVH">
-							<p>{textItem}</p>
+							<span set:html={textItem} />
 						</div>
 					</div>
 				))
@@ -65,6 +72,11 @@ const textList = [
 			height: 100vh;
 			height: 100svh;
 
+			font-size: 4rem;
+			line-height: 1;
+			text-align: center;
+			padding: 0 1.5rem;
+
 			&__SVH {
 				width: 100%;
 				height: 100vh;
@@ -75,10 +87,6 @@ const textList = [
 			}
 
 			p {
-				font-size: 5rem;
-				line-height: 1;
-				text-align: center;
-				padding: 0 1.5rem;
 			}
 		}
 	}
@@ -86,8 +94,8 @@ const textList = [
 	@media (max-width: 768px) {
 		.PlainTextSection {
 			&__inner {
+				font-size: 2rem;
 				p {
-					font-size: 2rem;
 				}
 			}
 		}
