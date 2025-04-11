@@ -245,18 +245,19 @@
 
 	&__popup {
 		position: absolute;
-		bottom: 100%;
+		bottom: 120%;
 		left: 50%;
 
 		width: clamp(0px, 13.8889vw, 12.5rem);
-		height: clamp(0px, 4.8611vw, 4.375rem);
+		height: max-content;
 
 		background-color: white;
 		padding: clamp(0px, 1.1111vw, 1rem);
 		transform: translateX(-50%);
 		opacity: 0;
-		color: rgba(128, 128, 128, 0.55);
-
+		color: black;
+		// color: rgba(128, 128, 128, 0.55);
+		//
 		&--show {
 			opacity: 1;
 		}
