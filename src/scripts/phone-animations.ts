@@ -27,22 +27,24 @@ const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 
 	dotsTl = gsap
-		.timeline({})
+		.timeline({
+			// ease: "power4.inOut",
+		})
 		.to(dots[0], {
 			scale: 0.2, // shrink
 			duration: 0.6, // Total duration
-			ease: "power2.inOut", // Easing function
 			yoyo: true,
 			repeat: -1,
+			ease: "power1.inOut",
 		})
 		.to(
 			dots[1],
 			{
 				scale: 0.2, // shrink
 				duration: 0.6, // Total duration
-				ease: "power2.inOut", // Easing function
 				yoyo: true,
 				repeat: -1,
+				ease: "power1.inOut",
 			},
 			"<+0.2"
 		)
@@ -51,9 +53,9 @@ const regularDotMovement = () => {
 			{
 				scale: 0.2, // shrink
 				duration: 0.6, // Total duration
-				ease: "power2.inOut", // Easing function
 				yoyo: true,
 				repeat: -1,
+				ease: "power1.inOut",
 			},
 			"<+0.2"
 		);
@@ -69,12 +71,13 @@ gsap.timeline({}).to(".PhoneDotLoader__dot", {
 	opacity: 0,
 	duration: 0.01,
 });
-regularDotMovement();
 
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
 export const onLeave = () => {
+	regularDotMovement();
+
 	resetPhoneAnims();
 	timelines.forEach((timeline) => timeline.kill());
 	timelines = [];
