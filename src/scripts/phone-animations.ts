@@ -13,35 +13,55 @@ import {
 	splitConvoTextIntoWords,
 } from "../utils/helpers";
 import {
-	pauseDotAnimations,
 	pauseDotAnimationsSeamlessly,
 	resetPhoneAnims,
-	resumeDotAnimations,
 	threeDotsToCheckmark,
 	threeDotsToSpinner,
 } from "./phone-loader-animation";
 
 // -------------------------- Dot Loader Animation ---------------------------
 let animations: gsap.core.Tween[] = [];
+let dotsTl: gsap.core.Timeline = gsap.timeline({});
 
 const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
-	[...dots].reverse().forEach((dot, i) => {
-		const animation = gsap.to(dot, {
-			yPercent: -80, // Move up
-			duration: 0.6, // Total duration
-			ease: "linear", // Easing function
-			yoyo: true, // Reverse back to original
-			repeat: -1, // Infinite loop
-			delay: i * 0.22, // Stagger based on index
-		});
 
-		animations.push(animation);
-	});
+	dotsTl = gsap
+		.timeline({})
+		.to(dots[0], {
+			scale: 0.2, // shrink
+			duration: 0.6, // Total duration
+			ease: "power2.inOut", // Easing function
+			yoyo: true,
+			repeat: -1,
+		})
+		.to(
+			dots[1],
+			{
+				scale: 0.2, // shrink
+				duration: 0.6, // Total duration
+				ease: "power2.inOut", // Easing function
+				yoyo: true,
+				repeat: -1,
+			},
+			"<+0.2"
+		)
+		.to(
+			dots[2],
+			{
+				scale: 0.2, // shrink
+				duration: 0.6, // Total duration
+				ease: "power2.inOut", // Easing function
+				yoyo: true,
+				repeat: -1,
+			},
+			"<+0.2"
+		);
+
+	return dotsTl;
 };
 
 export const resetDotsCompletely = () => {
-	animations = [];
 	regularDotMovement();
 };
 
@@ -55,11 +75,9 @@ regularDotMovement();
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
 export const onLeave = () => {
-	resetPhoneAnims(animations);
+	resetPhoneAnims();
 	timelines.forEach((timeline) => timeline.kill());
 	timelines = [];
-
-	// resetDotsCompletely();
 };
 
 export const playConversation = async () => {
@@ -125,13 +143,13 @@ export const playConversation = async () => {
 						duration: 0.1,
 						onComplete: () => {
 							if (convoIndex === 0 && index === 0) {
-								[...animations].reverse().forEach((animation, i) => {
-									animation.play(i * 0.22);
-								});
+								// [...animations].reverse().forEach((animation, i) => {
+								// 	animation.play(i * 0.22);
+								// });
 							} else if (!isAI) {
 								const dots = document.querySelectorAll(".PhoneDotLoader__dot");
-								pauseDotAnimationsSeamlessly(animations, dots);
-							} else if (animations[0].paused()) {
+								pauseDotAnimationsSeamlessly(dotsTl, dots);
+							} else if (dotsTl.paused()) {
 								resetDotsCompletely();
 							}
 
@@ -163,7 +181,7 @@ export const playConversation = async () => {
 					onComplete: () => {
 						if (index === convoPart.children.length - 1 && isAI) {
 							const dots = document.querySelectorAll(".PhoneDotLoader__dot");
-							pauseDotAnimationsSeamlessly(animations, dots);
+							// pauseDotAnimationsSeamlessly(dotsTl, dots);
 						}
 					},
 				});
@@ -225,9 +243,9 @@ export const playConversation = async () => {
 const runLoaderWithSpinner = async (index: number) => {
 	await new Promise<void>((resolve) => {
 		const checkTl = threeDotsToCheckmark(
-			animations,
+			dotsTl,
 			() => {
-				const spinTl = threeDotsToSpinner(animations, resolve, index);
+				const spinTl = threeDotsToSpinner(dotsTl, resolve, index);
 				timelines.push(spinTl);
 			},
 			index
