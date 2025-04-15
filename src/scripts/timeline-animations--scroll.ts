@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import SplitType from "split-type";
 import { switchTab } from "../utils/helpers";
-import { playConversation } from "./phone-animations";
+import { dotsTl, playConversation } from "./phone-animations";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -93,6 +93,17 @@ const resetPlainSection = (afterFunc = () => {}) => {
 	});
 };
 
+const resetDotsTl = () => {
+	gsap.to(".PhoneDotLoader__dot", {
+		scale: 1,
+		duration: 0.01,
+	});
+
+	dotsTl.pause();
+	dotsTl.kill();
+	console.log("dotsTl killed");
+};
+
 const laptopEnterFunc = () => {
 	switchTab(1);
 
@@ -133,6 +144,8 @@ const playPlainCore = () => {
 					switchTab(0);
 					resetPlainSection();
 					currSection = 3;
+
+					resetDotsTl();
 					playConversation();
 				},
 			});
@@ -373,6 +386,8 @@ const setupScrollTrigger = () => {
 							onComplete: () => {
 								currSection = 3;
 								resetIsAnimating();
+
+								resetDotsTl();
 								playConversation();
 							},
 						});
@@ -414,6 +429,7 @@ if (skipBtn) {
 
 					currSection = 3;
 
+					resetDotsTl();
 					playConversation();
 				},
 			});

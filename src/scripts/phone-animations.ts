@@ -21,7 +21,7 @@ import {
 
 // -------------------------- Dot Loader Animation ---------------------------
 let animations: gsap.core.Tween[] = [];
-let dotsTl: gsap.core.Timeline = gsap.timeline({});
+export let dotsTl: gsap.core.Timeline = gsap.timeline({});
 
 const regularDotMovement = () => {
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
