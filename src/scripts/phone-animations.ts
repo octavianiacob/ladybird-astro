@@ -28,6 +28,14 @@ const regularDotMovement = () => {
 	console.log("regularDotMovement");
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 
+	dotsTl.pause();
+	dotsTl.kill();
+
+	gsap.to(dots, {
+		scale: 1,
+		duration: 0.01,
+	});
+
 	dotsTl = gsap
 		.timeline({
 			// ease: "power4.inOut",

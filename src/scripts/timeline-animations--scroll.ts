@@ -40,13 +40,14 @@ const resetIsAnimating = () => {
 	}, 400);
 };
 
-let plainTimelines: gsap.core.Timeline[] = [];
+let isPlainTlPlaying = false;
+let plainTl: gsap.core.Timeline = gsap.timeline({});
 
 export const playConvo = () => {
 	console.log("started");
 	gsap
 		.timeline({})
-		.to(".PhoneDotLoader__dot", {
+		.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
 			opacity: 0,
 			duration: 0.001,
 		})
@@ -56,7 +57,7 @@ export const playConvo = () => {
 				duration: 1,
 			}
 		)
-		.to(".PhoneDotLoader__dot", {
+		.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
 			opacity: 1,
 			duration: 0.5,
 		})
@@ -70,6 +71,8 @@ export const playConvo = () => {
 			}
 		);
 };
+
+console.log("plainTl", plainTl);
 
 const resetVideo = () => {
 	if (video) {
@@ -98,28 +101,37 @@ const resetDeviceSection = () => {
 };
 
 const resetPlainSection = (afterFunc = () => {}) => {
-	gsap.to(".PlainTextSection", {
-		opacity: 0,
-		yPercent: 0,
-		duration: 0.1,
-		onComplete: () => {
-			plainTimelines.forEach((tl) => {
-				tl.kill();
-			});
-			console.log("plainTimelines", plainTimelines);
+	console.log("isPlainTlPlaying", isPlainTlPlaying);
+	if (isPlainTlPlaying) {
+		gsap.to(".PlainTextSection", {
+			// opacity: 0,
+			duration: 0.1,
+			onComplete: () => {
+				plainTl.pause();
 
-			setTimeout(() => {
-				plainTimelines.forEach((tl) => {
-					tl.kill();
-				});
+				afterFunc();
+			},
+		});
+	} else {
+		gsap.to(".PlainTextSection", {
+			opacity: 0,
+			yPercent: 0,
+			duration: 0.1,
+			onComplete: () => {
+				plainTl.kill();
+				console.log("plainTl", plainTl);
 
-				plainTimelines = [];
-			}, 1000);
+				setTimeout(() => {
+					plainTl.kill();
 
-			console.log("plainTl killed");
-			afterFunc();
-		},
-	});
+					plainTl = gsap.timeline({});
+				}, 1000);
+
+				console.log("plainTl killed");
+				afterFunc();
+			},
+		});
+	}
 };
 
 const resetDotsTl = () => {
@@ -149,6 +161,7 @@ const laptopEnterFunc = () => {
 };
 
 const playPlainCore = () => {
+	isPlainTlPlaying = true;
 	gsap.to(".PlainTextSection", {
 		opacity: 0,
 	});
@@ -158,9 +171,10 @@ const playPlainCore = () => {
 	) as NodeListOf<HTMLElement>;
 
 	console.log("plainTl initialized");
-	const plainTl = gsap.timeline({
+	plainTl = gsap.timeline({
 		// paused: true,
 		onComplete: () => {
+			isPlainTlPlaying = false;
 			gsap.to(mainWrap, {
 				yPercent: -(2 / 4) * 100,
 				ease: "power4.inOut",
@@ -180,7 +194,6 @@ const playPlainCore = () => {
 			});
 		},
 	});
-	plainTimelines.push(plainTl);
 
 	if (plainTextInnerElements.length > 0) {
 		plainTextInnerElements.forEach((_, index) => {
@@ -208,7 +221,13 @@ const playPlainCore = () => {
 };
 
 const playPlain = () => {
-	playPlainCore();
+	console.log("playPlain", playPlain);
+	console.log("isPlainTlPlaying", isPlainTlPlaying);
+	if (isPlainTlPlaying) {
+		plainTl.resume();
+	} else playPlainCore();
+
+	console.log("plainTl", plainTl);
 };
 
 console.log("hasScrolled", hasScrolled);
