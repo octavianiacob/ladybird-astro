@@ -493,31 +493,31 @@ window.addEventListener("load", () => {
 	console.log("loaded");
 	setTimeout(() => {
 		setupScrollTrigger();
-		// gsap.to(mainWrap, {
-		// 	yPercent: -(1 / 4) * 100,
-		// 	ease: "power4.inOut",
-		// 	duration: 1,
-		// 	onStart: () => {
-		// 		isAnimating = true;
-		// 	},
-		// 	onComplete: () => {
-		// 		resetIsAnimating();
-		// 		playPlain();
-		// 		currSection = 2;
+		gsap.to(mainWrap, {
+			yPercent: -(1 / 4) * 100,
+			ease: "power4.inOut",
+			duration: 1,
+			onStart: () => {
+				isAnimating = true;
+			},
+			onComplete: () => {
+				resetIsAnimating();
+				playPlain();
+				currSection = 2;
 
-		// 		console.log("case 1");
-		// 		// self.scroll(100);
-		// 		gsap.to(
-		// 			{},
-		// 			{
-		// 				scrollTo: {
-		// 					y: 150,
-		// 					autoKill: false,
-		// 				},
-		// 			}
-		// 		);
-		// 	},
-		// });
+				console.log("case 1");
+				// self.scroll(100);
+				gsap.to(
+					{},
+					{
+						scrollTo: {
+							y: 150,
+							autoKill: false,
+						},
+					}
+				);
+			},
+		});
 	}, 4500);
 
 	setTimeout(() => {}, 1000);
