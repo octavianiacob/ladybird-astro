@@ -3,7 +3,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import SplitType from "split-type";
 import { switchTab } from "../utils/helpers";
-import { dotsTl, playConversation } from "./phone-animations";
+import {
+	convoTimelines,
+	dotsTl,
+	isPlayingConvo,
+	playConversation,
+} from "./phone-animations";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -45,6 +50,7 @@ let plainTl: gsap.core.Timeline = gsap.timeline({});
 
 export const playConvo = () => {
 	console.log("started");
+
 	gsap
 		.timeline({})
 		.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
@@ -57,7 +63,7 @@ export const playConvo = () => {
 				duration: 1,
 			}
 		)
-		.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+		.to(".PhoneDotLoader__dot", {
 			opacity: 1,
 			duration: 0.5,
 		})
@@ -71,6 +77,7 @@ export const playConvo = () => {
 			}
 		);
 };
+// };
 
 console.log("plainTl", plainTl);
 
@@ -344,6 +351,8 @@ const setupScrollTrigger = () => {
 					if (direction === -1) {
 						// Scroll up from section 3
 						if (currTab === 0) {
+							// // Pause all convo timelines
+
 							gsap.to(mainWrap, {
 								yPercent: -(1 / 4) * 100,
 								ease: "power4.inOut",
@@ -361,6 +370,11 @@ const setupScrollTrigger = () => {
 										resetIsAnimating();
 									});
 								},
+							});
+
+							gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+								opacity: 0,
+								duration: 0.001,
 							});
 						} else {
 							// Reset device section when scrolling up from laptop tab
@@ -401,6 +415,11 @@ const setupScrollTrigger = () => {
 									laptopEnterFunc();
 									resetIsAnimating();
 								},
+							});
+
+							gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+								opacity: 0,
+								duration: 0.001,
 							});
 						} else {
 							gsap.to(mainWrap, {

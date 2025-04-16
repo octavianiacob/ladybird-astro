@@ -79,16 +79,19 @@ export const resetDotsCompletely = () => {
 
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
-let timelines: gsap.core.Timeline[] = [];
+export let isPlayingConvo = false;
+export let convoTimelines: gsap.core.Timeline[] = [];
 export const onLeave = () => {
 	regularDotMovement();
 
 	resetPhoneAnims();
-	timelines.forEach((timeline) => timeline.kill());
-	timelines = [];
+	convoTimelines.forEach((timeline) => timeline.kill());
+	convoTimelines = [];
 };
 
 export const playConversation = async () => {
+	isPlayingConvo = true;
+
 	console.log("Playing conversation animation");
 	onLeave();
 	// Split all conversation text into words/characters
@@ -143,6 +146,10 @@ export const playConversation = async () => {
 			const reversedSplitElements = [...splitElements].reverse();
 
 			timeline
+				.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+					opacity: 1,
+					duration: 0.001,
+				})
 				.to(
 					splitElContainer,
 					{
@@ -223,6 +230,10 @@ export const playConversation = async () => {
 					.to(".PhoneSection__fakeConvoPart", {
 						duration: 0.4,
 						height: 0,
+
+						onComplete: () => {
+							isPlayingConvo = false;
+						},
 					});
 			}
 		});
@@ -230,14 +241,14 @@ export const playConversation = async () => {
 		return timeline;
 	};
 
-	timelines = Array.from(convoParts).map(createTimeline);
+	convoTimelines = Array.from(convoParts).map(createTimeline);
 
 	// Play each timeline sequentially
-	for (const [index, timeline] of timelines.entries()) {
+	for (const [index, timeline] of convoTimelines.entries()) {
 		try {
 			await timeline.play();
 			// Optionally run loader animation between each timeline
-			if (index < timelines.length - 1) {
+			if (index < convoTimelines.length - 1) {
 				await runLoaderWithSpinner(index);
 			}
 		} catch (error) {
@@ -254,27 +265,27 @@ const runLoaderWithSpinner = async (index: number) => {
 			dotsTl,
 			() => {
 				const spinTl = threeDotsToSpinner(dotsTl, resolve, index);
-				timelines.push(spinTl);
+				convoTimelines.push(spinTl);
 			},
 			index
 		);
-		timelines.push(checkTl);
+		convoTimelines.push(checkTl);
 	});
 };
 
 // Select the element to observe
 const targetElement = document.querySelector(".PhoneSection");
 
-if (targetElement) {
-	autoplayObserverUsingGSAP(
-		targetElement,
-		() => {
-			playConvo();
-		},
-		onLeave
-	);
-} else {
-	console.error("Element .DeviceSectionWrapper not found.");
-}
+// if (targetElement) {
+// 	autoplayObserverUsingGSAP(
+// 		targetElement,
+// 		() => {
+// 			playConvo();
+// 		},
+// 		onLeave
+// 	);
+// } else {
+// 	console.error("Element .DeviceSectionWrapper not found.");
+// }
 
 // -----------------------------------------------------------------------------------------
