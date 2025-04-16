@@ -4,45 +4,52 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 ---
 
 <script>
-	// Using gif.js library
-	// import GIF from "gif.js";
+	import gsap, { Power2 } from "gsap";
 
-	// const gif = new GIF({
-	// 	workers: 2,
-	// 	quality: 10,
-	// 	width: 320,
-	// 	height: 240,
-	// });
-
-	// const IntroSection__gif = document.querySelector(
-	// 	".IntroSection__gif"
-	// ) as HTMLCanvasElement;
-
-	// if (IntroSection__gif)
-	// 	gif.addFrame(IntroSection__gif, { copy: true, delay: 100 });
-	// gif.render();
-
-	document.addEventListener("DOMContentLoaded", () => {
-		const gif = document.querySelector(
-			".IntroSection__gif"
-		) as HTMLImageElement;
-		if (gif) gif.src = "/images/perfect-faster.gif?" + new Date().getTime();
+	gsap.to(".logoPath", {
+		strokeDasharray: 4500,
+		duration: 3,
+		ease: Power2.easeInOut,
 	});
+
+	// document.addEventListener("DOMContentLoaded", () => {
+	// 	const gif = document.querySelector(
+	// 		".IntroSection__gif"
+	// 	) as HTMLImageElement;
+	// 	if (gif) gif.src = "/images/perfect-faster.gif?" + new Date().getTime();
+	// });
 </script>
 
 <SectionLayout className="IntroSectionWrapper">
 	<div class="IntroSection">
-		<video
+		<!-- <video
 			class="IntroSection__vid"
 			src="https://res.cloudinary.com/dywp91yx7/video/upload/f_auto:video,q_auto/v1/folio-v2/rw028haokxfkute9yr3k"
 			muted
 			playsinline
-			autoplay></video>
+			autoplay></video> -->
 
-		<img src="/images/perfect-faster.gif" alt="" class="IntroSection__gif" />
+		<!-- <img src="/images/perfect-faster.gif" alt="" class="IntroSection__gif" /> -->
 
-		<!-- <div id="lottie-animation"></div> -->
-		<!-- <canvas id="lottie-animation" style="width: 800px; height:800px;"></canvas> -->
+		<svg
+			width="1600"
+			height="1600"
+			viewBox="0 0 1600 1600"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			class="IntroSection__vid"
+		>
+			<path
+				d="M1124.88 289.705C1106.3 299.568 1079.6 315.835 1052.28 341.229C999.779 390.025 971.637 447.743 946.889 523.904C934.045 563.431 892.547 690.967 881.313 915.015C878.524 970.66 875.723 1010.93 878.972 1067.24C880.559 1094.74 879.727 1143.39 895.365 1200.74C901.975 1224.97 909.488 1244.24 925.124 1262.63C944.585 1285.52 967.339 1296.36 979.336 1301.03C988.941 1304.76 1024.44 1317.31 1066.94 1305.03C1093.98 1297.22 1111.29 1282.99 1119.78 1275.87C1150.44 1250.11 1163.03 1219.54 1171.06 1199.38C1182.27 1171.21 1185.06 1148.03 1188.22 1121.83C1189.26 1113.19 1191.78 1090.14 1191.11 1050.72C1190.05 988.981 1182.01 940.247 1177.85 917.424C1171.78 884.111 1164.48 845.777 1146.09 798.324C1130.03 756.904 1111.68 725.217 1103.05 711.832C1026.49 592.957 882.132 567.357 867.227 564.765C848.453 561.503 787.496 552.469 712.349 570.961C683.149 578.147 625.727 592.932 569.863 639.107C538.633 664.92 519.504 690.943 509.196 705.155C479.865 745.595 465.664 781.625 456.112 806.348C441.22 844.889 435.017 874.271 427.193 912.189C416.62 963.437 404.201 1025.78 410.473 1100.9C412.321 1123.04 415.468 1142.39 421.253 1162.82C426.533 1181.47 434.797 1209.71 456.416 1239.87C464.247 1250.79 474.755 1265.21 493.101 1279.11C504.461 1287.72 531.667 1307.67 571.616 1309.74C581.156 1310.23 606.591 1311.18 633.733 1297.32C641.568 1293.32 664.165 1280.51 686.533 1242.96C710.137 1203.35 716.657 1164.4 720.697 1121.84C727.145 1053.93 724.948 1001.43 722.251 947.907C717.881 861.18 717.644 816.699 711.38 766.213C708.284 741.257 702.083 697.088 690.215 642.699C674.435 570.381 658.543 525.469 654.105 513.176C643.227 483.036 634.419 463.935 628.985 452.732C617.087 428.197 609.121 411.609 594.447 391.503C581.975 374.415 559.201 343.905 518.817 322.484C509.649 317.621 501.625 314.315 495.919 312.18"
+				stroke="#FF0000"
+				stroke-width="66.6667"
+				stroke-miterlimit="10"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-dasharray="6800"
+				stroke-dashoffset="9000"
+				class="logoPath"></path>
+		</svg>
 	</div>
 </SectionLayout>
 
@@ -69,13 +76,13 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 			display: block;
 		}
 		&__gif {
-			display: none;
+			// display: none;
 		}
 
-		svg {
-			width: 100%;
-			height: 50vh;
-		}
+		// svg {
+		// 	width: 100%;
+		// 	height: 50vh;
+		// }
 
 		.btn {
 			position: absolute;
@@ -90,7 +97,7 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 				display: block;
 			}
 			&__vid {
-				display: none;
+				// display: none;
 
 				object-fit: cover;
 				width: 60%;
