@@ -82,7 +82,6 @@ export const threeDotsToCheckmark = (
 			{
 				// scale up the right dot
 				scale: 1,
-				// scale: 0.75,
 				duration: 0.15,
 				// ease: "power2.inOut",
 			},
@@ -103,8 +102,8 @@ export const threeDotsToCheckmark = (
 			".PhoneDotLoader__spinner",
 			{
 				// rotate (draw) the circle
-				// strokeDashoffset: 423.9,
-				rotate: -540,
+				// rotate: -540,
+				rotate: index === 1 ? -560 : -550,
 				duration: 3,
 				ease: "power4.inOut",
 			},
@@ -150,25 +149,13 @@ export const threeDotsToCheckmark = (
 							duration: 0.001,
 							ease: "power4.inOut",
 						});
-						// pauseDotAnimationsSeamlessly(
-						// 	dotsTl,
-						// 	document.querySelectorAll(".PhoneDotLoader__dot")
-						// );
-
-						// dotsTl.pause();
-						// dotsTl.kill();
-						// gsap.to(".PhoneDotLoader__dot", {
-						// 	scale: 1,
-						// 	duration: 0.6, // Smooth transition
-						// 	stagger: 0.2,
-						// 	ease: "power2.out",
-						// });
 
 						afterFunc();
 					}
 				},
 			},
-			"<-=0.04"
+			"<-=0.25"
+			// "<-=0.04"
 		)
 		// text bit part 1
 		.to(splitElementsTwo, { opacity: 0, duration: 0.001 }, "<-=1.2")
@@ -310,7 +297,8 @@ export const threeDotsToCheckmark = (
 				// duration: 0.8,
 				ease: "linear",
 			},
-			">-=0.2"
+			">-=0.3"
+			// ">-=0.2"
 			// ">+=0.3"
 		)
 		// text bit part 2
@@ -429,7 +417,7 @@ export const threeDotsToCheckmark = (
 		)
 		.to(".PhoneDotLoader__dot", {
 			// make first dot bigger
-			opacity: 1,
+			// opacity: 1,
 			duration: 0.0001,
 			ease: "power4.out",
 		})
@@ -450,7 +438,7 @@ export const threeDotsToCheckmark = (
 			{
 				// show the dots again
 				// yPercent: 0,
-				opacity: 1,
+				// opacity: 1,
 				scale: 1,
 				duration: 0.2,
 				ease: "power4.out",
@@ -464,7 +452,7 @@ export const threeDotsToCheckmark = (
 			{
 				// show the dots again
 				// yPercent: 0,
-				opacity: 1,
+				// opacity: 1,
 				scale: 1,
 				duration: 0.2,
 				stagger: 0.06,
@@ -506,18 +494,27 @@ export const threeDotsToSpinner = (
 			.to(
 				{},
 				{
-					duration: 0.83,
+					duration: 1.15,
+					// duration: 0.83,
 					// ease: "power2.inOut",
 				}
 			)
-			.to(".PhoneDotLoader__dot", {
+			.to(".PhoneDotLoader__dot:nth-child(1)", {
 				// down
-				opacity: 1,
 				scale: 1,
-				duration: 0.8,
-				stagger: 0.2,
+				duration: 0.3,
 				// ease: "power2.inOut",
 			})
+			.to(
+				".PhoneDotLoader__dot:nth-child(2), .PhoneDotLoader__dot:nth-child(3)",
+				{
+					// show dots
+					scale: 1,
+					duration: 0.8,
+					stagger: 0.2,
+					// ease: "power2.inOut",
+				}
+			)
 			.to(
 				{},
 				{
@@ -535,7 +532,7 @@ export const threeDotsToSpinner = (
 		spinnerTl.to(".PhoneDotLoader__dot", {
 			// scale up the dots
 			scale: 1,
-			opacity: 1,
+			// opacity: 1,
 			duration: 0.2,
 			stagger: 0.1,
 			// ease: "power2.inOut",
@@ -575,7 +572,7 @@ export const resetPhoneAnims = () => {
 		.to(".PhoneDotLoader__dot", {
 			// reset the dots
 			yPercent: 0,
-			opacity: 1,
+			// opacity: 1,
 			scale: 1,
 			duration: 0.001,
 			stagger: 0.01,

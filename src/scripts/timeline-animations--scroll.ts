@@ -42,6 +42,35 @@ const resetIsAnimating = () => {
 
 let plainTimelines: gsap.core.Timeline[] = [];
 
+export const playConvo = () => {
+	console.log("started");
+	gsap
+		.timeline({})
+		.to(".PhoneDotLoader__dot", {
+			opacity: 0,
+			duration: 0.001,
+		})
+		.to(
+			{},
+			{
+				duration: 1,
+			}
+		)
+		.to(".PhoneDotLoader__dot", {
+			opacity: 1,
+			duration: 0.5,
+		})
+		.to(
+			{},
+			{
+				duration: 1,
+				onComplete: () => {
+					playConversation();
+				},
+			}
+		);
+};
+
 const resetVideo = () => {
 	if (video) {
 		video.pause();
@@ -146,7 +175,7 @@ const playPlainCore = () => {
 					currSection = 3;
 
 					resetDotsTl();
-					playConversation();
+					playConvo();
 				},
 			});
 		},
@@ -388,7 +417,7 @@ const setupScrollTrigger = () => {
 								resetIsAnimating();
 
 								resetDotsTl();
-								playConversation();
+								playConvo();
 							},
 						});
 					} else {
@@ -430,7 +459,7 @@ if (skipBtn) {
 					currSection = 3;
 
 					resetDotsTl();
-					playConversation();
+					playConvo();
 				},
 			});
 		});
@@ -464,31 +493,31 @@ window.addEventListener("load", () => {
 	console.log("loaded");
 	setTimeout(() => {
 		setupScrollTrigger();
-		gsap.to(mainWrap, {
-			yPercent: -(1 / 4) * 100,
-			ease: "power4.inOut",
-			duration: 1,
-			onStart: () => {
-				isAnimating = true;
-			},
-			onComplete: () => {
-				resetIsAnimating();
-				playPlain();
-				currSection = 2;
+		// gsap.to(mainWrap, {
+		// 	yPercent: -(1 / 4) * 100,
+		// 	ease: "power4.inOut",
+		// 	duration: 1,
+		// 	onStart: () => {
+		// 		isAnimating = true;
+		// 	},
+		// 	onComplete: () => {
+		// 		resetIsAnimating();
+		// 		playPlain();
+		// 		currSection = 2;
 
-				console.log("case 1");
-				// self.scroll(100);
-				gsap.to(
-					{},
-					{
-						scrollTo: {
-							y: 150,
-							autoKill: false,
-						},
-					}
-				);
-			},
-		});
+		// 		console.log("case 1");
+		// 		// self.scroll(100);
+		// 		gsap.to(
+		// 			{},
+		// 			{
+		// 				scrollTo: {
+		// 					y: 150,
+		// 					autoKill: false,
+		// 				},
+		// 			}
+		// 		);
+		// 	},
+		// });
 	}, 4500);
 
 	setTimeout(() => {}, 1000);

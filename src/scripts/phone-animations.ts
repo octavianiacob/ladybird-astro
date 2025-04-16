@@ -18,12 +18,14 @@ import {
 	threeDotsToCheckmark,
 	threeDotsToSpinner,
 } from "./phone-loader-animation";
+import { playConvo } from "./timeline-animations--scroll";
 
 // -------------------------- Dot Loader Animation ---------------------------
 let animations: gsap.core.Tween[] = [];
 export let dotsTl: gsap.core.Timeline = gsap.timeline({});
 
 const regularDotMovement = () => {
+	console.log("regularDotMovement");
 	const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 
 	dotsTl = gsap
@@ -67,16 +69,11 @@ export const resetDotsCompletely = () => {
 	regularDotMovement();
 };
 
-gsap.timeline({}).to(".PhoneDotLoader__dot", {
-	opacity: 0,
-	duration: 0.01,
-});
-
 // -------------------------- Conversation Animation ---------------------------
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
 export const onLeave = () => {
-	regularDotMovement();
+	// regularDotMovement();
 
 	resetPhoneAnims();
 	timelines.forEach((timeline) => timeline.kill());
@@ -211,13 +208,13 @@ export const playConversation = async () => {
 				index === convoPart.children.length - 1
 			) {
 				timeline
-					.to(".PhoneSection__fakeConvoPart", {
-						duration: 0.3,
-						height: 0,
-					})
 					.to(".PhoneDotLoader__dot", {
 						opacity: 0,
-						duration: 0.01,
+						duration: 0.4,
+					})
+					.to(".PhoneSection__fakeConvoPart", {
+						duration: 0.4,
+						height: 0,
 					});
 			}
 		});
@@ -261,7 +258,13 @@ const runLoaderWithSpinner = async (index: number) => {
 const targetElement = document.querySelector(".PhoneSection");
 
 if (targetElement) {
-	autoplayObserverUsingGSAP(targetElement, playConversation, onLeave);
+	autoplayObserverUsingGSAP(
+		targetElement,
+		() => {
+			playConvo();
+		},
+		onLeave
+	);
 } else {
 	console.error("Element .DeviceSectionWrapper not found.");
 }
