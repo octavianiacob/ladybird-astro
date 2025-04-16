@@ -103,7 +103,12 @@ export const threeDotsToCheckmark = (
 			{
 				// rotate (draw) the circle
 				// rotate: -540,
-				rotate: index === 1 ? -560 : -550,
+				rotate:
+					index === 1
+						? -560
+						: document.documentElement.clientWidth < 768
+						? -555
+						: -545,
 				duration: 3,
 				ease: "power4.inOut",
 			},

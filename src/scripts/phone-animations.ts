@@ -73,7 +73,7 @@ export const resetDotsCompletely = () => {
 // Function to play the conversation animation
 let timelines: gsap.core.Timeline[] = [];
 export const onLeave = () => {
-	// regularDotMovement();
+	regularDotMovement();
 
 	resetPhoneAnims();
 	timelines.forEach((timeline) => timeline.kill());
