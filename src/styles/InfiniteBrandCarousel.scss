@@ -77,7 +77,8 @@
 
 .logos {
 	overflow: hidden;
-	padding: 60px 0;
+	padding: 3.33vh 0;
+	// padding: 60px 0;
 	background: white;
 	white-space: nowrap;
 	position: relative;
@@ -121,6 +122,10 @@
 }
 
 @media (max-width: 768px) {
+	.logos {
+		padding: 4vh 0;
+	}
+
 	.logos-slide img {
 		height: clamp(0px, 5.9vh, 43px);
 		margin: 0 20px;
