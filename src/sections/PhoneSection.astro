@@ -198,6 +198,10 @@ export const convoLoadingText = [
 				max-height: 90vh;
 			}
 
+			&__wrap {
+				height: calc(100dvh - 140px);
+			}
+
 			&__inner {
 				padding: 1rem 7rem;
 				// padding: 1rem clamp(0px, 7vh, 7rem);
@@ -215,7 +219,8 @@ export const convoLoadingText = [
 	@media (max-width: 768px) and (pointer: coarse) {
 		.PhoneSection {
 			&__wrap--isIOS {
-				height: calc(100dvh - 216px);
+				height: calc(100dvh - 140px);
+				// height: calc(100dvh - 216px);
 			}
 
 			&__inner--isIOS {
