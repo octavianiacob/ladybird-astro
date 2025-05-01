@@ -25,17 +25,17 @@ const LogoSlider = ({ brands }: InfiniteBrandCarouselProps) => {
 		<div className="logos">
 			<div className="logos-slide">
 				{brands.map((brand, index) => (
-					<img src={brand.logo} alt={brand.name} />
+					<img key={index} src={brand.logo} alt={brand.name} />
 				))}
 			</div>
 			<div className="logos-slide">
 				{brands.map((brand, index) => (
-					<img src={brand.logo} alt={brand.name} />
+					<img key={index} src={brand.logo} alt={brand.name} />
 				))}
 			</div>
 			<div className="logos-slide">
 				{brands.map((brand, index) => (
-					<img src={brand.logo} alt={brand.name} />
+					<img key={index} src={brand.logo} alt={brand.name} />
 				))}
 			</div>
 		</div>

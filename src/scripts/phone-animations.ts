@@ -169,6 +169,13 @@ export const playConversation = async () => {
 							}
 
 							console.log("animations", animations);
+
+							const audioEl = document.querySelector(
+								".PhoneSection__audio"
+							) as HTMLAudioElement;
+							if (audioEl) {
+								audioEl.play();
+							}
 						},
 					},
 					"<"
@@ -178,14 +185,15 @@ export const playConversation = async () => {
 					// show the first 5 words
 					splitElements,
 					{ opacity: 0 },
-					{ opacity: 1, duration: 0.8, stagger: 0.6 },
+					{ opacity: 1, duration: 0.4, stagger: 0.2 },
+					// { opacity: 1, duration: 0.8, stagger: 0.6 },
 					"<+=0.3"
 				)
 				.to(
 					// hide the first 5 words
 					splitElements,
-					{ opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
-					// "<+=1.8"
+					{ opacity: 0, width: 0, duration: 0.001, delay: 0.2 }
+					// { opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
 				)
 
 				.to(splitElContainer, {
@@ -197,6 +205,14 @@ export const playConversation = async () => {
 						if (index === convoPart.children.length - 1 && isAI) {
 							const dots = document.querySelectorAll(".PhoneDotLoader__dot");
 							// pauseDotAnimationsSeamlessly(dotsTl, dots);
+						}
+
+						const audio = document.querySelector(
+							".PhoneSection__audio"
+						) as HTMLAudioElement;
+						if (audio) {
+							audio.pause();
+							// audio.currentTime = 0;
 						}
 					},
 				});
