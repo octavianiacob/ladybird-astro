@@ -82,6 +82,14 @@ import FakeDashboard from "./FakeDashboard";
 
 			pointer-events: none;
 			margin: 0 auto;
+
+			// remove border
+			border: none;
+			-webkit-mask-image: -webkit-radial-gradient(white, black);
+			-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden;
+
+			isolation: isolate;
 		}
 
 		&__screen {
