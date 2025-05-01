@@ -170,11 +170,11 @@ export const playConversation = async () => {
 
 							console.log("animations", animations);
 
-							const audioEl = document.querySelector(
+							const audioEls = document.querySelectorAll(
 								".PhoneSection__audio"
-							) as HTMLAudioElement;
-							if (audioEl) {
-								audioEl.play();
+							) as NodeListOf<HTMLAudioElement>;
+							if (audioEls?.[convoIndex]) {
+								audioEls?.[convoIndex].play();
 							}
 						},
 					},
@@ -207,12 +207,11 @@ export const playConversation = async () => {
 							// pauseDotAnimationsSeamlessly(dotsTl, dots);
 						}
 
-						const audio = document.querySelector(
+						const audioEls = document.querySelectorAll(
 							".PhoneSection__audio"
-						) as HTMLAudioElement;
-						if (audio) {
-							audio.pause();
-							// audio.currentTime = 0;
+						) as NodeListOf<HTMLAudioElement>;
+						if (audioEls?.[convoIndex]) {
+							audioEls?.[convoIndex].pause();
 						}
 					},
 				});
