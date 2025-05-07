@@ -351,6 +351,16 @@ const setupScrollTrigger = () => {
 					if (direction === -1) {
 						// Scroll up from section 3
 						if (currTab === 0) {
+							const audioEls = document.querySelectorAll(
+								".PhoneSection__audio"
+							) as NodeListOf<HTMLAudioElement>;
+							// Pause all audio elements
+							// and reset their current time
+							audioEls.forEach((audioEl) => {
+								audioEl.pause();
+								audioEl.currentTime = 0;
+							});
+
 							// // Pause all convo timelines
 
 							gsap.to(mainWrap, {
@@ -513,11 +523,33 @@ if (video && screen) {
 
 // Visibility and blur event listeners
 document.addEventListener("visibilitychange", () => {
+	const audioEls = document.querySelectorAll(
+		".PhoneSection__audio"
+	) as NodeListOf<HTMLAudioElement>;
+
 	if (document.hidden) {
 		screen.style.opacity = "0";
+
+		// Pause any currently playing audio elements
+		audioEls.forEach((audioEl, ind) => {
+			if (!audioEl.paused) {
+				audioEl.pause();
+
+				sessionStorage.setItem("audioPaused", `${ind ?? -1}`);
+			}
+		});
 	} else {
 		if (currSection === 3 && currTab === 1) {
 			laptopEnterFunc();
+		}
+
+		// Resume any paused audio elements
+		if (sessionStorage.getItem("audioPaused") !== "-1") {
+			const audioPaused = sessionStorage.getItem("audioPaused");
+			if (audioPaused) {
+				audioEls[Number(audioPaused)].play();
+				sessionStorage.removeItem("audioPaused");
+			}
 		}
 	}
 });

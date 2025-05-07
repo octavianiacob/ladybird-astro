@@ -105,6 +105,16 @@ export const playConversation = async () => {
 		displayTimeFrom928(timeEl);
 	}
 
+	const audioEls = document.querySelectorAll(
+		".PhoneSection__audio"
+	) as NodeListOf<HTMLAudioElement>;
+	// Pause all audio elements
+	// and reset their current time
+	audioEls.forEach((audioEl) => {
+		audioEl.pause();
+		audioEl.currentTime = 0;
+	});
+
 	const createTimeline = (convoPart: Element, convoIndex: number) => {
 		const timeline = gsap.timeline({
 			defaults: { ease: Power4.easeOut },
@@ -145,6 +155,35 @@ export const playConversation = async () => {
 				[index].querySelectorAll(".word");
 			const reversedSplitElements = [...splitElements].reverse();
 
+			const generateDuration = (i: number) => {
+				switch (i) {
+					case 0:
+						return 0.45;
+						break;
+					case 1:
+						return 0.45;
+						break;
+
+					default:
+						return 0.45;
+						break;
+				}
+			};
+			const generateStagger = (i: number) => {
+				switch (i) {
+					case 0:
+						return 0.22;
+						break;
+					case 1:
+						return 0.22;
+						break;
+
+					default:
+						return 0.22;
+						break;
+				}
+			};
+
 			timeline
 				.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
 					opacity: 1,
@@ -173,8 +212,15 @@ export const playConversation = async () => {
 							const audioEls = document.querySelectorAll(
 								".PhoneSection__audio"
 							) as NodeListOf<HTMLAudioElement>;
-							if (audioEls?.[convoIndex]) {
+
+							if (index === 0) {
+								audioEls.forEach((audioEl) => {
+									audioEl.pause();
+									audioEl.currentTime = 0;
+								});
+
 								audioEls?.[convoIndex].play();
+								console.log("playOne");
 							}
 						},
 					},
@@ -185,7 +231,11 @@ export const playConversation = async () => {
 					// show the first 5 words
 					splitElements,
 					{ opacity: 0 },
-					{ opacity: 1, duration: 0.4, stagger: 0.2 },
+					{
+						opacity: 1,
+						duration: generateDuration(convoIndex),
+						stagger: generateStagger(convoIndex),
+					},
 					// { opacity: 1, duration: 0.8, stagger: 0.6 },
 					"<+=0.3"
 				)
@@ -210,8 +260,12 @@ export const playConversation = async () => {
 						const audioEls = document.querySelectorAll(
 							".PhoneSection__audio"
 						) as NodeListOf<HTMLAudioElement>;
-						if (audioEls?.[convoIndex]) {
-							audioEls?.[convoIndex].pause();
+						if (
+							audioEls?.[convoIndex] &&
+							index === convoPart.children.length - 1
+						) {
+							// audioEls?.[convoIndex].pause();
+							// audioEls?.[convoIndex].currentTime = 0;
 						}
 					},
 				});
