@@ -1,6 +1,7 @@
 ---
 import ReBarChart from "../components/dash/ReBarChart";
 import Layout from "../layouts/Layout.astro";
+import BottomSection from "../sections/BottomSection.astro";
 // import BottomSection from "../sections/BottomSection.astro";
 import FakeDashboard from "../sections/FakeDashboard";
 import PhoneSection from "../sections/PhoneSection.astro";
@@ -48,8 +49,8 @@ import PhoneSection from "../sections/PhoneSection.astro";
 	<!-- <div class="dash">
 		<FakeDashboard client:only />
 	</div> -->
-	<!-- <BottomSection client:load /> -->
-	<PhoneSection />
+	<BottomSection client:load />
+	<!-- <PhoneSection /> -->
 
 	<svg
 		width="1600"
