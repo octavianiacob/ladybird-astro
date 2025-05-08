@@ -332,7 +332,9 @@ const setupScrollTrigger = () => {
 						});
 					} else if (direction === 1) {
 						// Cannot scroll down from section 2
-						const muteBtn = document.querySelector(".PhoneSection__muteBtn")!;
+						const muteBtn = document.querySelector(
+							".PhoneSection__muteBtn"
+						) as HTMLElement;
 						muteBtn.style.visibility = "visible";
 						gsap.to(mainWrap, {
 							yPercent: -(1 / 4) * 100,
@@ -389,7 +391,9 @@ const setupScrollTrigger = () => {
 								duration: 0.001,
 							});
 						} else {
-							const muteBtn = document.querySelector(".PhoneSection__muteBtn")!;
+							const muteBtn = document.querySelector(
+								".PhoneSection__muteBtn"
+							) as HTMLElement;
 							muteBtn.style.visibility = "visible";
 
 							// Reset device section when scrolling up from laptop tab
@@ -414,7 +418,9 @@ const setupScrollTrigger = () => {
 					} else if (direction === 1) {
 						// Scroll down from section 3
 						if (currTab === 0) {
-							const muteBtn = document.querySelector(".PhoneSection__muteBtn")!;
+							const muteBtn = document.querySelector(
+								".PhoneSection__muteBtn"
+							) as HTMLElement;
 							muteBtn.style.visibility = "hidden";
 
 							gsap.to(".DeviceSection__main", {
