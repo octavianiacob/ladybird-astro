@@ -352,6 +352,8 @@ const setupScrollTrigger = () => {
 					break;
 
 				case 3:
+					// // if mobile
+					// if () {}
 					if (direction === -1) {
 						// Scroll up from section 3
 						if (currTab === 0) {
@@ -417,7 +419,7 @@ const setupScrollTrigger = () => {
 						}
 					} else if (direction === 1) {
 						// Scroll down from section 3
-						if (currTab === 0) {
+						if (currTab === 0 && document.body.clientWidth > 768) {
 							const muteBtn = document.querySelector(
 								".PhoneSection__muteBtn"
 							) as HTMLElement;
