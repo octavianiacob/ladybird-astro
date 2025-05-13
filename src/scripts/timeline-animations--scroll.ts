@@ -30,6 +30,7 @@ let hasScrolled = false;
 const mainWrap = document.querySelector(".MainWrap__inner") as HTMLElement;
 const video = document.querySelector(".LaptopSection__vid") as HTMLVideoElement;
 const screen = document.querySelector(".LaptopSection__screen") as HTMLElement;
+
 const skipBtn = document.querySelector(".skipBtn") as HTMLElement;
 const PhoneSection__convoParts = document.querySelectorAll(
 	".PhoneSection__convoPart"
@@ -534,6 +535,13 @@ if (skipBtn) {
 if (video && screen) {
 	video.addEventListener("ended", () => {
 		screen.style.opacity = "1";
+		const FakeDashboard__popup = document.querySelector(
+			".FakeDashboard__popup"
+		) as HTMLElement;
+
+		setTimeout(() => {
+			FakeDashboard__popup.style.visibility = "visible";
+		}, 1000);
 	});
 }
 
