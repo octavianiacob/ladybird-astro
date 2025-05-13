@@ -357,113 +357,115 @@ const setupScrollTrigger = () => {
 					// if () {}
 					if (direction === -1) {
 						// Scroll up from section 3
-						if (currTab === 0) {
-							const audioEls = document.querySelectorAll(
-								".PhoneSection__audio"
-							) as NodeListOf<HTMLAudioElement>;
-							// Pause all audio elements
-							// and reset their current time
-							audioEls.forEach((audioEl) => {
-								audioEl.pause();
-								audioEl.currentTime = 0;
-							});
+						// if (currTab === 0) {
+						const audioEls = document.querySelectorAll(
+							".PhoneSection__audio"
+						) as NodeListOf<HTMLAudioElement>;
+						// Pause all audio elements
+						// and reset their current time
+						audioEls.forEach((audioEl) => {
+							audioEl.pause();
+							audioEl.currentTime = 0;
+						});
 
-							// // Pause all convo timelines
+						// // Pause all convo timelines
 
-							gsap.to(mainWrap, {
-								yPercent: -(1 / 4) * 100,
-								ease: "power4.inOut",
-								duration: 1,
-								onStart: () => {
-									isAnimating = true;
-								},
-								onComplete: () => {
-									resetPlainSection(() => {
-										currTab = 0;
-										resetDeviceSection();
-										playPlain();
-
-										currSection = 2;
-										resetIsAnimating();
-									});
-								},
-							});
-
-							gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
-								opacity: 0,
-								duration: 0.001,
-							});
-						} else {
-							const muteBtn = document.querySelector(
-								".PhoneSection__muteBtn"
-							) as HTMLElement;
-							muteBtn.style.visibility = "visible";
-
-							// Reset device section when scrolling up from laptop tab
-							gsap.to(".DeviceSection__main", {
-								yPercent: 0,
-								ease: "power4.inOut",
-								duration: 1,
-								onStart: () => {
-									isAnimating = true;
-
-									setTimeout(() => {
-										switchTab(0);
-									}, 300);
-								},
-								onComplete: () => {
+						gsap.to(mainWrap, {
+							yPercent: -(1 / 4) * 100,
+							ease: "power4.inOut",
+							duration: 1,
+							onStart: () => {
+								isAnimating = true;
+							},
+							onComplete: () => {
+								resetPlainSection(() => {
 									currTab = 0;
 									resetDeviceSection();
+									playPlain();
+
+									currSection = 2;
 									resetIsAnimating();
-								},
-							});
-						}
+								});
+							},
+						});
+
+						gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+							opacity: 0,
+							duration: 0.001,
+						});
+						// }
+						// else {
+						// const muteBtn = document.querySelector(
+						// 	".PhoneSection__muteBtn"
+						// ) as HTMLElement;
+						// muteBtn.style.visibility = "visible";
+
+						// // Reset device section when scrolling up from laptop tab
+						// gsap.to(".DeviceSection__main", {
+						// 	yPercent: 0,
+						// 	ease: "power4.inOut",
+						// 	duration: 1,
+						// 	onStart: () => {
+						// 		isAnimating = true;
+
+						// 		setTimeout(() => {
+						// 			switchTab(0);
+						// 		}, 300);
+						// 	},
+						// 	onComplete: () => {
+						// 		currTab = 0;
+						// 		resetDeviceSection();
+						// 		resetIsAnimating();
+						// 	},
+						// });
+						// }
 					} else if (direction === 1) {
 						// Scroll down from section 3
-						if (currTab === 0 && document.body.clientWidth > 768) {
-							const muteBtn = document.querySelector(
-								".PhoneSection__muteBtn"
-							) as HTMLElement;
-							muteBtn.style.visibility = "hidden";
+						// if (currTab === 0 && document.body.clientWidth > 768) {
+						// 	const muteBtn = document.querySelector(
+						// 		".PhoneSection__muteBtn"
+						// 	) as HTMLElement;
+						// 	muteBtn.style.visibility = "hidden";
 
-							gsap.to(".DeviceSection__main", {
-								yPercent: -50,
-								ease: "power4.inOut",
-								duration: 1,
-								onStart: () => {
-									isAnimating = true;
+						// 	gsap.to(".DeviceSection__main", {
+						// 		yPercent: -50,
+						// 		ease: "power4.inOut",
+						// 		duration: 1,
+						// 		onStart: () => {
+						// 			isAnimating = true;
 
-									setTimeout(() => {
-										switchTab(1);
-									}, 300);
-								},
-								onComplete: () => {
-									currTab = 1;
-									laptopEnterFunc();
-									resetIsAnimating();
-								},
-							});
+						// 			setTimeout(() => {
+						// 				switchTab(1);
+						// 			}, 300);
+						// 		},
+						// 		onComplete: () => {
+						// 			currTab = 1;
+						// 			laptopEnterFunc();
+						// 			resetIsAnimating();
+						// 		},
+						// 	});
 
-							gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
-								opacity: 0,
-								duration: 0.001,
-							});
-						} else {
-							gsap.to(mainWrap, {
-								yPercent: -(3 / 4) * 100,
-								ease: "power4.inOut",
-								duration: 1,
-								onStart: () => {
-									isAnimating = true;
-								},
-								onComplete: () => {
-									currTab = 0;
-									resetDeviceSection();
-									currSection = 4;
-									resetIsAnimating();
-								},
-							});
-						}
+						// 	gsap.to(".PhoneDotLoader__dot, .PhoneSection__convoWrap", {
+						// 		opacity: 0,
+						// 		duration: 0.001,
+						// 	});
+						// }
+						// else {
+						gsap.to(mainWrap, {
+							yPercent: -(3 / 4) * 100,
+							ease: "power4.inOut",
+							duration: 1,
+							onStart: () => {
+								isAnimating = true;
+							},
+							onComplete: () => {
+								currTab = 0;
+								resetDeviceSection();
+								currSection = 4;
+								resetIsAnimating();
+							},
+						});
+						// }
 					}
 					break;
 
