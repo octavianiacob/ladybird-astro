@@ -1,0 +1,89 @@
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.FloatingForm {
+	width: 100%;
+	padding: 0.5rem 1rem;
+	padding-top: 1.4rem;
+	border: 1px solid #000;
+	border-radius: 0.5rem;
+	outline: none;
+	position: relative;
+
+	&--active {
+		border: 1px solid #ff0000;
+	}
+
+	&__label {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 1rem;
+		font-size: 1.2rem;
+		// z-index: -1;
+
+		transition: all 0.2s ease-in-out;
+
+		&--active {
+			top: 0.75rem;
+			left: 1rem;
+			font-size: 0.7rem;
+		}
+	}
+
+	&__span {
+		height: 1.5rem;
+		width: 100%;
+		background-color: transparent;
+	}
+
+	input {
+		border: 0;
+		outline: none;
+		font-size: 1.2rem;
+		width: 80%;
+
+		position: absolute;
+		top: 50%;
+		transform: translateY(-30%);
+		background-color: transparent;
+	}
+
+	&__button {
+		position: absolute;
+		top: 50%;
+		right: 1rem;
+		transform: translateY(-50%);
+		color: #f00;
+		font-size: 1.5rem;
+
+		background-color: transparent;
+		border: 0;
+		cursor: pointer;
+
+		svg {
+			display: block;
+		}
+
+		.spinner {
+			animation: spin 1s ease-in-out infinite;
+		}
+
+		.chevron {
+			color: rgb(189, 189, 189);
+			transform: rotate(90deg);
+			transition: all 0.2s ease-in-out;
+
+			&--active {
+				color: #ff0000;
+				transform: rotate(0deg);
+			}
+		}
+	}
+}

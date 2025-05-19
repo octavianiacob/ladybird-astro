@@ -101,6 +101,7 @@ export const convoLoadingText = [
 	});
 </script>
 
+<h1 class="specialH1">THIS IS HOW IT SOUNDS</h1>
 <div class="PhoneSection__wrap">
 	<audio controls muted class="PhoneSection__audio PhoneSection__audio--1">
 		<source
@@ -175,7 +176,17 @@ export const convoLoadingText = [
 	</div>
 </div>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	h1 {
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 1.2;
+		text-align: center;
+		font-family: "Patrick Hand SC";
+		color: #f00;
+		margin-top: 1.5rem;
+	}
+
 	.PhoneSection {
 		&__audio {
 			display: none;
@@ -190,13 +201,11 @@ export const convoLoadingText = [
 			object-fit: contain;
 		}
 
-		
-
 		&__wrap {
 			position: relative;
 			width: max-content;
 			height: calc(100dvh - 180px);
-			margin-top: 1.2rem;
+			// margin-top: 1.2rem;
 
 			&__time {
 				position: absolute;
@@ -266,12 +275,15 @@ export const convoLoadingText = [
 	}
 
 	@media (max-width: 768px) {
+		h1 {
+			font-size: 1.8rem;
+			line-height: 1.2;
+		}
+
 		.PhoneSection {
 			&__bg {
 				max-height: 90vh;
 			}
-
-			
 
 			&__wrap {
 				height: calc(100dvh - 140px);

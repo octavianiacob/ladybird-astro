@@ -614,7 +614,7 @@ window.addEventListener("load", () => {
 				);
 			},
 		});
-	}, 4500);
+	}, 3000);
 
 	setTimeout(() => {}, 1000);
 });

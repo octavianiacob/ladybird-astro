@@ -94,6 +94,7 @@ const FloatingForm = () => {
 					}
 				}}
 			/>
+			<div className="FloatingForm__span"></div>
 			<button
 				className="FloatingForm__button"
 				type="button"
@@ -101,7 +102,15 @@ const FloatingForm = () => {
 					submitFunc();
 				}}
 			>
-				Subscribe
+				{done ? (
+					<FaCheck />
+				) : loading ? (
+					<LuLoaderCircle className="spinner" />
+				) : (
+					<FaChevronRight
+						className={`chevron chevron--${isActive ? "active" : ""}`}
+					/>
+				)}
 			</button>
 		</form>
 	);
