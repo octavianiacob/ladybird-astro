@@ -101,7 +101,11 @@ export const convoLoadingText = [
 	});
 </script>
 
-<h1 class="specialH1">THIS IS HOW IT SOUNDS</h1>
+<div class="PhoneSection__title">
+	<h1 class="specialH1">Lighten the Load</h1>
+	<h1 class="">Powered entirely by inCall</h1>
+</div>
+
 <div class="PhoneSection__wrap">
 	<audio controls muted class="PhoneSection__audio PhoneSection__audio--1">
 		<source
@@ -177,20 +181,29 @@ export const convoLoadingText = [
 </div>
 
 <style lang="scss" scoped>
-	h1 {
-		font-size: 4rem;
-		font-weight: 400;
-		line-height: 1.2;
-		text-align: center;
-		font-family: "Patrick Hand SC";
-		color: #f00;
-		margin-top: 1.5rem;
-		margin-bottom: 1.5rem;
-	}
-
 	.PhoneSection {
 		&__audio {
 			display: none;
+		}
+
+		&__title {
+			margin-top: 1.5rem;
+			margin-bottom: 1.5rem;
+
+			.specialH1 {
+				font-family: "SF Pro Display", Arial, sans-serif;
+				font-size: 4rem;
+				font-weight: 600;
+				// color: #ff0000;
+			}
+
+			h1 {
+				font-size: 2rem;
+				font-weight: 400;
+				line-height: 1.1;
+				text-align: center;
+				font-family: "Patrick Hand SC";
+			}
 		}
 
 		&__bg {
@@ -276,18 +289,25 @@ export const convoLoadingText = [
 	}
 
 	@media (max-width: 768px) {
-		h1 {
-			font-size: 1.8rem;
-			line-height: 1.2;
-		}
-
 		.PhoneSection {
+			&__title {
+				gap: 0;
+				.specialH1 {
+					font-size: 2.5rem;
+				}
+
+				h1 {
+					font-size: 1.2rem;
+					line-height: 1;
+				}
+			}
+
 			&__bg {
 				max-height: 90vh;
 			}
 
 			&__wrap {
-				height: calc(100dvh - 140px);
+				height: calc(100dvh - 170px);
 			}
 
 			&__inner {
