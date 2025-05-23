@@ -74,6 +74,7 @@ const FloatingForm = () => {
 				className=""
 				type="email"
 				name="email"
+				placeholder="Enter your email here"
 				id=""
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
@@ -101,7 +102,7 @@ const FloatingForm = () => {
 					submitFunc();
 				}}
 			>
-				Subscribe
+				Join Us
 			</button>
 		</form>
 	);
