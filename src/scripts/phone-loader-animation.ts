@@ -220,6 +220,7 @@ export const threeDotsToCheckmark = (
 				opacity: 0,
 				duration: 0.1,
 				height: 0,
+				// width: 0,
 
 				onComplete: () => {
 					if (index === 1) {

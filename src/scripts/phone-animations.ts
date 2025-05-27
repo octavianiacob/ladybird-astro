@@ -158,10 +158,10 @@ export const playConversation = async () => {
 			const generateDuration = (i: number) => {
 				switch (i) {
 					case 0:
-						return 0.45;
+						return 0.4;
 						break;
 					case 1:
-						return 0.45;
+						return 0.42;
 						break;
 
 					default:
@@ -172,10 +172,10 @@ export const playConversation = async () => {
 			const generateStagger = (i: number) => {
 				switch (i) {
 					case 0:
-						return 0.22;
+						return 0.21;
 						break;
 					case 1:
-						return 0.22;
+						return 0.21;
 						break;
 
 					default:
@@ -236,8 +236,8 @@ export const playConversation = async () => {
 						duration: generateDuration(convoIndex),
 						stagger: generateStagger(convoIndex),
 					},
-					// { opacity: 1, duration: 0.8, stagger: 0.6 },
-					"<+=0.3"
+					"<+=0.4"
+					// "<+=0.3"
 				)
 				.to(
 					// hide the first 5 words
@@ -274,13 +274,13 @@ export const playConversation = async () => {
 				timeline
 					.to(convoPart, {
 						opacity: 0,
-						duration: 0.3,
+						duration: 0.01,
 						height: 0,
 					})
 					.to(
 						".PhoneSection__fakeConvoPart",
 						{
-							duration: 0.3,
+							duration: 0.01,
 							height: "6rem",
 						},
 						"<"
