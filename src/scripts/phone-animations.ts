@@ -194,7 +194,15 @@ export const playConversation = async () => {
 					{
 						opacity: 1,
 						height: "auto",
-						duration: 0.1,
+						duration: 
+							// Special entrance timing for problematic patient responses
+							(convoIndex === 0 && index === 2 && !isAI) || // "Luke Davis"
+							(convoIndex === 2 && index === 4 && !isAI)    // "Yes, that works"
+								? 0.25 : 0.1,
+						ease: 
+							(convoIndex === 0 && index === 2 && !isAI) || // "Luke Davis"  
+							(convoIndex === 2 && index === 4 && !isAI)    // "Yes, that works"
+								? "power2.out" : "none",
 						onComplete: () => {
 							if (convoIndex === 0 && index === 0) {
 								// [...animations].reverse().forEach((animation, i) => {
@@ -226,7 +234,13 @@ export const playConversation = async () => {
 					},
 					"<"
 				)
-
+				// Add brief pause for problematic patient responses only
+				.to({}, { 
+					duration: 
+						(convoIndex === 0 && index === 2 && !isAI) || // "Luke Davis"
+						(convoIndex === 2 && index === 4 && !isAI)    // "Yes, that works"
+							? 0.1 : 0
+				})
 				.fromTo(
 					// show the first 5 words
 					splitElements,
@@ -236,13 +250,13 @@ export const playConversation = async () => {
 						duration: generateDuration(convoIndex),
 						stagger: generateStagger(convoIndex),
 					},
-					convoIndex === 4 ? "<+=0" : "<+=0.4"
+					convoIndex === 4 ? "<+=0" : "<+=0.4"  // Only "take care, bye" appears immediately, others use original timing
 					// "<+=0.3"
 				)
 				.to(
 					// hide the first 5 words
 					splitElements,
-					{ opacity: 0, width: 0, duration: 0.001, delay: convoIndex === 4 ? 0.7 : 0.2 }
+					{ opacity: 0, width: 0, duration: 0.001, delay: convoIndex === 4 ? 0.7 : 0.2 }  // Only "take care, bye" lingers for 0.7s, others use original 0.2s
 					// { opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
 				)
 

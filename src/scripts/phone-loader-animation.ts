@@ -187,15 +187,19 @@ export const threeDotsToCheckmark = (
 			{
 				opacity: 1,
 				height: "auto",
-				duration: 0.01,
+				duration: 0.2,
+				ease: "power2.out",
 			},
 			"<"
 		)
+		.to({}, { 
+			duration: 0.1  
+		})
 		.fromTo(
 			splitElementsOne,
 			{ opacity: 0 },
 			{ opacity: 1, duration: 0.6, stagger: 0.2 },
-			">"
+			"<"
 		)
 		.to(".circle", {
 			// hide the circle
@@ -313,10 +317,14 @@ export const threeDotsToCheckmark = (
 			{
 				opacity: 1,
 				height: "auto",
-				duration: 0.1,
+				duration: 0.2,
+				ease: "power2.out",
 			},
 			"<"
 		)
+		.to({}, { 
+			duration: 0.1
+		})
 		.fromTo(
 			splitElementsTwo,
 			{ opacity: 0 },
