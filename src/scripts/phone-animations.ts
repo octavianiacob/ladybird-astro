@@ -236,13 +236,13 @@ export const playConversation = async () => {
 						duration: generateDuration(convoIndex),
 						stagger: generateStagger(convoIndex),
 					},
-					"<+=0.4"
+					convoIndex === 4 ? "<+=0" : "<+=0.4"
 					// "<+=0.3"
 				)
 				.to(
 					// hide the first 5 words
 					splitElements,
-					{ opacity: 0, width: 0, duration: 0.001, delay: 0.2 }
+					{ opacity: 0, width: 0, duration: 0.001, delay: convoIndex === 4 ? 0.7 : 0.2 }
 					// { opacity: 0, width: 0, duration: 0.001, delay: 0.5 }
 				)
 

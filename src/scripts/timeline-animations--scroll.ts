@@ -61,17 +61,17 @@ export const playConvo = () => {
 		.to(
 			{},
 			{
-				duration: 1,
+				duration: 0.1,
 			}
 		)
 		.to(".PhoneDotLoader__dot", {
 			opacity: 1,
-			duration: 0.5,
+			duration: 0.1,
 		})
 		.to(
 			{},
 			{
-				duration: 1,
+				duration: 0.1,
 				onComplete: () => {
 					playConversation();
 				},
